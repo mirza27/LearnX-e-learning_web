@@ -4,30 +4,31 @@ import axios from "axios";
 import "./App.css";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
 
 function App() {
-  const [data, setData] = useState({ message: "", items: [] }); // Mengubah initial state menjadi objek kosong
+  const [data, setData] = useState({ message: "", items: [] });
 
   useEffect(() => {
-    // Menggunakan useEffect untuk melakukan pemanggilan HTTP
     axios
       .get("/api")
       .then((response) => {
-        setData(response.data); // Set data ke state setelah berhasil mengambilnya
-        console.log("ini", response.data); // Menggunakan response.data daripada data (nilai yang lama)
+        setData(response.data);
+        console.log("ini", response.data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []); // Gunakan array kosong sebagai dependencies agar permintaan hanya dilakukan sekali
+  }, []); // array kosong untuk membuat agar permintaan dilakukan sekali
 
   return (
     <Router>
+      <Routes>{/* <Route path="/login" element={<Login />} /> */}</Routes>
       <div>
-        <Routes></Routes>
-        <Sidebar />
         <section id="content">
+          {/* Tambahkan Navbar dan Sidebar di sini */}
           <Navbar />
+          <Sidebar />
           <h1>Data dari Server</h1>
           <p>{data.message}</p>
           <ul>

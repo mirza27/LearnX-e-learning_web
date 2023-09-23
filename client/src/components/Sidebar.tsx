@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/sidebar.css";
 import "boxicons/css/boxicons.min.css";
+import { SidebarListener } from "../eventListener/SidebarListener";
 
 function Sidebar() {
+  useEffect(() => {
+    SidebarListener(); // style dengan js / event listener
+
+    return () => {
+      // Hapus event listener di sini jika diperlukan
+    };
+  }, []);
+
   return (
+    // Konten Sidebar Anda tetap sama seperti sebelumnya
     <section id="sidebar">
       <a href="#" className="brand">
         <i className="bx bxs-smile"></i>

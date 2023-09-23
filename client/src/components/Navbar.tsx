@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/navbar.css";
 import "boxicons/css/boxicons.min.css"; // import icon
 
