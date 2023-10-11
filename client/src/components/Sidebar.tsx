@@ -1,69 +1,56 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/sidebar.css";
 import "boxicons/css/boxicons.min.css";
 import { SidebarListener } from "../eventListener/SidebarListener";
+import { NavLink } from "react-router-dom";
 
 function Sidebar() {
-  useEffect(() => {
-    SidebarListener(); // style dengan js / event listener
+  const [isSidebarHidden, setIsSidebarHidden] = useState(false); // untuk toggle hide
 
-    return () => {
-      // Hapus event listener di sini jika diperlukan
-    };
-  }, []);
+  const menuItem = [
+    // menaruh path side bar
+    {
+      path: "/student/dashboard",
+      name: "Dashboard",
+      icon: "bx bxs-shopping-bag-alt",
+    },
+    {
+      path: "/student/class",
+      name: "Myclass",
+      icon: "bx bxs-shopping-bag-alt",
+    },
+  ];
+
+  useEffect(() => {
+    const menuBar = document.querySelector("#content nav .bx.bx-menu");
+    const sidebar = document.getElementById("sidebar");
+
+    if (sidebar && menuBar) {
+      menuBar.addEventListener("click", function () {
+        sidebar.classList.toggle("hide");
+        setIsSidebarHidden(!isSidebarHidden);
+      });
+    }
+  }, [isSidebarHidden]);
 
   return (
     // Konten Sidebar Anda tetap sama seperti sebelumnya
-    <section id="sidebar">
+    <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
       <a href="#" className="brand">
         <i className="bx bxs-smile"></i>
         <span className="text">LearnX</span>
       </a>
       <ul className="side-menu top">
-        <li className="active">
-          <a href="#">
-            <i className="bx bxs-dashboard"></i>
-            <span className="text">Dashboard</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i className="bx bxs-shopping-bag-alt"></i>
-            <span className="text">My Class</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i className="bx bxs-doughnut-chart"></i>
-            <span className="text">Task</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i className="bx bxs-message-dots"></i>
-            <span className="text">Material</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i className="bx bxs-group"></i>
-            <span className="text">Announcement</span>
-          </a>
-        </li>
-      </ul>
-      <ul className="side-menu">
-        <li>
-          <a href="#">
-            <i className="bx bxs-cog"></i>
-            <span className="text">Settings</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" className="logout">
-            <i className="bx bxs-log-out-circle"></i>
-            <span className="text">Logout</span>
-          </a>
-        </li>
+        {menuItem.map((item, index) => (
+          <NavLink to={item.path} key={index} className="link">
+            <li>
+              <a href="#">
+                <i className={item.icon}></i>
+                <span className="text">{item.name}</span>
+              </a>
+            </li>
+          </NavLink>
+        ))}
       </ul>
     </section>
   );
