@@ -4,6 +4,12 @@ import {
   StudentRegister,
   StudentLogin,
 } from "../controller/Student.js";
+
+import {
+  GetLecturer,
+  LecturerRegister,
+  LecturerLogin,
+} from "../controller/Lecturer.js";
 import { authenticateUser, logout } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -14,9 +20,9 @@ router.post("/student-register", StudentRegister);
 router.post("/student-login", StudentLogin);
 
 // LECTURER
-router.get("/lecturer", authenticateUser, GetStudent);
-router.post("/lecturer-register", StudentRegister);
-router.post("/lecturer-login", StudentLogin);
+router.get("/lecturer", authenticateUser, GetLecturer);
+router.post("/lecturer-register", LecturerRegister);
+router.post("/lecturer-login", LecturerLogin);
 
 router.get("/logout", logout);
 

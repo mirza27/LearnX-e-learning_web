@@ -3,10 +3,10 @@ import db from "../db/db.js";
 
 const { DataTypes } = Sequelize;
 
-const Student = db.define(
-  "students",
+const Lecturer = db.define(
+  "lecturers",
   {
-    student_id: {
+    lecturer_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -29,4 +29,4 @@ const Student = db.define(
   }
 );
 
-export default Student;
+export default Lecturer;

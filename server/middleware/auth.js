@@ -37,7 +37,7 @@ export const authenticateUser = async (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    req.user = decodedToken; // nilai login yang memuat id user
+    req.user = decodedToken; // nilai login yang memuat id user, dikirim ke fungsi GetStudent
 
     next(); // Lanjutkan ke rute berikutnya
   } catch (error) {

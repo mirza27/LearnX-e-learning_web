@@ -1,35 +1,35 @@
 import bcrypt from "bcrypt";
-import Student from "../models/studentModel.js";
+import Lecturer from "../models/lecturerModel.js";
 import { generateToken } from "../middleware/auth.js";
 
 // MENGAMBIL DATA STUDENT
-export const GetStudent = async (req, res) => {
+export const GetLecturer = async (req, res) => {
   try {
-    // Mengambil student_id dari payload token
+    // Mengambil lecturer_id dari payload token
     const userPayload = req.user;
-    const student_id = userPayload.student_id;
+    const lecturer_id = userPayload.lecturer_id;
 
-    // Menggunakan student_id dari payload sebagai kriteria pencarian
-    const student = await Student.findOne({
+    // Menggunakan lecturer_id dari payload sebagai kriteria pencarian
+    const lecturer = await Lecturer.findOne({
       where: {
-        student_id: student_id,
+        lecturer_id: lecturer_id,
       },
-      attributes: ["student_id", "email", "firstname"],
+      attributes: ["lecturer_id", "email", "firstname"],
     });
 
-    if (!student) {
-      return res.status(404).json({ message: "Student not found" });
+    if (!lecturer) {
+      return res.status(404).json({ message: "lecturer not found" });
     }
 
-    res.json(student);
+    res.json(lecturer);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-// REGISTRASI SEBAGAI MURID
-export const StudentRegister = async (req, res) => {
+// REGISTRASI SEBAGAI Guru
+export const LecturerRegister = async (req, res) => {
   const { firstname, lastname, email, password, confPassword } = req.body;
 
   const salt = await bcrypt.genSalt();
@@ -43,7 +43,7 @@ export const StudentRegister = async (req, res) => {
   } else {
     // jika password dan confirmasi password sama
     try {
-      await Student.create({
+      await Lecturer.create({
         email: email,
         password: hashedPassword,
         firstname: firstname,
@@ -57,29 +57,29 @@ export const StudentRegister = async (req, res) => {
 };
 
 // LOGIN STUDENT
-export const StudentLogin = async (req, res) => {
+export const LecturerLogin = async (req, res) => {
   try {
     // Mencari email dalam basis data
-    const student = await Student.findOne({
+    const lecturer = await Lecturer.findOne({
       where: {
         email: req.body.email,
       },
     });
 
-    const student_id = student.student_id;
-    const firstname = student.firstname;
-    const email = student.email;
-    const lastname = student.lastname;
+    const lecturer_id = lecturer.lecturer_id;
+    const firstname = lecturer.firstname;
+    const email = lecturer.email;
+    const lastname = lecturer.lastname;
 
     // Memeriksa apakah email ditemukan
-    if (!student) {
+    if (!lecturer) {
       return res.status(404).json({ message: "Email not found" });
     }
 
     // Membandingkan kata sandi yang dimasukkan dengan kata sandi yang telah di-hash
     const passwordMatch = await bcrypt.compare(
       req.body.password,
-      student.password
+      lecturer.password
     );
 
     if (!passwordMatch) {
@@ -88,7 +88,7 @@ export const StudentLogin = async (req, res) => {
 
     // generate token
     const { _, refreshToken } = generateToken({
-      student_id,
+      lecturer_id,
       email,
       firstname,
       lastname,

@@ -1,0 +1,55 @@
+/* Apply the button style to the select element */
+select {
+  border-radius: 20px;
+  border: 1px solid #ff4b2b;
+  background-color: #ff4b2b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+/* Apply the button style to the option elements within the select */
+select option {
+  border: 1px solid #ff4b2b;
+  background-color: #ff4b2b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+/* Style for active and focused state */
+select:focus,
+select:active,
+select option:focus,
+select option:active {
+  outline: none;
+  transform: scale(0.95);
+}
+
+/* Apply the 'ghost' class to make the select transparent */
+select.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+}
+
+/* Style for select arrow */
+.select_arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #fff;
+}
+
+h4 {
+  margin-bottom: 10px;
+}

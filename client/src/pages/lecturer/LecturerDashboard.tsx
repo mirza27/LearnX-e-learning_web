@@ -1,12 +1,12 @@
 import React from "react";
 import "../../styles/content.css";
 
-function StudentClass() {
+function LecturerDashboard() {
   return (
     <main>
       <div className="head-title">
         <div className="left">
-          <h1>Class</h1>
+          <h1>Dashboard</h1>
           <ul className="breadcrumb">
             <li>
               <a href="#">Dashboard</a>
@@ -139,4 +139,4 @@ function StudentClass() {
   );
 }
 
-export default StudentClass;
+export default LecturerDashboard;

@@ -4,7 +4,7 @@ import "boxicons/css/boxicons.min.css";
 import { SidebarListener } from "../eventListener/SidebarListener";
 import { NavLink } from "react-router-dom";
 
-function Sidebar() {
+function StudentSidebar() {
   const [isSidebarHidden, setIsSidebarHidden] = useState(false); // untuk toggle hide
 
   const menuItem = [
@@ -16,7 +16,7 @@ function Sidebar() {
     },
     {
       path: "/student/class",
-      name: "Myclass",
+      name: "Class",
       icon: "bx bxs-shopping-bag-alt",
     },
   ];
@@ -56,4 +56,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default StudentSidebar;

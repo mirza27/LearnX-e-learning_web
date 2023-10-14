@@ -32,35 +32,10 @@ try {
 //   next();
 // });
 
-// const data = {
-//   message: "Ini adalah data dari server.",
-//   items: ["Item 1", "Item 2", "Item 3"],
-// };
-
-// // ROUTING endpoint
-// app.get("/api/home", (req, res) => {
-//   res.json(data);
-// });
-
-// // Contoh rute login
-// app.post("/api/login", (req, res) => {
-//   const { email, password } = req.body;
-
-//   const user = login(email, password); // Menggunakan fungsi login
-
-//   if (!user) {
-//     return res.status(401).json({ message: "Login gagal" });
-//   }
-
-//   const token = generateToken(user.id);
-
-//   res.json({ token });
-// });
-
 app.use(
   cors(
     // akses ke frontend
-    { credentials: "true", origin: "https://localhost:5001" }
+    { credentials: true, origin: "http://localhost:5001" }
   )
 );
 app.use(cookieParser());

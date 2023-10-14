@@ -2,40 +2,61 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import "../styles/login.css";
 import { LoginListener } from "../eventListener/LoginListener";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     LoginListener(); // style dengan js / event listener
   }, []);
 
-  const StudentLogin = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:3000/student-login", {
-        email: email,
-        password: password,
-      });
-    } catch (error) {}
-  };
-
   const LecturerLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/lecturer-login", {
+      await axios.post("http://localhost:5000/lecturer-login", {
         email: email,
         password: password,
       });
-    } catch (error) {}
+      navigate("/lecturer");
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+  const StudentLogin = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:5000/student-login", {
+        email: email,
+        password: password,
+      });
+      navigate("/student");
+    } catch (error: any) {
+      if (error.response) {
+        // Menampilkan SweetAlert pada kesalahan
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
   };
 
   return (
     <section>
       <div className="container" id="container">
-        <div className="form-container sign-in-container">
-          <form action="#">
+        <div className="form-container sign-up-container">
+          <form onSubmit={LecturerLogin}>
             <h1>Login as Lecturer</h1>
             <div className="social-container"></div>
             <span>Stay logged with us</span>
@@ -51,7 +72,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button>Sign In</button>
+            <button type="submit">Sign In</button>
           </form>
         </div>
         <div className="form-container sign-in-container">
@@ -78,15 +99,15 @@ function Login() {
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
-              <p>Stay focus and spread insight to everyone</p>
+              <h1>Hi Knowledge Enthusiasts,</h1>
+              <p>Experience Learning in a New Light</p>
               <button className="ghost" id="signIn">
                 As Student
               </button>
             </div>
             <div className="overlay-panel overlay-right">
-              <h1>Hello, Friend!</h1>
-              <p>Spare your time to study with us</p>
+              <h1>Hey there, Lifelong Learners,</h1>
+              <p>Empower Education, Anywhere, Anytime</p>
               <button className="ghost" id="signUp">
                 As Lecturer
               </button>

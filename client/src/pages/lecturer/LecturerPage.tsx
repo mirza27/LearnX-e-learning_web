@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import StudentSidebar from "../../components/StudentSidebar";
+import LecturerSidebar from "../../components/LecturerSidebar";
 import { SidebarListener } from "../../eventListener/SidebarListener";
 import Navbar from "../../components/Navbar";
-import StudentDashboard from "./StudentDashboard";
-import StudentClass from "./StudentClass";
+import LecturerDashboard from "./LecturerDashboard";
+import LecturerClass from "./LecturerClass";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import "../../styles/content.css";
 
-function StudentPage() {
+function LecturerPage() {
   const [firstname, setFirstName] = useState("");
-  const [student_id, setStudent_id] = useState("");
+  const [lecturer_id, setLecturer_id] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const checkAuth = async () => {
     try {
       // tidak menggunakan axios agar tidak lansung
-      const response = await fetch("http://localhost:5000/student", {
+      const response = await fetch("http://localhost:5000/lecturer", {
         headers: {
           "content-type": "application/json",
         },
@@ -35,10 +35,10 @@ function StudentPage() {
       }
 
       if (response.ok) {
-        // mengambil data student
-        const student = responseData;
-        setStudent_id(student.student_id);
-        setFirstName(student.firstname);
+        // mengambil data Lecturer
+        const lecturer = responseData;
+        setLecturer_id(lecturer.Lecturer_id);
+        setFirstName(lecturer.firstname);
         console.log(message);
       } else {
         // Pengguna tidak memiliki cookie, arahkan ke rute /login
@@ -56,17 +56,16 @@ function StudentPage() {
 
   return (
     <>
-      <StudentSidebar />
+      <LecturerSidebar />
       <section id="content">
         <Navbar />
         <Routes>
-          {/* <Route path="/" /> */}
-          <Route path="/dashboard" element={<StudentDashboard />} />
-          <Route path="/class" element={<StudentClass />} />
+          <Route path="/dashboard" element={<LecturerDashboard />} />
+          <Route path="/class" element={<LecturerClass />} />
         </Routes>
       </section>
     </>
   );
 }
 
-export default StudentPage;
+export default LecturerPage;
