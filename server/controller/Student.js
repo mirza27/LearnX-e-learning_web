@@ -24,7 +24,7 @@ export const GetStudent = async (req, res) => {
     res.json(student);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error", error: error });
   }
 };
 
@@ -52,7 +52,10 @@ export const StudentRegister = async (req, res) => {
       res.json({
         message: "Register success",
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Internal Server Error", error: error });
+    }
   }
 };
 
@@ -103,6 +106,6 @@ export const StudentLogin = async (req, res) => {
     res.json({ message: "Login successful" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error", error: error });
   }
 };

@@ -7,9 +7,8 @@ const Lecturer = db.define(
   "lecturers",
   {
     lecturer_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true,
-      autoIncrement: true,
     },
     email: {
       type: DataTypes.STRING,

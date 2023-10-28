@@ -1,7 +1,13 @@
 import React from "react";
 import "../../styles/content.css";
 
-function StudentDashboard() {
+interface StudentDashboardProps {
+  student_id: string;
+}
+
+function StudentDashboard(props: StudentDashboardProps) {
+  const { student_id } = props;
+
   return (
     <main>
       <div className="head-title">

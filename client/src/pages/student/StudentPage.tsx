@@ -61,8 +61,14 @@ function StudentPage() {
         <Navbar />
         <Routes>
           {/* <Route path="/" /> */}
-          <Route path="/dashboard" element={<StudentDashboard />} />
-          <Route path="/class" element={<StudentClass />} />
+          <Route
+            path="/dashboard"
+            element={<StudentDashboard student_id={student_id} />}
+          />
+          <Route
+            path="/class"
+            element={<StudentClass student_id={student_id} />}
+          />
         </Routes>
       </section>
     </>

@@ -58,7 +58,7 @@ CREATE TABLE `chats` (
 CREATE TABLE `clases` (
   `class_id` int(11) NOT NULL,
   `class_name` varchar(255) NOT NULL,
-  `lecturer_id` int(11) NOT NULL,
+  `lecturer_id` varchar(255) NOT NULL,
   `desc` varchar(255) DEFAULT NULL,
   `code` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -94,7 +94,7 @@ CREATE TABLE `event_categories` (
 --
 
 CREATE TABLE `lecturers` (
-  `lecturer_id` int(11) NOT NULL,
+  `lecturer_id` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `firstname` varchar(255) DEFAULT NULL,
@@ -111,7 +111,8 @@ CREATE TABLE `materials` (
   `material_id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
   `material_name` varchar(255) NOT NULL,
-  `file` blob
+  `file` blob,
+  `link` varchar(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -136,7 +137,7 @@ CREATE TABLE `presences` (
 CREATE TABLE `presence_claims` (
   `presence_claim_id` int(11) NOT NULL,
   `presence_id` int(11) DEFAULT NULL,
-  `student_id` int(11) DEFAULT NULL,
+  `student_id` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -147,7 +148,7 @@ CREATE TABLE `presence_claims` (
 --
 
 CREATE TABLE `students` (
-  `student_id` int(11) NOT NULL,
+  `student_id` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `firstname` varchar(255) DEFAULT NULL,
@@ -163,7 +164,7 @@ CREATE TABLE `students` (
 CREATE TABLE `student_clases` (
   `student_class_id` int(11) NOT NULL,
   `class_id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL
+  `student_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -178,6 +179,7 @@ CREATE TABLE `task` (
   `task_name` varchar(255) NOT NULL,
   `task_desc` varchar(255) DEFAULT NULL,
   `file` blob,
+  `link` varchar(255) DEFAULT NULL,
   `deadline` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -191,8 +193,9 @@ CREATE TABLE `task` (
 CREATE TABLE `task_upload` (
   `task_upload_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
+  `student_id` varchar(255) NOT NULL,
   `file` blob,
+  `link` varchar(255) DEFAULT NULL,
   `coment` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -326,11 +329,6 @@ ALTER TABLE `events`
 ALTER TABLE `event_categories`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT untuk tabel `lecturers`
---
-ALTER TABLE `lecturers`
-  MODIFY `lecturer_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `materials`
@@ -349,12 +347,6 @@ ALTER TABLE `presences`
 --
 ALTER TABLE `presence_claims`
   MODIFY `presence_claim_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `students`
---
-ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `student_clases`
@@ -446,3 +438,30 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- membuat trigger untuk generate student_id
+DELIMITER //
+CREATE TRIGGER generate_student_id
+BEFORE INSERT ON students
+FOR EACH ROW
+BEGIN
+  DECLARE randomID VARCHAR(6);
+  SET randomID = CONCAT('ST', LPAD(FLOOR(RAND() * 10000), 4, '0'));
+  SET NEW.student_id = randomID;
+END;
+//
+DELIMITER ;
+
+
+-- membuat trigger untuk generate lecturer_id
+DELIMITER //
+CREATE TRIGGER generate_lecturer_id
+BEFORE INSERT ON lecturers
+FOR EACH ROW
+BEGIN
+  DECLARE randomID VARCHAR(6);
+  SET randomID = CONCAT('LE', LPAD(FLOOR(RAND() * 10000), 4, '0'));
+  SET NEW.lecturer_id = randomID;
+END;
+//
+DELIMITER ;

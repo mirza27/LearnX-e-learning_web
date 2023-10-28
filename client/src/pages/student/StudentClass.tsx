@@ -1,7 +1,81 @@
-import React from "react";
-import "../../styles/content.css";
+import React, { SyntheticEvent, useEffect, useState } from "react";
+import "../../styles/class.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-function StudentClass() {
+interface StudentClassProps {
+  student_id: string;
+}
+
+function StudentClass(props: StudentClassProps) {
+  const { student_id } = props;
+  const [classCode, setClassCode] = useState("");
+  const [dataclass, setDataClass] = useState<
+    {
+      student_class_id: number;
+      clases: {
+        class_id: number;
+        class_name: string;
+        lecturer: { firstname: string };
+      }[];
+    }[]
+  >([]);
+
+  const navigate = useNavigate();
+
+  const GetClassList = async () => {
+    if (!student_id) {
+      navigate("/login");
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/student/class-list`,
+        { student_id: student_id }
+      );
+
+      setDataClass(response.data);
+      console.log(student_id);
+      console.log(dataclass);
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Panggil GetClassList saat komponen dimuat
+    GetClassList();
+  }, [student_id]);
+
+  // modal add class
+  const handleAddClassClick = () => {
+    Swal.fire({
+      title: "Add Class",
+      text: "Input Class Code to join a new class",
+      customClass: {
+        popup: "custom-popup-class",
+        title: "custom-title-class",
+      },
+      input: "text",
+      inputPlaceholder: "Enter Class Code",
+      showCancelButton: true,
+      backdrop: false,
+
+      inputValidator: (value) => {
+        if (!value) {
+          return "Class Code is required";
+        }
+      },
+    });
+  };
+
   return (
     <main>
       <div className="head-title">
@@ -9,14 +83,14 @@ function StudentClass() {
           <h1>Class</h1>
           <ul className="breadcrumb">
             <li>
-              <a href="#">Dashboard</a>
+              <a href="/student/dashboard">Dashboard</a>
             </li>
             <li>
               <i className="bx bx-chevron-right"></i>
             </li>
             <li>
               <a className="active" href="#">
-                Home
+                Class
               </a>
             </li>
           </ul>
@@ -28,113 +102,28 @@ function StudentClass() {
       </div>
 
       <ul className="box-info">
-        <li>
-          <i className="bx bxs-calendar-check"></i>
-          <span className="text">
-            <h3>1020</h3>
-            <p>New Order</p>
-          </span>
-        </li>
-        <li>
-          <i className="bx bxs-group"></i>
-          <span className="text">
-            <h3>2834</h3>
-            <p>Visitors</p>
-          </span>
-        </li>
-        <li>
-          <i className="bx bxs-dollar-circle"></i>
-          <span className="text">
-            <h3>$2543</h3>
-            <p>Total Sales</p>
-          </span>
-        </li>
+        <div className="box-item" onClick={handleAddClassClick}>
+          <li>
+            <i className="bx bxs-bookmark-plus"></i>
+            <span className="text">
+              <h3>Add Class</h3>
+            </span>
+          </li>
+        </div>
+        {dataclass.map((studentClass) =>
+          studentClass.clases.map((classItem) => (
+            <div className="box-item" key={classItem.class_id}>
+              <li>
+                <i className="bx bxs-group"></i>
+                <span className="text">
+                  <h3>{classItem.class_name}</h3>
+                  <p>{classItem.lecturer.firstname}</p>
+                </span>
+              </li>
+            </div>
+          ))
+        )}
       </ul>
-
-      <div className="table-data">
-        <div className="order">
-          <div className="head">
-            <h3>Recent Orders</h3>
-            <i className="bx bx-search"></i>
-            <i className="bx bx-filter"></i>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Date Order</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status completed">Completed</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status pending">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status process">Process</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status pending">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status completed">Completed</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="todo">
-          <div className="head">
-            <h3>Todos</h3>
-            <i className="bx bx-plus"></i>
-            <i className="bx bx-filter"></i>
-          </div>
-          <ul className="todo-list">
-            <li className="completed">
-              <p>Todo List</p>
-              <i className="bx bx-dots-vertical-rounded"></i>
-            </li>
-            {/* Tambahkan item todo lainnya di sini */}
-          </ul>
-        </div>
-      </div>
     </main>
   );
 }
