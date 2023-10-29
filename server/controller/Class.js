@@ -53,22 +53,24 @@ export const JoinClass = async (req, res) => {
     });
   }
 
-  const existingClass = await Classes.findOne({ code: classCode });
-
-  // Periksa apakah siswa sudah tergabung dalam kelas tersebut
-  const existingStudentClass = await Student_classes.findOne({
-    class_id: existingClass._id, // Pastikan cara Anda menyimpan ID kelas dalam model Student_classes
-    student_id: student_id,
-  });
-
   // jika data kelas tidak ada
+  const existingClass = await Classes.findOne({ where: { code: classCode } });
   if (!existingClass) {
     return res.status(404).json({
       message: "Class not found with the provided code",
     });
+  }
 
-    // Jika siswa sudah tergabung dalam kelas yang sama
-  } else if (existingStudentClass) {
+  // Periksa apakah siswa sudah tergabung dalam kelas tersebut
+  const existingStudentClass = await Student_classes.findOne({
+    where: {
+      class_id: existingClass.class_id, // Pastikan cara Anda menyimpan ID kelas dalam model Student_classes
+      student_id: student_id,
+    },
+  });
+
+  // Jika siswa sudah tergabung dalam kelas yang sama
+  if (existingStudentClass) {
     return res.status(400).json({
       message: "You are already a member of the class",
     });

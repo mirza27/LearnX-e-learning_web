@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/class.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ interface StudentClassProps {
 }
 
 function StudentClass(props: StudentClassProps) {
+  const [message, setMessage] = useState("");
   const { student_id } = props;
   const [classCode, setClassCode] = useState("");
   const [dataclass, setDataClass] = useState<
@@ -36,8 +37,10 @@ function StudentClass(props: StudentClassProps) {
       );
 
       setDataClass(response.data);
-      console.log(student_id);
-      console.log(dataclass);
+
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
     } catch (error: any) {
       if (error.response) {
         Swal.fire({
@@ -72,6 +75,39 @@ function StudentClass(props: StudentClassProps) {
         if (!value) {
           return "Class Code is required";
         }
+      },
+      preConfirm: (classCode) => {
+        return (
+          axios
+            .post("http://localhost:5000/student/join-class", {
+              student_id: student_id,
+              classCode: classCode,
+            })
+            // jika kelas berhasil ditambahkan
+            .then((response) => {
+              if (response.data.status === "ok") {
+                Swal.fire({
+                  title: "Success!",
+                  text: "You have successfully joined the class.",
+                  icon: "success",
+                });
+              } else {
+                Swal.fire({
+                  title: "Warning!",
+                  text: response.data.message,
+                  icon: "error",
+                });
+              }
+            })
+            // jika kelas gagal ditambahkan / terdapat error
+            .catch((error) => {
+              Swal.fire({
+                title: "Error!",
+                text: error.response.data.message,
+                icon: "error",
+              });
+            })
+        );
       },
     });
   };

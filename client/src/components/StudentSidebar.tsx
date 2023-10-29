@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/sidebar.css";
 import "boxicons/css/boxicons.min.css";
-import { SidebarListener } from "../eventListener/SidebarListener";
+import { Icon } from "@iconify/react";
 import { NavLink } from "react-router-dom";
 
 function StudentSidebar() {
@@ -12,12 +12,32 @@ function StudentSidebar() {
     {
       path: "/student/dashboard",
       name: "Dashboard",
-      icon: "bx bxs-shopping-bag-alt",
+      icon: "akar-icons:dashboard",
     },
     {
       path: "/student/class",
       name: "Class",
-      icon: "bx bxs-shopping-bag-alt",
+      icon: "ion:people",
+    },
+    {
+      path: "/student/mytask",
+      name: "My Task",
+      icon: "fluent:clipboard-task-24-regular",
+    },
+    {
+      path: "/student/",
+      name: "Materials",
+      icon: "bx:book",
+    },
+    {
+      path: "/student/",
+      name: "Announcements",
+      icon: "mdi:announcement-outline",
+    },
+    {
+      path: "/student/",
+      name: "Forums",
+      icon: "ic:baseline-chat",
     },
   ];
 
@@ -37,7 +57,7 @@ function StudentSidebar() {
     // Konten Sidebar Anda tetap sama seperti sebelumnya
     <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
       <a href="#" className="brand">
-        <i className="bx bxs-smile"></i>
+        <Icon icon="ion:school-outline" className="bx" />
         <span className="text">LearnX</span>
       </a>
       <ul className="side-menu top">
@@ -45,7 +65,7 @@ function StudentSidebar() {
           <NavLink to={item.path} key={index} className="link">
             <li>
               <a href="#">
-                <i className={item.icon}></i>
+                <Icon icon={item.icon} className="bx" />
                 <span className="text">{item.name}</span>
               </a>
             </li>

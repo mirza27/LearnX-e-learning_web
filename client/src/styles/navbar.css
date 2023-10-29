@@ -41,6 +41,10 @@
   width: 100%;
   margin-right: auto;
 }
+
+#content nav form {
+  background: var(--light);
+}
 #content nav form .form-input {
   display: flex;
   align-items: center;

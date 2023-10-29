@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/sidebar.css";
 import "boxicons/css/boxicons.min.css";
-import { SidebarListener } from "../eventListener/SidebarListener";
 import { NavLink } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
 function LecturerSidebar() {
   const [isSidebarHidden, setIsSidebarHidden] = useState(false); // untuk toggle hide
@@ -12,12 +12,37 @@ function LecturerSidebar() {
     {
       path: "/lecturer/dashboard",
       name: "Dashboard",
-      icon: "bx bxs-shopping-bag-alt",
+      icon: "akar-icons:dashboard",
     },
     {
-      path: "/lecturer/class",
-      name: "My Class",
-      icon: "bx bxs-shopping-bag-alt",
+      path: "/lecturer/myclass",
+      name: "Class",
+      icon: "ion:people",
+    },
+    {
+      path: "/lecturer/task",
+      name: "My Task",
+      icon: "fluent:clipboard-task-24-regular",
+    },
+    {
+      path: "/lecturer/attacment",
+      name: "Attachment",
+      icon: "ic:baseline-rate-review",
+    },
+    {
+      path: "/lecturer/",
+      name: "Materials",
+      icon: "bx:book",
+    },
+    {
+      path: "/lecturer/",
+      name: "Announcements",
+      icon: "mdi:announcement-outline",
+    },
+    {
+      path: "/lecturer/",
+      name: "Forums",
+      icon: "ic:baseline-chat",
     },
   ];
 
@@ -37,7 +62,7 @@ function LecturerSidebar() {
     // Konten Sidebar Anda tetap sama seperti sebelumnya
     <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
       <a href="#" className="brand">
-        <i className="bx bxs-smile"></i>
+        <Icon icon="ion:school-outline" className="bx" />
         <span className="text">LearnX</span>
       </a>
       <ul className="side-menu top">
@@ -45,7 +70,7 @@ function LecturerSidebar() {
           <NavLink to={item.path} key={index} className="link">
             <li>
               <a href="#">
-                <i className={item.icon}></i>
+                <Icon className="bx" icon={item.icon} />
                 <span className="text">{item.name}</span>
               </a>
             </li>

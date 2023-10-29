@@ -7,7 +7,7 @@ import StudentDashboard from "./StudentDashboard";
 import StudentClass from "./StudentClass";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import "../../styles/content.css";
+// import "../../styles/content.css";
 
 function StudentPage() {
   const [firstname, setFirstName] = useState("");
