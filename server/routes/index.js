@@ -21,7 +21,10 @@ import {
   MyClassContent,
 } from "../controller/LecturerClass.js";
 import { GetTask, addTaskUpload, addNewTask } from "../controller/Task.js";
-
+import {
+  addNewAnnouncement,
+  getAnnouncement,
+} from "../controller/Announcement.js";
 import { authenticateUser, logout } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -36,8 +39,11 @@ router.post("/student/join-class", JoinClass);
 router.get("/student/class/:student_id", StudentClassList);
 router.get("/student/class/content/:class_id", ClassContent);
 // task
-router.get("/student/class/content/task/:task_id/:student_id", GetTask); // melihat task
+router.get("/student/class/content/task/:event_id/:student_id", GetTask); // melihat task
 router.post("/student/class/content/task/upload", addTaskUpload);
+// material
+// announcement
+router.get("/student/class/content/announcement/event_id");
 
 // LECTURER
 // autentikasi
@@ -49,8 +55,16 @@ router.post("/lecturer/add-class", addNewClass);
 router.get("/lecturer/my-class/:lecturer_id", LecturerClassList);
 router.get("/lecturer/my-class/content/:class_id", MyClassContent);
 //task
-router.get("/lecturer/my-class/content/task/:task_id", GetTask); // melihat task
+router.get("/lecturer/my-class/content/task/:event_id", GetTask); // melihat task
 router.post("/lecturer/my-class/content/addtask", addNewTask);
+// material
+
+// announcement
+router.get("/lecturer/my-class/content/announcement/:event_id");
+router.post(
+  "/lecturer/my-class/content/announcement/addannouncement",
+  addNewAnnouncement
+);
 
 router.get("/logout", logout);
 

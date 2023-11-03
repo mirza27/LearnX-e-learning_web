@@ -6,26 +6,32 @@ import Event from "../models/eventModel.js";
 
 // MENNGAMBIL TUGAS / TASK SERTA HASIL UPLOAD JIKA ADA
 export const GetTask = async (req, res) => {
-  const task_id = req.params.task_id;
+  const event_id = req.params.event_id;
   const student_id = req.params.student_id;
 
   // jika student / membawa student_id
   if (student_id) {
     try {
-      const TaskContent = await Task.findOne({
-        where: { task_id: task_id },
-        attributes: ["task_name", "task_desc", "file", "link", "deadline"],
+      const TaskContent = await Event.findOne({
+        where: { event_id: event_id },
+        attributes: ["createdAt"],
         include: [
           {
-            model: TaskUpload,
-            attributes: [
-              "task_Upload_id",
-              "student_id",
-              "file",
-              "link",
-              "coment",
+            model: Task,
+            attributes: ["task_name", "task_desc", "file", "link", "deadline"],
+            include: [
+              {
+                model: TaskUpload,
+                attributes: [
+                  "task_Upload_id",
+                  "student_id",
+                  "file",
+                  "link",
+                  "coment",
+                ],
+                where: { student_id: student_id },
+              },
             ],
-            where: { student_id: student_id },
           },
         ],
       });
@@ -39,18 +45,24 @@ export const GetTask = async (req, res) => {
     // jika lectuer / tidak membawa student_id
   } else {
     try {
-      const TaskContent = await Task.findOne({
-        where: { task_id: task_id },
-        attributes: ["task_name", "task_desc", "file", "link", "deadline"],
+      const TaskContent = await Event.findOne({
+        where: { event_id: event_id },
+        attributes: ["createdAt"],
         include: [
           {
-            model: TaskUpload,
-            attributes: [
-              "task_Upload_id",
-              "student_id",
-              "file",
-              "link",
-              "coment",
+            model: Task,
+            attributes: ["task_name", "task_desc", "file", "link", "deadline"],
+            include: [
+              {
+                model: TaskUpload,
+                attributes: [
+                  "task_Upload_id",
+                  "student_id",
+                  "file",
+                  "link",
+                  "coment",
+                ],
+              },
             ],
           },
         ],
@@ -97,7 +109,7 @@ export const addNewTask = async (req, res) => {
     });
 
     // membuat data task
-    const TaskContent = await Task.create({
+    await Task.create({
       event_id: eventContent.event_id,
       task_desc: task_desc,
       file: file,
