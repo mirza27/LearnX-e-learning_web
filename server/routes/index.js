@@ -9,11 +9,13 @@ import {
   LecturerRegister,
   LecturerLogin,
 } from "../controller/Lecturer.js";
+
+import { StudentClassList, JoinClass } from "../controller/StudentClass.js";
 import {
-  StudentClassList,
-  JoinClass,
+  LecturerClassList,
   addNewClass,
-} from "../controller/Class.js";
+  MyClassContent,
+} from "../controller/LecturerClass.js";
 
 import { authenticateUser, logout } from "../middleware/auth.js";
 
@@ -23,7 +25,7 @@ const router = express.Router();
 router.get("/student", authenticateUser, GetStudent);
 router.post("/student-register", StudentRegister);
 router.post("/student-login", StudentLogin);
-router.post("/student/class-list", StudentClassList);
+router.get("/student/class-list/:student_id", StudentClassList);
 router.post("/student/join-class", JoinClass);
 
 // LECTURER
@@ -31,6 +33,8 @@ router.get("/lecturer", authenticateUser, GetLecturer);
 router.post("/lecturer-register", LecturerRegister);
 router.post("/lecturer-login", LecturerLogin);
 router.post("/lecturer/add-class", addNewClass);
+router.get("/lecturer/my-class/:lecturer_id", LecturerClassList);
+router.get("/lecturer/my-class/content/:class_id", MyClassContent);
 
 router.get("/logout", logout);
 

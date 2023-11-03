@@ -2,22 +2,11 @@ import Student_classes from "../models/student_classesModel.js";
 import Classes from "../models/classModel.js";
 import Lecturer from "../models/lecturerModel.js";
 
-// GENERATE FOR CLASS CODE
-function generateRandomCode(length) {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let code = "";
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    code += characters.charAt(randomIndex);
-  }
-  return code;
-}
-
 // MENGAMBIL LIST CLASS SEBAGAI STUDENT ==================================
 export const StudentClassList = async (req, res) => {
   try {
     // Mengambil student_id dari frontend
-    const { student_id } = req.body;
+    const student_id = req.params.student_id;
 
     const studentClasses = await Student_classes.findAll({
       where: { student_id: student_id },
@@ -94,35 +83,3 @@ export const JoinClass = async (req, res) => {
 };
 
 // MENGAMBIL CONTENT CLASS SEBAGAI STUDENT ==================================
-
-// MENGAMBIL LIST MYCLASS SEBAGAI LECTURER ==================================
-
-// ADD NEW CLASS ==================================
-export const addNewClass = async (req, res) => {
-  const { lecturer_id, class_name, desc } = req.body;
-
-  if (!class_name) {
-    return res.status(400).json({
-      message: "Class name not specified",
-    });
-  } else {
-    // generate random code (6 digit) for new class
-    const classCode = generateRandomCode(6);
-    try {
-      await Classes.create({
-        class_name: class_name,
-        lecturer_id: lecturer_id,
-        desc: desc,
-        code: classCode,
-      });
-      res.status(200).json({
-        message: "New Class created successfully",
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Internal Server Error", error: error });
-    }
-  }
-};
-
-// MENGAMBIL CONTENT MYCLASS SEBAGAI LECTURER

@@ -3,6 +3,7 @@ import "../styles/sidebar.css";
 import "boxicons/css/boxicons.min.css";
 import { Icon } from "@iconify/react";
 import { NavLink } from "react-router-dom";
+import { SidebarListener } from "../eventListener/SidebarListener";
 
 function StudentSidebar() {
   const [isSidebarHidden, setIsSidebarHidden] = useState(false); // untuk toggle hide
@@ -52,6 +53,10 @@ function StudentSidebar() {
       });
     }
   }, [isSidebarHidden]);
+
+  // useEffect(() => {
+  //   SidebarListener();
+  // });
 
   return (
     // Konten Sidebar Anda tetap sama seperti sebelumnya
