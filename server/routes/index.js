@@ -29,7 +29,7 @@ import { authenticateUser, logout } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// STUDENT
+// STUDENT ====================================================
 // autentikasi
 router.get("/student", authenticateUser, GetStudent);
 router.post("/student-register", StudentRegister);
@@ -43,9 +43,9 @@ router.get("/student/class/content/task/:event_id/:student_id", GetTask); // mel
 router.post("/student/class/content/task/upload", addTaskUpload);
 // material
 // announcement
-router.get("/student/class/content/announcement/event_id");
+router.get("/student/class/content/announcement/:event_id", getAnnouncement);
 
-// LECTURER
+// LECTURER ====================================================
 // autentikasi
 router.get("/lecturer", authenticateUser, GetLecturer);
 router.post("/lecturer-register", LecturerRegister);
@@ -60,9 +60,12 @@ router.post("/lecturer/my-class/content/addtask", addNewTask);
 // material
 
 // announcement
-router.get("/lecturer/my-class/content/announcement/:event_id");
+router.get(
+  "/lecturer/my-class/content/announcement/:event_id",
+  getAnnouncement
+);
 router.post(
-  "/lecturer/my-class/content/announcement/addannouncement",
+  "/lecturer/my-class/content/announcement/addAnnouncement",
   addNewAnnouncement
 );
 

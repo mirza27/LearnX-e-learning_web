@@ -1,5 +1,3 @@
-import Lecturer from "../models/lecturerModel.js";
-import Student from "../models/studentModel.js";
 import Task from "../models/taskModel.js";
 import TaskUpload from "../models/taskUploadModel.js";
 import Event from "../models/eventModel.js";
