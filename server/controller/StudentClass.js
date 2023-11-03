@@ -1,6 +1,10 @@
 import Student_classes from "../models/student_classesModel.js";
 import Classes from "../models/classModel.js";
 import Lecturer from "../models/lecturerModel.js";
+import Event from "../models/eventModel.js";
+import Task from "../models/taskModel.js";
+import Announcement from "../models/announcementModel.js";
+import Material from "../models/materialModel.js";
 
 // MENGAMBIL LIST CLASS SEBAGAI STUDENT ==================================
 export const StudentClassList = async (req, res) => {
@@ -83,3 +87,39 @@ export const JoinClass = async (req, res) => {
 };
 
 // MENGAMBIL CONTENT CLASS SEBAGAI STUDENT ==================================
+export const ClassContent = async (req, res) => {
+  try {
+    const class_id = req.params.class_id;
+
+    const classContent = await Event.findAll({
+      where: { class_id: class_id },
+      attributes: ["event_category_id", "event_name", "class_id", "createdAt"],
+      include: [
+        {
+          model: Material,
+          attributes: ["material_id", "material_name", "file", "link"],
+        },
+        {
+          model: Task,
+          attributes: [
+            "task_id",
+            "task_name",
+            "task_desc",
+            "file",
+            "link",
+            "deadline",
+          ],
+        },
+        {
+          model: Announcement,
+          attributes: ["nama", "content"],
+        },
+      ],
+    });
+
+    res.status(200).json(classContent);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error", error: error });
+  }
+};

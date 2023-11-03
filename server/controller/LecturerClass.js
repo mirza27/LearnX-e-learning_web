@@ -64,9 +64,9 @@ export const addNewClass = async (req, res) => {
 
 // MENGAMBIL CONTENT MYCLASS SEBAGAI LECTURER
 export const MyClassContent = async (req, res) => {
-  try {
-    const class_id = req.params.class_id;
+  const class_id = req.params.class_id;
 
+  try {
     const classContent = await Event.findAll({
       where: { class_id: class_id },
       attributes: ["event_category_id", "event_name", "class_id", "createdAt"],
