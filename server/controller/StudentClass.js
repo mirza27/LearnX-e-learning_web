@@ -14,11 +14,11 @@ export const StudentClassList = async (req, res) => {
 
     const studentClasses = await Student_classes.findAll({
       where: { student_id: student_id },
-      attributes: ["student_class_id"],
+      attributes: ["student_class_id", "createdAt"],
       include: [
         {
           model: Classes,
-          attributes: ["class_id", "class_name"],
+          attributes: ["class_id", "class_name", "desc", "category"],
           include: {
             model: Lecturer,
             attributes: ["firstname"],

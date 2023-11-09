@@ -18,6 +18,20 @@ const Classes = db.define(
     lecturer_id: {
       type: DataTypes.STRING,
     },
+    category: {
+      type: DataTypes.ENUM(
+        "programming",
+        "math",
+        "science",
+        "history",
+        "tech",
+        "religion",
+        "social",
+        "art",
+        "health",
+        "business"
+      ),
+    },
     desc: {
       type: DataTypes.STRING,
     },

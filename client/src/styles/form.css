@@ -1,0 +1,130 @@
+form h2 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  width: 100%;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+form h3 {
+  box-sizing: border-box;
+  border-left: 3px solid transparent;
+  margin-top: 24px;
+  padding: 0px 32px;
+  width: 100%;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.form-group {
+  box-sizing: border-box;
+  width: 100%;
+  border-left: 3px solid transparent;
+  transition: 0.2s all;
+}
+
+.form-date-group {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 24px 32px;
+  border-left: 3px solid transparent;
+  transition: 0.2s all;
+}
+
+.form-group button {
+  background-color: var(--blue);
+  border: none;
+}
+.form-group select {
+  background-color: var(--blue);
+  border: none;
+}
+.form-group select option {
+  background-color: var(--blue);
+  border-radius: 20px;
+  border: none;
+}
+
+.form-date-group .form-group {
+  padding: 0px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  color: var(--dark);
+  display: block;
+}
+
+.form-group label span {
+  color: var(--red);
+}
+
+form .line-break {
+  width: 100%;
+  height: 1px;
+  margin: 16px auto;
+  border-bottom: 1px solid #eee;
+}
+
+input[type="text"]::placeholder,
+input[type="date"]::placeholder,
+textarea::placeholder {
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: inherit;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  transition: 0.2s border;
+  width: 100%;
+  font-size: 1rem;
+}
+
+textarea {
+  max-width: 533px;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--light-blue);
+}
+
+input[type="submit"] {
+  background: var(--blue);
+  padding: 8px 16px;
+  color: white;
+  font-weight: bold;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0), 0 1px 2px rgba(0, 0, 0, 0);
+}
+
+input[type="submit"]:hover {
+  background: var(--red);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+
+input[type="submit"]:active {
+  background: var(--red);
+  margin-top: 0px;
+  margin-bottom: 0px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0), 0 1px 2px rgba(0, 0, 0, 0);
+}

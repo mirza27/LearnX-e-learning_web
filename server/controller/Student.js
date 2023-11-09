@@ -7,6 +7,7 @@ export const GetStudent = async (req, res) => {
   try {
     // Mengambil student_id dari payload token
     const userPayload = req.user;
+    const token = req.token;
     const student_id = userPayload.student_id;
 
     // Menggunakan student_id dari payload sebagai kriteria pencarian
@@ -21,7 +22,7 @@ export const GetStudent = async (req, res) => {
       return res.status(404).json({ message: "Student not found" });
     }
 
-    res.json(student);
+    res.json({ student, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error", error: error });

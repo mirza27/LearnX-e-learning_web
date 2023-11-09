@@ -1,7 +1,69 @@
-import React from "react";
-import "../../styles/content.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import "../../styles/myclass.css";
 
-function LecturerClass() {
+interface LecturerClassProps {
+  lecturer_id: string;
+  firstname: string;
+}
+
+function LecturerClass(props: LecturerClassProps) {
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const { lecturer_id } = props;
+  const { firstname } = props;
+  // deklarasi data untuk response
+  const [dataClass, setDataClass] = useState<
+    {
+      class_id: number;
+      class_name: string;
+      code: string;
+      category: string;
+      desc: string;
+    }[]
+  >([]);
+
+  const GetClassList = async () => {
+    if (!lecturer_id) {
+      console.log("belum login");
+      navigate("/login");
+    }
+
+    console.log(lecturer_id);
+
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/lecturer/my-class/${lecturer_id}`,
+        {}
+      );
+
+      setDataClass(response.data);
+
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+
+  // navigasi ke class content / detail kelas
+  const goToClassDetail = (class_id: any) => {
+    navigate(`content`, { state: { class_id } });
+  };
+
+  useEffect(() => {
+    GetClassList();
+  }, [lecturer_id]);
+
   return (
     <main>
       <div className="head-title">
@@ -16,7 +78,7 @@ function LecturerClass() {
             </li>
             <li>
               <a className="active" href="#">
-                Home
+                My Class
               </a>
             </li>
           </ul>
@@ -26,114 +88,40 @@ function LecturerClass() {
           <span className="text">Download PDF</span>
         </a>
       </div>
-
-      <ul className="box-info">
-        <li>
-          <i className="bx bxs-calendar-check"></i>
-          <span className="text">
-            <h3>1020</h3>
-            <p>New Order</p>
-          </span>
-        </li>
-        <li>
-          <i className="bx bxs-group"></i>
-          <span className="text">
-            <h3>2834</h3>
-            <p>Visitors</p>
-          </span>
-        </li>
-        <li>
-          <i className="bx bxs-dollar-circle"></i>
-          <span className="text">
-            <h3>$2543</h3>
-            <p>Total Sales</p>
-          </span>
-        </li>
-      </ul>
-
-      <div className="table-data">
-        <div className="order">
-          <div className="head">
-            <h3>Recent Orders</h3>
-            <i className="bx bx-search"></i>
-            <i className="bx bx-filter"></i>
+      <div className="wrapper">
+        {/* Loop dan navigasi ke content class*/}
+        {dataClass.map((lecturerClass) => (
+          <div
+            className="card"
+            onClick={() => goToClassDetail(lecturerClass.class_id)}
+            key={lecturerClass.class_id}
+          >
+            <div className="card-banner">
+              <p className="category-tag popular">{lecturerClass.category}</p>
+              <img
+                className="banner-img"
+                src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+                alt=""
+              />
+            </div>
+            <div className="card-body">
+              <p className="blog-hashtag">#{lecturerClass.code}</p>
+              <h2 className="blog-title">{lecturerClass.class_name}</h2>
+              <p className="blog-description">{lecturerClass.desc}</p>
+              <div className="card-profile">
+                <img
+                  className="profile-img"
+                  src="https://images.unsplash.com/photo-1554780336-390462301acf?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+                  alt=""
+                />
+                <div className="card-profile-info">
+                  <h3 className="profile-name">{firstname}</h3>
+                  <p className="profile-followers">{lecturer_id}</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Date Order</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status completed">Completed</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status pending">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status process">Process</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status pending">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status completed">Completed</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="todo">
-          <div className="head">
-            <h3>Todos</h3>
-            <i className="bx bx-plus"></i>
-            <i className="bx bx-filter"></i>
-          </div>
-          <ul className="todo-list">
-            <li className="completed">
-              <p>Todo List</p>
-              <i className="bx bx-dots-vertical-rounded"></i>
-            </li>
-            {/* Tambahkan item todo lainnya di sini */}
-          </ul>
-        </div>
+        ))}
       </div>
     </main>
   );

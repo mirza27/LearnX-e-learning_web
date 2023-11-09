@@ -33,7 +33,7 @@ const Task = db.define(
       allowNull: true,
     },
     deadline: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
     },
   },

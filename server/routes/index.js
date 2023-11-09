@@ -26,8 +26,8 @@ import {
   getAnnouncement,
 } from "../controller/Announcement.js";
 import { authenticateUser, logout } from "../middleware/auth.js";
-
 const router = express.Router();
+// const upload = uploadImage();
 
 // STUDENT ====================================================
 // autentikasi

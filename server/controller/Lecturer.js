@@ -7,6 +7,7 @@ export const GetLecturer = async (req, res) => {
   try {
     // Mengambil lecturer_id dari payload token
     const userPayload = req.user;
+    const token = req.token;
     const lecturer_id = userPayload.lecturer_id;
 
     // Menggunakan lecturer_id dari payload sebagai kriteria pencarian
@@ -21,7 +22,8 @@ export const GetLecturer = async (req, res) => {
       return res.status(404).json({ message: "lecturer not found" });
     }
 
-    res.json(lecturer);
+    res.json({ lecturer, token });
+    console.log("tes", lecturer);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });

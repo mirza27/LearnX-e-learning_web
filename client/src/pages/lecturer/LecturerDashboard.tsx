@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import "../../styles/content.css";
 
-function LecturerDashboard() {
+interface LecturerDashboardProps {
+  lecturer_id: string;
+  firstname: string;
+}
+
+function LecturerDashboard(props: LecturerDashboardProps) {
+  const [message, setMessage] = useState("");
+  const { lecturer_id } = props;
+  const { firstname } = props;
+
   return (
     <main>
       <div className="head-title">

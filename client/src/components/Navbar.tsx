@@ -24,7 +24,7 @@ function Navbar() {
         <span className="num">8</span>
       </a>
       <a href="#" className="profile">
-        <img src="img/people.png" />
+        <img src="#" />
       </a>
     </nav>
   );

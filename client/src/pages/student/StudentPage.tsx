@@ -5,7 +5,7 @@ import { SidebarListener } from "../../eventListener/SidebarListener";
 import Navbar from "../../components/Navbar";
 import StudentDashboard from "./StudentDashboard";
 import StudentClass from "./StudentClass";
-import jwt_decode from "jwt-decode";
+import StudentClassContent from "./StudentClassContent";
 import { useNavigate } from "react-router-dom";
 // import "../../styles/content.css";
 
@@ -36,10 +36,9 @@ function StudentPage() {
 
       if (response.ok) {
         // mengambil data student
-        const student = responseData;
+        const student = responseData.student;
         setStudent_id(student.student_id);
         setFirstName(student.firstname);
-        console.log(message);
       } else {
         // Pengguna tidak memiliki cookie, arahkan ke rute /login
         navigate("/login");
@@ -63,11 +62,24 @@ function StudentPage() {
           {/* <Route path="/" /> */}
           <Route
             path="/dashboard"
-            element={<StudentDashboard student_id={student_id} />}
+            element={
+              <StudentDashboard student_id={student_id} firstname={firstname} />
+            }
           />
           <Route
             path="/class"
-            element={<StudentClass student_id={student_id} />}
+            element={
+              <StudentClass student_id={student_id} firstname={firstname} />
+            }
+          />
+          <Route
+            path="/class/content"
+            element={
+              <StudentClassContent
+                student_id={student_id}
+                firstname={firstname}
+              />
+            }
           />
         </Routes>
       </section>

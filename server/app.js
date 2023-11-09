@@ -3,6 +3,7 @@ import db from "./db/db.js";
 import router from "./routes/index.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import multer from "multer";
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -24,7 +25,7 @@ try {
 
 // // Middleware untuk mengizinkan CORS jika diperlukan
 // app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Origin", "http://localhost:5001");
 //   res.header(
 //     "Access-Control-Allow-Headers",
 //     "Origin, X-Requested-With, Content-Type, Accept"
@@ -38,6 +39,7 @@ app.use(
     { credentials: true, origin: "http://localhost:5001" }
   )
 );
+// app.use(multer());
 app.use(cookieParser());
 app.use(express.json());
 app.use(router);

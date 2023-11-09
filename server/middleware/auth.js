@@ -38,6 +38,7 @@ export const authenticateUser = async (req, res, next) => {
     }
 
     req.user = decodedToken; // nilai login yang memuat id user, dikirim ke fungsi GetStudent
+    req.token = refreshToken; // refresh token
 
     next(); // Lanjutkan ke rute berikutnya
   } catch (error) {

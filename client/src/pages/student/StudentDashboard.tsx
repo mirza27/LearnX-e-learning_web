@@ -3,10 +3,12 @@ import "../../styles/content.css";
 
 interface StudentDashboardProps {
   student_id: string;
+  firstname: string;
 }
 
 function StudentDashboard(props: StudentDashboardProps) {
   const { student_id } = props;
+  const { firstname } = props;
 
   return (
     <main>
