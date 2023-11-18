@@ -25,7 +25,7 @@ const Task = db.define(
     },
     file: {
       // byte blob
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     link: {

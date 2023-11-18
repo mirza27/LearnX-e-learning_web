@@ -35,6 +35,27 @@ export const StudentClassList = async (req, res) => {
   }
 };
 
+// GET CLASS DATA
+export const getClassDataStudent = async (req, res) => {
+  const class_id = req.params.class_id;
+
+  try {
+    const classData = await Classes.findOne({
+      where: { class_id: class_id },
+      attributes: ["class_name", "desc", "createdAt", "category"],
+    });
+    // Convert createdAt to a formatted string
+    if (classData && classData.createdAt) {
+      classData.createdAt = classData.createdAt.toISOString().split("T")[0];
+    }
+
+    res.status(200).json(classData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error", error: error });
+  }
+};
+
 // JOIN CLASS ==================================
 export const JoinClass = async (req, res) => {
   const { student_id, classCode } = req.body;
@@ -93,7 +114,13 @@ export const ClassContent = async (req, res) => {
 
     const classContent = await Event.findAll({
       where: { class_id: class_id },
-      attributes: ["event_category_id", "event_name", "class_id", "createdAt"],
+      attributes: [
+        "event_id",
+        "event_category_id",
+        "event_name",
+        "class_id",
+        "createdAt",
+      ],
       include: [
         {
           model: Material,

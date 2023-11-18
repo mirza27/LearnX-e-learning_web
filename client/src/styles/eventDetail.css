@@ -1,0 +1,83 @@
+.task-detail-container {
+  background-color: var(--light);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-detail-container h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.task-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.task-meta p {
+  font-size: 16px;
+  color: var(--dark-grey);
+}
+
+.task-meta a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.task-meta a:hover {
+  text-decoration: underline;
+}
+
+.task-content {
+  margin-bottom: 20px;
+}
+
+.task-content h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.task-content p {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.task-content a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.task-content a:hover {
+  text-decoration: underline;
+}
+
+.task-uploads {
+  margin-top: 20px;
+}
+
+.task-uploads h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.task-upload {
+  margin-bottom: 15px;
+}
+
+.task-upload p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.error-message {
+  color: var(--red);
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.no-task-message {
+  font-size: 16px;
+  margin-top: 20px;
+}

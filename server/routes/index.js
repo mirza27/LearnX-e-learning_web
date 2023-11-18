@@ -14,17 +14,21 @@ import {
   StudentClassList,
   JoinClass,
   ClassContent,
+  getClassDataStudent,
 } from "../controller/StudentClass.js";
 import {
   LecturerClassList,
   addNewClass,
   MyClassContent,
+  getClassData,
 } from "../controller/LecturerClass.js";
 import { GetTask, addTaskUpload, addNewTask } from "../controller/Task.js";
 import {
   addNewAnnouncement,
   getAnnouncement,
 } from "../controller/Announcement.js";
+import { getMaterial, addNewMaterial } from "../controller/Material.js";
+
 import { authenticateUser, logout } from "../middleware/auth.js";
 const router = express.Router();
 // const upload = uploadImage();
@@ -35,6 +39,7 @@ router.get("/student", authenticateUser, GetStudent);
 router.post("/student-register", StudentRegister);
 router.post("/student-login", StudentLogin);
 // class
+router.get("/student/getclass/:class_id", getClassDataStudent);
 router.post("/student/join-class", JoinClass);
 router.get("/student/class/:student_id", StudentClassList);
 router.get("/student/class/content/:class_id", ClassContent);
@@ -51,6 +56,7 @@ router.get("/lecturer", authenticateUser, GetLecturer);
 router.post("/lecturer-register", LecturerRegister);
 router.post("/lecturer-login", LecturerLogin);
 // class
+router.get("/lecturer/getclass/:class_id", getClassData);
 router.post("/lecturer/add-class", addNewClass);
 router.get("/lecturer/my-class/:lecturer_id", LecturerClassList);
 router.get("/lecturer/my-class/content/:class_id", MyClassContent);
@@ -58,7 +64,8 @@ router.get("/lecturer/my-class/content/:class_id", MyClassContent);
 router.get("/lecturer/my-class/content/task/:event_id", GetTask); // melihat task
 router.post("/lecturer/my-class/content/addtask", addNewTask);
 // material
-
+router.get("/lecturer/my-class/content/material/:event_id", getMaterial);
+router.post("/lecturer/my-class/content/addMaterial", addNewMaterial);
 // announcement
 router.get(
   "/lecturer/my-class/content/announcement/:event_id",

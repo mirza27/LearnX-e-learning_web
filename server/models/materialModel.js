@@ -19,7 +19,7 @@ const Material = db.define(
       type: DataTypes.INTEGER,
     },
     file: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     link: {

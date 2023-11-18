@@ -25,10 +25,10 @@ const TaskUpload = db.define(
     },
     file: {
       // byte blob
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: true,
     },
-    coment: {
+    comment: {
       type: DataTypes.TEXT,
       allowNull: true,
     },

@@ -1,9 +1,6 @@
 import Task from "../models/taskModel.js";
 import TaskUpload from "../models/taskUploadModel.js";
 import Event from "../models/eventModel.js";
-// import { uploadImage } from "../middleware/fileUpload.js";
-// const uploadImage = require("../middleware/fileUpload.js");
-// const uploadImage = require(fileUpload);
 
 // MENNGAMBIL TUGAS / TASK SERTA HASIL UPLOAD JIKA ADA
 export const GetTask = async (req, res) => {
@@ -15,7 +12,7 @@ export const GetTask = async (req, res) => {
     try {
       const TaskContent = await Event.findOne({
         where: { event_id: event_id },
-        attributes: ["createdAt"],
+        attributes: ["event_name", "createdAt"],
         include: [
           {
             model: Task,
@@ -28,7 +25,7 @@ export const GetTask = async (req, res) => {
                   "student_id",
                   "file",
                   "link",
-                  "coment",
+                  "comment",
                 ],
                 where: { student_id: student_id },
               },
@@ -100,7 +97,6 @@ export const addTaskUpload = async (req, res) => {
 // MEMBUAT TASK
 export const addNewTask = async (req, res) => {
   const { event_name, class_id, task_desc, file, link, deadline } = req.body;
-  console.log(event_name, class_id, task_desc, file, link);
 
   try {
     // Membuat data event

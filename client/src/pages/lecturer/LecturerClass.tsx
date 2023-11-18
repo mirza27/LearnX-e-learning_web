@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "../../styles/myclass.css";
+import "../../styles/content.css";
 
 interface LecturerClassProps {
   lecturer_id: string;
@@ -83,9 +84,9 @@ function LecturerClass(props: LecturerClassProps) {
             </li>
           </ul>
         </div>
-        <a href="#" className="btn-download">
+        <a href="/lecturer/myclass/create" className="btn-download">
           <i className="bx bxs-cloud-download"></i>
-          <span className="text">Download PDF</span>
+          <span className="text">Create New Class</span>
         </a>
       </div>
       <div className="wrapper">

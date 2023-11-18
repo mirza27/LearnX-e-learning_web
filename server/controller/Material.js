@@ -36,7 +36,7 @@ export const addNewMaterial = async (req, res) => {
     });
 
     await Material.create({
-      event_content: eventContent.event_id,
+      event_id: eventContent.event_id,
       file: file,
       link: link,
       material_name: material_name,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, NavLink } from "react-router-dom";
 import "../../styles/classContent.css";
+import "../../styles/eventList.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Icon } from "@iconify/react";
@@ -19,7 +19,27 @@ function LecturerClassContent(props: LecturerClassContentProps) {
   const { lecturer_id } = props;
   const { firstname } = props;
 
+  // path action add button
+  const menuItem = [
+    {
+      path: "/lecturer/task/create",
+      name: "Add Task",
+      icon: "fluent:clipboard-task-24-regular",
+    },
+    {
+      path: "/lecturer/material/create",
+      name: "Add Material",
+      icon: "bx:book",
+    },
+    {
+      path: "/lecturer/announcement/create",
+      name: "Announcement",
+      icon: "mdi:announcement-outline",
+    },
+  ];
+
   // deklarasi data untuk response
+  const [classData, setClassData] = useState<any>(null);
   const [dataEvent, setDataEvent] = useState<
     {
       event_category_id: number;
@@ -52,12 +72,20 @@ function LecturerClassContent(props: LecturerClassContentProps) {
     }
 
     try {
+      // mengambil data class
+      const responseClassData = await axios.get(
+        `http://localhost:5000/lecturer/getclass/${class_id}`,
+        {}
+      );
+      setClassData(responseClassData.data);
+
+      // mengambil data setiap item
       const response = await axios.get(
         `http://localhost:5000/lecturer/my-class/content/${class_id}`,
         {}
       );
       setDataEvent(response.data);
-      console.log(class_id, lecturer_id);
+
       if (response.data.message) {
         setMessage(response.data.message);
       }
@@ -95,78 +123,116 @@ function LecturerClassContent(props: LecturerClassContentProps) {
             </li>
           </ul>
         </div>
-        <a href="#" className="btn-download">
-          <i className="bx bxs-cloud-download"></i>
-          <span className="text">Add New Task</span>
-        </a>
       </div>
-
-      {/* MAIN HEADER / BANNER */}
+      {/* MAIN HEADER / CLASS BANNER */}
+      {classData ? (
+        <div className="class-banner">
+          <h1>{classData.class_name}</h1>
+          <p>{classData.desc}</p>
+          <p>#{classData.code}</p>
+          <p>
+            Created At :{" "}
+            {new Date(classData.createdAt).toISOString().split("T")[0]}
+          </p>
+        </div>
+      ) : (
+        <p>Loading class data...</p>
+      )}
 
       {/* LOOP EVENT EVENT CLASS */}
       <ul className="box-info">
         {dataEvent.map((event, index) =>
           event.materials.length > 0 ? ( // Kondisi pertama
-            <div className="box-item" key={index}>
-              <li>
-                <Icon className="bx-material" icon="bx:book" />
+            <div className="box-item blog-card" key={index}>
+              <Icon className="bx-material" icon="bx:book" />
 
+              <div className="description">
                 {event.materials.map((material) => (
                   <>
-                    <span className="text">
-                      <h4>{event.event_name}</h4>
-                      <h3>MATERIAL : {material.material_name}</h3>
-                    </span>
+                    <h1 className="material">{event.event_name}</h1>
+                    <h2>MATERIAL : {material.material_name}</h2>
                   </>
                 ))}
-                <div>
-                  <p>{event.createdAt}</p>
-                </div>
-              </li>
+                <p className="read-more">
+                  <a href="#">
+                    {new Date(event.createdAt).toLocaleString("en-US", {
+                      dateStyle: "long",
+                      timeStyle: "short",
+                    })}
+                  </a>
+                </p>
+              </div>
             </div>
           ) : event.tasks.length > 0 ? ( // Kondisi kedua
-            <div className="box-item" key={index}>
-              <li>
-                <Icon
-                  className="bx-task"
-                  icon="fluent:clipboard-task-24-regular"
-                />
+            <div className="box-item blog-card" key={index}>
+              <Icon
+                className="bx-task"
+                icon="fluent:clipboard-task-24-regular"
+              />
+
+              <div className="description">
                 {event.tasks.map((task) => (
                   <>
-                    <span className="text">
-                      <h4>{event.event_name}</h4>
-                      <h3>TASK : {task.task_name}</h3>
-                    </span>
+                    <h1 className="task">{event.event_name}</h1>
+                    <h2>TASK : {task.task_name}</h2>
                   </>
                 ))}
-                <div>
-                  <p>{event.createdAt}</p>
-                </div>
-              </li>
+                <p className="read-more">
+                  <a href="#">
+                    {new Date(event.createdAt).toLocaleString("en-US", {
+                      dateStyle: "long",
+                      timeStyle: "short",
+                    })}
+                  </a>
+                </p>
+              </div>
             </div>
           ) : event.announcements.length > 0 ? ( // Kondisi ketiga
-            <div className="box-item" key={index}>
-              <li>
-                <Icon
-                  className="bx-announcement"
-                  icon="mdi:announcement-outline"
-                />
+            <div className="box-item blog-card" key={index}>
+              <Icon
+                className="bx-announcement"
+                icon="mdi:announcement-outline"
+              />
+
+              <div className="description">
                 {event.announcements.map((announcement) => (
                   <>
-                    <span className="text">
-                      <h4>{event.event_name}</h4>
-                      <h3>TASK : {announcement.nama}</h3>
-                    </span>
+                    <h1 className="announcement">{event.event_name}</h1>
+                    <h2>ANNOUNCEMENT : {announcement.nama}</h2>
                   </>
                 ))}
-                <div>
-                  <p>{event.createdAt}</p>
-                </div>
-              </li>
+                <p className="read-more">
+                  <a href="#">
+                    {new Date(event.createdAt).toLocaleString("en-US", {
+                      dateStyle: "long",
+                      timeStyle: "short",
+                    })}
+                  </a>
+                </p>
+              </div>
             </div>
           ) : null
         )}
       </ul>
+
+      {/* action button */}
+      <div className="floating-container">
+        <div className="floating-button">+</div>
+        <div className="element-container">
+          {menuItem.map((item, index) => (
+            <>
+              <NavLink to={item.path} key={index} className="link">
+                <a href="#">
+                  <span className="float-element tooltip-left">
+                    <Icon className="material-icons" icon={item.icon} />
+                  </span>
+                </a>
+              </NavLink>
+            </>
+          ))}
+        </div>
+      </div>
+      {/* end action button  */}
     </main>
   );
 }

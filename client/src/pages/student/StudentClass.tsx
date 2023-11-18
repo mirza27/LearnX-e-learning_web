@@ -62,7 +62,6 @@ function StudentClass(props: StudentClassProps) {
   };
 
   useEffect(() => {
-    // Panggil GetClassList saat komponen dimuat
     GetClassList();
   }, [student_id]);
 
@@ -94,19 +93,11 @@ function StudentClass(props: StudentClassProps) {
             })
             // jika kelas berhasil ditambahkan
             .then((response) => {
-              if (response.data.status === "ok") {
-                Swal.fire({
-                  title: "Success!",
-                  text: "You have successfully joined the class.",
-                  icon: "success",
-                });
-              } else {
-                Swal.fire({
-                  title: "Warning!",
-                  text: response.data.message,
-                  icon: "error",
-                });
-              }
+              Swal.fire({
+                title: "Success!",
+                text: "You have successfully joined the class.",
+                icon: "success",
+              });
             })
             // jika kelas gagal ditambahkan / terdapat error
             .catch((error) => {
@@ -119,7 +110,12 @@ function StudentClass(props: StudentClassProps) {
         );
       },
     });
+    GetClassList();
   };
+
+  useEffect(() => {
+    GetClassList();
+  }, [student_id]);
 
   return (
     <main>

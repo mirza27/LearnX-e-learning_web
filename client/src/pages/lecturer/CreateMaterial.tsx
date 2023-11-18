@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Icon } from "@iconify/react";
 import "../../styles/form.css";
 
 const cloud_name = "dsr5gqz3v"; // Ganti dengan cloud name Anda
 const uploadPreset = "jbonmkha";
-const folder_name = "task";
+const folder_name = "material";
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
 
-interface LecturerTaskProps {
+interface LecturerMaterialProps {
   lecturer_id: string;
 }
 
-function LecturerTask(props: LecturerTaskProps) {
+function CreateMaterial(props: LecturerMaterialProps) {
   const { lecturer_id } = props;
-  // deklarasi data untuk response select class
   const [dataClass, setDataClass] = useState<
     {
       class_id: string;
@@ -25,14 +25,15 @@ function LecturerTask(props: LecturerTaskProps) {
 
   // menampilkan data untuk select class
   const GetClassList = async () => {
-    // if (!lecturer_id) {
-    //   console.log("belum login");
-    //   navigate("/login");
-    // }
+    if (!lecturer_id) {
+      console.log("belum login");
+      navigate("/login");
+    }
 
+    // menampilkan data untuk select class
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/LE4876`,
+        `http://localhost:5000/lecturer/my-class/${lecturer_id}/`,
         {}
       );
 
@@ -57,19 +58,17 @@ function LecturerTask(props: LecturerTaskProps) {
   }, [lecturer_id]);
 
   const [eventName, setEventName] = useState("");
-  const [taskName, setTaskName] = useState("");
-  const [desc, setDesc] = useState("");
+  const [materialName, setMaterialName] = useState("");
   const [link, setLink] = useState("");
   const [classId, setClassId] = useState("");
-  const [deadline, setDeadline] = useState("");
 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  // variabel untuk file gambar
+  // mengupload file
   const [uploadedImage, setUploadedImage] = useState<string | null>(null); // link  nama gambar
   const [selectedFile, setSelectedFile] = useState<File | null>(null); // file yang harus dikirim
-
+  // menampilknkan preview
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -77,7 +76,6 @@ function LecturerTask(props: LecturerTaskProps) {
     }
   };
 
-  // melakukan upload file untuk mendapat link file
   const handleUpload = async () => {
     if (selectedFile) {
       // form untuk data file upload
@@ -110,20 +108,17 @@ function LecturerTask(props: LecturerTaskProps) {
       }
     }
   };
-
   // melakukan upload ke backend setelah mendapat link upload file
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/lecturer/my-class/content/addtask",
+        "http://localhost:5000/lecturer/my-class/content/addMaterial",
         {
           event_name: eventName,
-          task_name: taskName,
-          task_desc: desc,
-          class_id: classId,
+          materialName: materialName,
           file: uploadedImage,
           link: link,
-          deadline: deadline,
+          class_id: classId,
         }
       );
 
@@ -148,7 +143,7 @@ function LecturerTask(props: LecturerTaskProps) {
     <main>
       <div className="head-title">
         <div className="left">
-          <h1>Create Task</h1>
+          <h1>Create New Material</h1>
           <ul className="breadcrumb">
             <li>
               <a href="#">Dashboard</a>
@@ -158,7 +153,7 @@ function LecturerTask(props: LecturerTaskProps) {
             </li>
             <li>
               <a className="" href="#">
-                My Task
+                Material
               </a>
             </li>
             <li>
@@ -166,7 +161,7 @@ function LecturerTask(props: LecturerTaskProps) {
             </li>
             <li>
               <a className="active" href="#">
-                Create Task
+                Create Material
               </a>
             </li>
           </ul>
@@ -177,8 +172,9 @@ function LecturerTask(props: LecturerTaskProps) {
         </a>
       </div>
 
+      {/* FORM ADD A TASK  */}
       <ul className="box-info">
-        <h2>Task Information</h2>
+        <h2>Material Header</h2>
         <li>
           <div className="form-group">
             <label>
@@ -196,29 +192,19 @@ function LecturerTask(props: LecturerTaskProps) {
         <li>
           <div className="form-group">
             <label>
-              Task Name<span>*</span>
+              Material Name<span>*</span>
             </label>
             <input
               type="text"
               id="task-name"
-              value={taskName}
-              onChange={(e) => setTaskName(e.target.value)}
-              placeholder="Task Module No 3.."
+              value={materialName}
+              onChange={(e) => setMaterialName(e.target.value)}
+              placeholder="Module No 3.."
             />
           </div>
         </li>
 
-        <h2>Task Detail</h2>
-        <li>
-          <div className="form-group">
-            <label>Task Description</label>
-            <textarea
-              id="task-desc"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-            ></textarea>
-          </div>
-        </li>
+        <h2>Material Detail</h2>
         <li>
           <div className="form-group">
             <label>Class :</label>
@@ -244,21 +230,11 @@ function LecturerTask(props: LecturerTaskProps) {
               id="link"
               value={link}
               onChange={(e) => setLink(e.target.value)}
-              placeholder="Task link"
+              placeholder="Material.com..."
             />
           </div>
         </li>
-        <li>
-          <div className="form-group">
-            <label>Deadline</label>
-            <input
-              type="date"
-              id="deadline"
-              value={deadline}
-              onChange={(e) => setDeadline(e.target.value)}
-            />
-          </div>
-        </li>
+
         <h2>Attachment</h2>
         <li>
           <div className="form-group">
@@ -284,8 +260,9 @@ function LecturerTask(props: LecturerTaskProps) {
             )}
           </div>
         </li>
+        {/* add task submit button */}
         <input
-          value="Add Task"
+          value="Add Material"
           type="submit"
           onClick={handleSubmit}
           id="create-resume"
@@ -295,4 +272,4 @@ function LecturerTask(props: LecturerTaskProps) {
   );
 }
 
-export default LecturerTask;
+export default CreateMaterial;

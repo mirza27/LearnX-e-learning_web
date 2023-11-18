@@ -34,9 +34,39 @@ export const LecturerClassList = async (req, res) => {
   }
 };
 
+// GET CLASS DATA
+export const getClassData = async (req, res) => {
+  const class_id = req.params.class_id;
+
+  try {
+    const classData = await Classes.findOne({
+      where: { class_id: class_id },
+      attributes: [
+        "class_id",
+        "class_name",
+        "desc",
+        "createdAt",
+        "category",
+        "code",
+      ],
+    });
+
+    // Convert createdAt to a formatted string
+    if (classData && classData.createdAt instanceof Date) {
+      classData.createdAt = classData.createdAt.toISOString().split("T")[0];
+    }
+
+    console.log(classData.createdAt);
+    res.status(200).json(classData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error", error: error });
+  }
+};
+
 // ADD NEW CLASS ==================================
 export const addNewClass = async (req, res) => {
-  const { lecturer_id, class_name, desc } = req.body;
+  const { lecturer_id, class_name, desc, category } = req.body;
 
   if (!class_name) {
     return res.status(400).json({
@@ -51,9 +81,10 @@ export const addNewClass = async (req, res) => {
         lecturer_id: lecturer_id,
         desc: desc,
         code: classCode,
+        category: category,
       });
       res.status(200).json({
-        message: "New Class created successfully",
+        message: `New Class created successfully with code ${classCode}`,
       });
     } catch (error) {
       console.log(error);
@@ -69,7 +100,13 @@ export const MyClassContent = async (req, res) => {
   try {
     const classContent = await Event.findAll({
       where: { class_id: class_id },
-      attributes: ["event_category_id", "event_name", "class_id", "createdAt"],
+      attributes: [
+        "event_id",
+        "event_category_id",
+        "event_name",
+        "class_id",
+        "createdAt",
+      ],
       include: [
         {
           model: Material,

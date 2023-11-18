@@ -7,6 +7,7 @@ import StudentDashboard from "./StudentDashboard";
 import StudentClass from "./StudentClass";
 import StudentClassContent from "./StudentClassContent";
 import { useNavigate } from "react-router-dom";
+import StudentTask from "./StudentTask";
 // import "../../styles/content.css";
 
 function StudentPage() {
@@ -39,6 +40,9 @@ function StudentPage() {
         const student = responseData.student;
         setStudent_id(student.student_id);
         setFirstName(student.firstname);
+
+        localStorage.setItem("token", responseData.token);
+        localStorage.setItem("lecturer_id", student.student_id);
       } else {
         // Pengguna tidak memiliki cookie, arahkan ke rute /login
         navigate("/login");
@@ -80,6 +84,10 @@ function StudentPage() {
                 firstname={firstname}
               />
             }
+          />
+          <Route
+            path="/class/content/task"
+            element={<StudentTask student_id={student_id} />}
           />
         </Routes>
       </section>

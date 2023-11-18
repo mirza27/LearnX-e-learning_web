@@ -8,7 +8,10 @@ import LecturerClass from "./LecturerClass";
 import LecturerClassContent from "./LecturerClassContent";
 import "../../styles/content.css";
 import { SidebarListener } from "../../eventListener/SidebarListener";
-import LecturerTask from "./LecturerTask";
+import CreateTask from "./CreateTask";
+import CreateMaterial from "./CreateMaterial";
+import CreateAnnoun from "./CreateAnnouncement";
+import CreateClass from "./CreateClass";
 
 function LecturerPage() {
   const [firstname, setFirstName] = useState("");
@@ -44,6 +47,7 @@ function LecturerPage() {
 
         // menyimpan token ke local
         localStorage.setItem("token", responseData.token);
+        localStorage.setItem("lecturer_id", lecturer.lecturer_id);
       } else {
         // Pengguna tidak memiliki cookie, arahkan ke rute /login
         navigate("/login");
@@ -104,8 +108,21 @@ function LecturerPage() {
             }
           />
           <Route
+            path="/myclass/create"
+            element={<CreateClass lecturer_id={lecturer_id} />}
+          />
+          <Route
             path="/task/create"
-            element={<LecturerTask lecturer_id={lecturer_id} />}
+            element={<CreateTask lecturer_id={lecturer_id} />}
+          />
+          <Route
+            path="/material/create"
+            element={<CreateMaterial lecturer_id={lecturer_id} />}
+          />
+
+          <Route
+            path="/announcement/create"
+            element={<CreateAnnoun lecturer_id={lecturer_id} />}
           />
         </Routes>
       </section>
