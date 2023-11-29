@@ -23,6 +23,7 @@ function LecturerClass(props: LecturerClassProps) {
       code: string;
       category: string;
       desc: string;
+      createdAt: string;
     }[]
   >([]);
 
@@ -99,14 +100,79 @@ function LecturerClass(props: LecturerClassProps) {
           >
             <div className="card-banner">
               <p className="category-tag popular">{lecturerClass.category}</p>
-              <img
-                className="banner-img"
-                src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-                alt=""
-              />
+              {lecturerClass.category === "programming" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182576/classCategory/eyvq7v7hlqrxepqb02od.jpg"
+                  alt=""
+                />
+              )}
+              {lecturerClass.category === "math" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/pugqhj6eha4axzgmtk3v.jpg"
+                  alt=""
+                />
+              )}
+              {lecturerClass.category === "science" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/rgtymjlcjh0pifznxmlr.jpg"
+                  alt=""
+                />
+              )}
+              {lecturerClass.category === "art" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182576/classCategory/zyfwwpwrkwmrbribwwdd.jpg"
+                  alt=""
+                />
+              )}
+              {lecturerClass.category === "history" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/unlykbmaoq82sqbvbxxw.jpg"
+                  alt=""
+                />
+              )}
+              {lecturerClass.category === "social" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182576/classCategory/syjags0axrhn3mpeej3w.jpg"
+                  alt=""
+                />
+              )}
+              {lecturerClass.category === "tech" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/iar7ddihjk4bjuxg3t7k.jpg"
+                  alt=""
+                />
+              )}
+              {lecturerClass.category === "religion" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/qkyyic5erf743yfj56ss.jpg"
+                  alt=""
+                />
+              )}
+              {lecturerClass.category === "business" && (
+                <img
+                  className="banner-img"
+                  src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182578/classCategory/oq4i4fdciqiptxeunqhu.jpg"
+                  alt=""
+                />
+              )}
             </div>
             <div className="card-body">
               <p className="blog-hashtag">#{lecturerClass.code}</p>
+              <p className="blog-hashtag">
+                created at {}
+                {new Date(lecturerClass.createdAt).toLocaleString("en-ID", {
+                  dateStyle: "short",
+                  timeStyle: "short",
+                })}
+              </p>
               <h2 className="blog-title">{lecturerClass.class_name}</h2>
               <p className="blog-description">{lecturerClass.desc}</p>
               <div className="card-profile">

@@ -10,6 +10,9 @@
   text-align: left;
 }
 
+main {
+  overflow: hidden;
+}
 .class-banner h1 {
   font-size: 2em;
   margin-bottom: 10px;
@@ -30,7 +33,7 @@
   line-height: 1.4;
   font-family: sans-serif;
   border-radius: 5px;
-  overflow: hidden;
+  overflow-y: hidden;
   z-index: 0;
 }
 

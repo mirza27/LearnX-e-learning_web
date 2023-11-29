@@ -1,4 +1,8 @@
 /* NAVBAR */
+
+/* nav {
+  overflow: hidden;
+} */
 #content nav {
   height: 56px;
   background: var(--light);

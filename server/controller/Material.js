@@ -6,9 +6,9 @@ export const getMaterial = async (req, res) => {
   const event_id = req.params.event_id;
 
   try {
-    const materialContent = await Material.findOne({
+    const materialContent = await Event.findOne({
       where: { event_id: event_id },
-      attributes: ["createdAt"],
+      attributes: ["event_name", "createdAt"],
       include: [
         {
           model: Material,

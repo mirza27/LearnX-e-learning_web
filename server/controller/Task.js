@@ -16,7 +16,14 @@ export const GetTask = async (req, res) => {
         include: [
           {
             model: Task,
-            attributes: ["task_name", "task_desc", "file", "link", "deadline"],
+            attributes: [
+              "task_id",
+              "task_name",
+              "task_desc",
+              "file",
+              "link",
+              "deadline",
+            ],
             include: [
               {
                 model: TaskUpload,
@@ -28,6 +35,7 @@ export const GetTask = async (req, res) => {
                   "comment",
                 ],
                 where: { student_id: student_id },
+                required: false, // jika student_id tidak ada tetap menampilkan data Task
               },
             ],
           },

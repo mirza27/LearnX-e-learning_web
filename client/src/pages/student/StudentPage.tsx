@@ -8,6 +8,8 @@ import StudentClass from "./StudentClass";
 import StudentClassContent from "./StudentClassContent";
 import { useNavigate } from "react-router-dom";
 import StudentTask from "./StudentTask";
+import AnnouncementPage from "../AnnouncementPage";
+import MaterialPage from "../MaterialPage";
 // import "../../styles/content.css";
 
 function StudentPage() {
@@ -41,8 +43,8 @@ function StudentPage() {
         setStudent_id(student.student_id);
         setFirstName(student.firstname);
 
-        localStorage.setItem("token", responseData.token);
-        localStorage.setItem("lecturer_id", student.student_id);
+        localStorage.setItem("student_token", responseData.token);
+        localStorage.setItem("student_id", student.student_id);
       } else {
         // Pengguna tidak memiliki cookie, arahkan ke rute /login
         navigate("/login");
@@ -88,6 +90,14 @@ function StudentPage() {
           <Route
             path="/class/content/task"
             element={<StudentTask student_id={student_id} />}
+          />
+          <Route
+            path="/class/content/announcement"
+            element={<AnnouncementPage is_lecturer={false} />}
+          />
+          <Route
+            path="/class/content/material"
+            element={<MaterialPage is_lecturer={false} />}
           />
         </Routes>
       </section>

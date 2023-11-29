@@ -46,9 +46,6 @@ router.get("/student/class/content/:class_id", ClassContent);
 // task
 router.get("/student/class/content/task/:event_id/:student_id", GetTask); // melihat task
 router.post("/student/class/content/task/upload", addTaskUpload);
-// material
-// announcement
-router.get("/student/class/content/announcement/:event_id", getAnnouncement);
 
 // LECTURER ====================================================
 // autentikasi
@@ -67,15 +64,14 @@ router.post("/lecturer/my-class/content/addtask", addNewTask);
 router.get("/lecturer/my-class/content/material/:event_id", getMaterial);
 router.post("/lecturer/my-class/content/addMaterial", addNewMaterial);
 // announcement
-router.get(
-  "/lecturer/my-class/content/announcement/:event_id",
-  getAnnouncement
-);
 router.post(
   "/lecturer/my-class/content/announcement/addAnnouncement",
   addNewAnnouncement
 );
 
+// BOTH LECTURER OR STUDENT
+router.get("/user/event/announcement/:event_id", getAnnouncement);
+router.get("/user/event/material/:event_id", getMaterial);
 router.get("/logout", logout);
 
 export default router;

@@ -10,7 +10,7 @@ interface LecturerClassProps {
 }
 
 function CreateClass(props: LecturerClassProps) {
-  var { lecturer_id } = props;
+  let { lecturer_id } = props;
   const [className, setClassName] = useState("");
   const [desc, setdesc] = useState("");
   const [category, setcategory] = useState("");

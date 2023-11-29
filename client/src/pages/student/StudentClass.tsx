@@ -151,15 +151,77 @@ function StudentClass(props: StudentClassProps) {
             >
               <div className="card-banner">
                 <p className="category-tag popular">{classItem.category}</p>
-                <img
-                  className="banner-img"
-                  src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-                  alt=""
-                />
+                {classItem.category === "programming" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182576/classCategory/eyvq7v7hlqrxepqb02od.jpg"
+                    alt=""
+                  />
+                )}
+                {classItem.category === "math" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/pugqhj6eha4axzgmtk3v.jpg"
+                    alt=""
+                  />
+                )}
+                {classItem.category === "science" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/rgtymjlcjh0pifznxmlr.jpg"
+                    alt=""
+                  />
+                )}
+                {classItem.category === "art" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182576/classCategory/zyfwwpwrkwmrbribwwdd.jpg"
+                    alt=""
+                  />
+                )}
+                {classItem.category === "history" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/unlykbmaoq82sqbvbxxw.jpg"
+                    alt=""
+                  />
+                )}
+                {classItem.category === "social" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182576/classCategory/syjags0axrhn3mpeej3w.jpg"
+                    alt=""
+                  />
+                )}
+                {classItem.category === "tech" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/iar7ddihjk4bjuxg3t7k.jpg"
+                    alt=""
+                  />
+                )}
+                {classItem.category === "religion" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/qkyyic5erf743yfj56ss.jpg"
+                    alt=""
+                  />
+                )}
+                {classItem.category === "business" && (
+                  <img
+                    className="banner-img"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182578/classCategory/oq4i4fdciqiptxeunqhu.jpg"
+                    alt=""
+                  />
+                )}
               </div>
               <div className="card-body">
                 <p className="blog-hashtag">
-                  bergabung pada {studentClass.createdAt}
+                  bergabung pada <br />
+                  {new Date(studentClass.createdAt).toLocaleString("en-ID", {
+                    dateStyle: "short",
+                    timeStyle: "short",
+                  })}
                 </p>
                 <h2 className="blog-title">{classItem.class_name}</h2>
                 <p className="blog-description">{classItem.desc}</p>

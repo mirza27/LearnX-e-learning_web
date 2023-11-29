@@ -8,7 +8,7 @@ export const getAnnouncement = async (req, res) => {
   try {
     const announcementContent = await Event.findOne({
       where: { event_id: event_id },
-      attributes: ["createdAt"],
+      attributes: ["event_name", "createdAt"],
       include: [
         {
           model: Announcement,

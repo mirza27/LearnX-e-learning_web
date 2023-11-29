@@ -2,6 +2,7 @@
   background-color: var(--light);
   padding: 20px;
   border-radius: 8px;
+  margin-top: 3%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -14,6 +15,17 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+}
+
+.task-detail-container .task-title {
+  color: var(--blue);
+}
+.task-detail-container .task-meta p {
+  color: var(--yellow);
+}
+
+.task-detail-container .task-content {
+  color: var(--yellow);
 }
 
 .task-meta p {
@@ -33,13 +45,30 @@
 .task-content {
   margin-bottom: 20px;
 }
+.task-content button {
+  padding: 10px 20px;
+  margin: 2% 10px;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  background-color: var(--blue);
+  color: var(--light);
+}
+
+.close-modal {
+  font-family: "Poppins", sans-serif;
+  border: none;
+  background-color: var(--blue);
+  color: var(--light);
+}
 
 .task-content h2 {
+  color: var(--dark);
   font-size: 24px;
   margin-bottom: 10px;
 }
 
 .task-content p {
+  color: var(--dark);
   font-size: 16px;
   margin-bottom: 15px;
 }
@@ -58,6 +87,7 @@
 }
 
 .task-uploads h3 {
+  color: var(--orange);
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -77,7 +107,9 @@
   margin-top: 20px;
 }
 
-.no-task-message {
+.task-content .no-task-message {
   font-size: 16px;
   margin-top: 20px;
+  font-style: oblique;
+  color: var(--orange);
 }

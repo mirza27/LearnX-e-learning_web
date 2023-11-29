@@ -12,6 +12,8 @@ import CreateTask from "./CreateTask";
 import CreateMaterial from "./CreateMaterial";
 import CreateAnnoun from "./CreateAnnouncement";
 import CreateClass from "./CreateClass";
+import AnnouncementPage from "../AnnouncementPage";
+import MaterialPage from "../MaterialPage";
 
 function LecturerPage() {
   const [firstname, setFirstName] = useState("");
@@ -123,6 +125,14 @@ function LecturerPage() {
           <Route
             path="/announcement/create"
             element={<CreateAnnoun lecturer_id={lecturer_id} />}
+          />
+          <Route
+            path="/myclass/content/announcement"
+            element={<AnnouncementPage is_lecturer={true} />}
+          />
+          <Route
+            path="/myclass/content/material"
+            element={<MaterialPage is_lecturer={true} />}
           />
         </Routes>
       </section>

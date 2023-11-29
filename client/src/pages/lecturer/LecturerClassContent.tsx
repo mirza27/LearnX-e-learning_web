@@ -43,6 +43,7 @@ function LecturerClassContent(props: LecturerClassContentProps) {
   const [dataEvent, setDataEvent] = useState<
     {
       event_category_id: number;
+      event_id: number;
       event_name: string;
       createdAt: string;
       materials: Array<{
@@ -100,6 +101,17 @@ function LecturerClassContent(props: LecturerClassContentProps) {
     }
   };
 
+  // navigasi ke class content / detail kelas
+  const goToLecturerTaskDetail = (event_id: any) => {
+    navigate("task", { state: { event_id } });
+  };
+  const goToLecturerMaterialDetail = (event_id: any) => {
+    navigate("material", { state: { event_id } });
+  };
+  const goToLecturerAnnouncementDetail = (event_id: any) => {
+    navigate("announcement", { state: { event_id } });
+  };
+
   useEffect(() => {
     GetClassList();
   }, [lecturer_id]);
@@ -146,7 +158,10 @@ function LecturerClassContent(props: LecturerClassContentProps) {
             <div className="box-item blog-card" key={index}>
               <Icon className="bx-material" icon="bx:book" />
 
-              <div className="description">
+              <div
+                className="description"
+                onClick={() => goToLecturerMaterialDetail(event.event_id)}
+              >
                 {event.materials.map((material) => (
                   <>
                     <h1 className="material">{event.event_name}</h1>
@@ -170,7 +185,10 @@ function LecturerClassContent(props: LecturerClassContentProps) {
                 icon="fluent:clipboard-task-24-regular"
               />
 
-              <div className="description">
+              <div
+                className="description"
+                onClick={() => goToLecturerTaskDetail(event.event_id)}
+              >
                 {event.tasks.map((task) => (
                   <>
                     <h1 className="task">{event.event_name}</h1>
@@ -194,7 +212,10 @@ function LecturerClassContent(props: LecturerClassContentProps) {
                 icon="mdi:announcement-outline"
               />
 
-              <div className="description">
+              <div
+                className="description"
+                onClick={() => goToLecturerAnnouncementDetail(event.event_id)}
+              >
                 {event.announcements.map((announcement) => (
                   <>
                     <h1 className="announcement">{event.event_name}</h1>

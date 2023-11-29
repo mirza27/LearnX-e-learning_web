@@ -24,7 +24,14 @@ export const LecturerClassList = async (req, res) => {
 
     const LecturerClass = await Classes.findAll({
       where: { lecturer_id: lecturer_id },
-      attributes: ["class_id", "class_name", "code", "desc"],
+      attributes: [
+        "class_id",
+        "class_name",
+        "code",
+        "desc",
+        "category",
+        "createdAt",
+      ],
     });
 
     res.status(200).json(LecturerClass);
