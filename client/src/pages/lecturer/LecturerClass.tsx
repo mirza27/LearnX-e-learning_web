@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "../../styles/myclass.css";
@@ -85,10 +85,10 @@ function LecturerClass(props: LecturerClassProps) {
             </li>
           </ul>
         </div>
-        <a href="/lecturer/myclass/create" className="btn-download">
+        <Link to="create" className="btn-download">
           <i className="bx bxs-cloud-download"></i>
           <span className="text">Create New Class</span>
-        </a>
+        </Link>
       </div>
       <div className="wrapper">
         {/* Loop dan navigasi ke content class*/}
@@ -170,7 +170,6 @@ function LecturerClass(props: LecturerClassProps) {
                 created at {}
                 {new Date(lecturerClass.createdAt).toLocaleString("en-ID", {
                   dateStyle: "short",
-                  timeStyle: "short",
                 })}
               </p>
               <h2 className="blog-title">{lecturerClass.class_name}</h2>

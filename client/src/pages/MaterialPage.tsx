@@ -113,6 +113,7 @@ function MaterialPage(props: EventProps) {
               <h1 className="task-title">{materialData.event_name}</h1>
               <div className="task-meta">
                 <p>
+                  Created At :
                   {new Date(materialData.createdAt).toLocaleString("en-ID", {
                     dateStyle: "long",
                     timeStyle: "short",
@@ -203,6 +204,7 @@ function MaterialPage(props: EventProps) {
               <h1 className="task-title">{materialData.event_name}</h1>
               <div className="task-meta">
                 <p>
+                  Created At :
                   {new Date(materialData.createdAt).toLocaleString("en-ID", {
                     dateStyle: "long",
                     timeStyle: "short",

@@ -80,7 +80,7 @@ input[type="text"],
 input[type="date"],
 textarea {
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 350;
   font-family: inherit;
   box-sizing: border-box;
   padding: 8px 16px;

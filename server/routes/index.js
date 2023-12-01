@@ -22,7 +22,13 @@ import {
   MyClassContent,
   getClassData,
 } from "../controller/LecturerClass.js";
-import { GetTask, addTaskUpload, addNewTask } from "../controller/Task.js";
+import {
+  GetTask,
+  addTaskUpload,
+  addNewTask,
+  getTaskUpload,
+  updateTaskUpload,
+} from "../controller/Task.js";
 import {
   addNewAnnouncement,
   getAnnouncement,
@@ -46,6 +52,8 @@ router.get("/student/class/content/:class_id", ClassContent);
 // task
 router.get("/student/class/content/task/:event_id/:student_id", GetTask); // melihat task
 router.post("/student/class/content/task/upload", addTaskUpload);
+router.get("/student/class/content/taskUpload/:task_upload_id", getTaskUpload); // melihat task uplaod
+router.post("/student/class/content/taskUpload/update", updateTaskUpload); // update task_upload
 
 // LECTURER ====================================================
 // autentikasi

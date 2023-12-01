@@ -14,7 +14,6 @@
 .task-meta {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
 }
 
 .task-detail-container .task-title {
@@ -26,6 +25,9 @@
 
 .task-detail-container .task-content {
   color: var(--yellow);
+}
+.task-detail-container .task-content-update {
+  color: var(--dark);
 }
 
 .task-meta p {
@@ -47,7 +49,7 @@
 }
 .task-content button {
   padding: 10px 20px;
-  margin: 2% 10px;
+  margin: 5px 10px;
   font-family: "Poppins", sans-serif;
   border: none;
   background-color: var(--blue);
@@ -70,7 +72,7 @@
 .task-content p {
   color: var(--dark);
   font-size: 16px;
-  margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 .task-content a {
@@ -98,7 +100,6 @@
 
 .task-upload p {
   font-size: 16px;
-  margin-bottom: 8px;
 }
 
 .error-message {
@@ -112,4 +113,11 @@
   margin-top: 20px;
   font-style: oblique;
   color: var(--orange);
+}
+
+.late-status .late {
+  color: var(--orange);
+}
+.late-status .not-late {
+  color: var(--blue);
 }

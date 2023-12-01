@@ -9,7 +9,6 @@ import { Icon } from "@iconify/react";
 
 interface StudentClassContentProps {
   student_id: string;
-  firstname: string;
 }
 
 function StudentClassContent(props: StudentClassContentProps) {
@@ -18,7 +17,6 @@ function StudentClassContent(props: StudentClassContentProps) {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const { student_id } = props;
-  const { firstname } = props;
 
   // deklarasi data untuk response
   const [classData, setClassData] = useState<any>(null);
@@ -48,12 +46,6 @@ function StudentClassContent(props: StudentClassContentProps) {
       }>;
     }[]
   >([]);
-
-  const checkAuth = async () => {
-    if (!student_id) {
-      navigate("/login");
-    }
-  };
 
   const GetClassList = async () => {
     try {
@@ -97,8 +89,9 @@ function StudentClassContent(props: StudentClassContentProps) {
   };
 
   useEffect(() => {
-    checkAuth();
-    GetClassList();
+    if (student_id) {
+      GetClassList();
+    }
   }, [student_id]);
 
   return (

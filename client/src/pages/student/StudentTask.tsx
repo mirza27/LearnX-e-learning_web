@@ -116,7 +116,6 @@ function StudentTask(props: StudentClassTaskProps) {
   // melakukan upload ke backend setelah mendapat link upload file
   const handleSubmit = async (taskId: string) => {
     try {
-      console.log("melakukan upload dengan task id: " + taskId);
       const response = await axios.post(
         "http://localhost:5000/student/class/content/task/upload",
         {
@@ -144,10 +143,19 @@ function StudentTask(props: StudentClassTaskProps) {
         icon: "error",
       });
     }
+
+    navigate("", { state: { event_id } }); // reload halaman setelah submit
+  };
+
+  // navigasi untuk update task
+  const updateTaskUpload = (task_upload_id: any) => {
+    navigate("update", { state: { task_upload_id } });
   };
 
   useEffect(() => {
-    GetTask();
+    if (student_id) {
+      GetTask();
+    }
   }, [student_id]);
 
   return (
@@ -194,127 +202,169 @@ function StudentTask(props: StudentClassTaskProps) {
         {taskData && (
           <div>
             <h1 className="task-title">{taskData.event_name}</h1>
-            <div className="task-meta">
-              <p>
-                {new Date(taskData.createdAt).toLocaleString("en-ID", {
-                  dateStyle: "long",
-                  timeStyle: "short",
-                })}
-              </p>
-            </div>
+
             {taskData.tasks && taskData.tasks.length > 0 ? (
               taskData.tasks.map((task: any) => (
-                <div key={task.task_name} className="task-content">
-                  <h2>Task Name : {task.task_name}</h2>
-
-                  {task.file && (
-                    <>
-                      <button onClick={() => showPdf(task.file)}>
-                        Look Task Document
-                      </button>
-                      <button onClick={() => downloadPdf(task.file)}>
-                        Download Taks Document
-                      </button>
+                <>
+                  <div key={task.task_name} className="task-content">
+                    <h2>Task Name : {task.task_name}</h2>
+                    <div className="task-meta">
                       <p>
-                        Task link :<a href={task.file}> {task.file}</a>
+                        Created at : {}
+                        {new Date(taskData.createdAt).toLocaleString("en-ID", {
+                          dateStyle: "long",
+                          timeStyle: "short",
+                        })}
                       </p>
-                    </>
-                  )}
-                  {task.link && (
-                    <p>
-                      Task Link :<a href={task.link}>{task.link}</a>
-                    </p>
-                  )}
-
-                  {task.deadline && (
-                    <p>
-                      Deadline:{" "}
-                      {new Date(task.deadline).toLocaleString("en-ID", {
-                        dateStyle: "long",
-                        timeStyle: "short",
-                      })}
-                    </p>
-                  )}
-
-                  {task.task_uploads && task.task_uploads.length > 0 ? (
-                    <div className="task-uploads">
-                      <h3>Your Assignment : </h3>
-                      {task.task_uploads.map((upload: any) => (
-                        <div
-                          key={upload.task_Upload_id}
-                          className="task-upload"
-                        >
-                          {upload.file && (
-                            <>
-                              <button onClick={() => showPdf(upload.file)}>
-                                Look Task Document
-                              </button>
-                              <button onClick={() => downloadPdf(upload.file)}>
-                                Download Taks Document
-                              </button>
-                              <p>
-                                File Link:
-                                <a href={upload.file}>{upload.file}</a>
-                              </p>
-                            </>
-                          )}
-                          {upload.link && (
-                            <p>
-                              Link:{" "}
-                              <a
-                                href={upload.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {upload.link}
-                              </a>
-                            </p>
-                          )}
-                          {upload.comment && <p>Comment : {upload.comment}</p>}
-                        </div>
-                      ))}
                     </div>
-                  ) : (
-                    <>
-                      {/*jika belum ada pengerjaan tugas */}
-                      <p className="no-task-message">
-                        You haven't uploaded your assignment yet
+
+                    {task.file && (
+                      <>
+                        <button onClick={() => showPdf(task.file)}>
+                          Look Task Document
+                        </button>
+                        <button onClick={() => downloadPdf(task.file)}>
+                          Download Taks Document
+                        </button>
+                        <p>
+                          Task link :<a href={task.file}> {task.file}</a>
+                        </p>
+                      </>
+                    )}
+                    {task.link && (
+                      <p>
+                        Task Link :<a href={task.link}>{task.link}</a>
                       </p>
-                      <div className="form-group">
-                        <label>File or Image or PDF</label>
-                        <input
-                          type="file"
-                          accept="image/*, application/pdf"
-                          onChange={handleFileChange}
-                        />
-                        <button onClick={handleUpload}>Upload File</button>
-                        {uploadedImage && <p>Assignmnet is submited</p>}
-                      </div>
-                      <div className="form-group">
-                        <label>Task Upload Link</label>
-                        <input
-                          type="text"
-                          id="link"
-                          value={link}
-                          onChange={(e) => setLink(e.target.value)}
-                          placeholder="Task link"
-                        />
-                        <label>Task Upload Description</label>
-                        <textarea
-                          id="task-desc"
-                          value={comment}
-                          onChange={(e) => setComment(e.target.value)}
-                        ></textarea>
-                      </div>
-                      <input
-                        value="Submit your assignments"
-                        type="submit"
-                        onClick={() => handleSubmit(task.task_id)}
-                        id="create-resume"
-                      />
-                    </>
-                  )}
-                </div>
+                    )}
+
+                    {task.deadline && (
+                      <p>
+                        Deadline:{" "}
+                        {new Date(task.deadline).toLocaleString("en-ID", {
+                          dateStyle: "long",
+                          timeStyle: "short",
+                        })}
+                      </p>
+                    )}
+
+                    <div className="task-detail-container">
+                      {task.task_uploads && task.task_uploads.length > 0 ? (
+                        <div className="task-uploads">
+                          <h3>Your Assignment </h3>
+                          <hr />
+                          <br />
+                          {task.task_uploads.map((upload: any) => (
+                            <>
+                              <div key={upload.task_Upload_id} className="">
+                                {upload.file && (
+                                  <>
+                                    <button
+                                      onClick={() => showPdf(upload.file)}
+                                    >
+                                      Look Task Document
+                                    </button>
+                                    <button
+                                      onClick={() => downloadPdf(upload.file)}
+                                    >
+                                      Download Task Document
+                                    </button>
+                                    <p>
+                                      File Link:
+                                      <a href={upload.file}>{upload.file}</a>
+                                    </p>
+                                  </>
+                                )}
+                                {upload.link && (
+                                  <p>
+                                    Link:{" "}
+                                    <a
+                                      href={upload.link}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {upload.link}
+                                    </a>
+                                  </p>
+                                )}
+                                {upload.comment && (
+                                  <p>Comment : {upload.comment}</p>
+                                )}
+                                <div className="task-meta">
+                                  <p>
+                                    Submited at : {}
+                                    {new Date(upload.updatedAt).toLocaleString(
+                                      "en-ID",
+                                      {
+                                        dateStyle: "long",
+                                        timeStyle: "short",
+                                      }
+                                    )}
+                                  </p>
+                                </div>
+                                <button
+                                  onClick={() =>
+                                    updateTaskUpload(upload.task_upload_id)
+                                  }
+                                >
+                                  Edit Attachment
+                                </button>
+                                <div className="late-status">
+                                  {upload.is_late == "1" ? (
+                                    <p className="late">*Submited Late*</p>
+                                  ) : (
+                                    <p className="not-late">*Submited*</p>
+                                  )}
+                                </div>
+                              </div>
+                            </>
+                          ))}
+                        </div>
+                      ) : (
+                        <>
+                          {/*jika belum ada pengerjaan tugas */}
+                          <h3>Your Assignment </h3>
+                          <hr />
+                          <br />
+                          <p className="no-task-message">
+                            You haven't uploaded your assignment yet
+                          </p>
+                          <div className="form-group">
+                            <label>File or Image or PDF</label>
+                            <input
+                              type="file"
+                              accept="image/*, application/pdf"
+                              onChange={handleFileChange}
+                            />
+                            <button onClick={handleUpload}>Upload File</button>
+                            {uploadedImage && <p>Assignmnet is submited</p>}
+                          </div>
+                          <div className="form-group">
+                            <label>Task Upload Link</label>
+                            <input
+                              type="text"
+                              id="link"
+                              value={link}
+                              onChange={(e) => setLink(e.target.value)}
+                              placeholder="Task link"
+                            />
+                            <label>Task Upload Description</label>
+                            <textarea
+                              id="task-desc"
+                              value={comment}
+                              onChange={(e) => setComment(e.target.value)}
+                            ></textarea>
+                          </div>
+                          <input
+                            value="Submit your assignments"
+                            type="submit"
+                            onClick={() => handleSubmit(task.task_id)}
+                            id="create-resume"
+                          />
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </>
               ))
             ) : (
               <p className="no-task-message">Tidak ada tugas yang tersedia</p>

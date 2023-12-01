@@ -91,6 +91,7 @@ function AnnouncementPage(props: EventProps) {
               <h1 className="task-title">{announcementData.event_name}</h1>
               <div className="task-meta">
                 <p>
+                  Created At :
                   {new Date(announcementData.createdAt).toLocaleString(
                     "en-ID",
                     {
@@ -167,6 +168,7 @@ function AnnouncementPage(props: EventProps) {
               <h1 className="task-title">{announcementData.event_name}</h1>
               <div className="task-meta">
                 <p>
+                  Created At :
                   {new Date(announcementData.createdAt).toLocaleString(
                     "en-ID",
                     {

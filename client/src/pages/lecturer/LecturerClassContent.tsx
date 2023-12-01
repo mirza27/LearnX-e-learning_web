@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, NavLink } from "react-router-dom";
+import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
 import "../../styles/classContent.css";
 import "../../styles/eventList.css";
 import axios from "axios";
@@ -135,6 +135,10 @@ function LecturerClassContent(props: LecturerClassContentProps) {
             </li>
           </ul>
         </div>
+        <Link to="student-edit" className="btn-download">
+          <i className="bx bxs-cloud-download"></i>
+          <span className="text">Edit Student</span>
+        </Link>
       </div>
       {/* MAIN HEADER / CLASS BANNER */}
       {classData ? (

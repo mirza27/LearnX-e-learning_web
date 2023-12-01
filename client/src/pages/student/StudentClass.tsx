@@ -6,15 +6,12 @@ import Swal from "sweetalert2";
 
 interface StudentClassProps {
   student_id: string;
-  firstname: string;
 }
 
 function StudentClass(props: StudentClassProps) {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const { student_id } = props;
-  const { firstname } = props;
-  const [classCode, setClassCode] = useState("");
   const [dataClass, setDataClass] = useState<
     {
       student_class_id: number;
@@ -30,10 +27,6 @@ function StudentClass(props: StudentClassProps) {
   >([]);
 
   const GetClassList = async () => {
-    if (!student_id) {
-      navigate("/login");
-    }
-
     try {
       const response = await axios.get(
         `http://localhost:5000/student/class/${student_id}`,
@@ -60,10 +53,6 @@ function StudentClass(props: StudentClassProps) {
   const goToStudentClassDetail = (class_id: any) => {
     navigate("content", { state: { class_id } });
   };
-
-  useEffect(() => {
-    GetClassList();
-  }, [student_id]);
 
   // MODAL ADD CLASS / gabung kelas
   const handleAddClassClick = () => {
@@ -110,11 +99,13 @@ function StudentClass(props: StudentClassProps) {
         );
       },
     });
-    GetClassList();
+    navigate(""); // refresh halaman class
   };
 
   useEffect(() => {
-    GetClassList();
+    if (student_id) {
+      GetClassList();
+    }
   }, [student_id]);
 
   return (

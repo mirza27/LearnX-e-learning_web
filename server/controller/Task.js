@@ -28,11 +28,13 @@ export const GetTask = async (req, res) => {
               {
                 model: TaskUpload,
                 attributes: [
-                  "task_Upload_id",
+                  "task_upload_id",
                   "student_id",
                   "file",
                   "link",
                   "comment",
+                  "is_late",
+                  "updatedAt",
                 ],
                 where: { student_id: student_id },
                 required: false, // jika student_id tidak ada tetap menampilkan data Task
@@ -57,18 +59,13 @@ export const GetTask = async (req, res) => {
         include: [
           {
             model: Task,
-            attributes: ["task_name", "task_desc", "file", "link", "deadline"],
-            include: [
-              {
-                model: TaskUpload,
-                attributes: [
-                  "task_Upload_id",
-                  "student_id",
-                  "file",
-                  "link",
-                  "coment",
-                ],
-              },
+            attributes: [
+              "task_id",
+              "task_name",
+              "task_desc",
+              "file",
+              "link",
+              "deadline",
             ],
           },
         ],
@@ -79,6 +76,51 @@ export const GetTask = async (req, res) => {
       console.log(error);
       res.status(500).json({ message: "Internal Server Error", error: error });
     }
+  }
+};
+
+// MENGAMBIL SEMUA TUGAS BERDASARKAN STUDENT ID
+
+// MENGGAMBIL TASK UPLOAD
+export const getTaskUpload = async (req, res) => {
+  const task_upload_id = req.params.task_upload_id;
+
+  try {
+    const TaskUploadContent = await TaskUpload.findOne({
+      where: { task_upload_id: task_upload_id },
+      attributes: ["task_upload_id", "link", "file", "comment"],
+    });
+
+    res.status(200).json(TaskUploadContent);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error", error: error });
+  }
+};
+
+// UPDATE TASK UPLOAD
+export const updateTaskUpload = async (req, res) => {
+  const { task_upload_id, link, file, comment } = req.body;
+
+  try {
+    const [updatedRows] = await TaskUpload.update(
+      { link, file, comment },
+      {
+        where: { task_upload_id: task_upload_id },
+        fields: ["link", "file", "comment"], // Specify the columns to update
+      }
+    );
+
+    if (updatedRows > 0) {
+      res.status(200).json({ message: "Your Assignment updated successfully" });
+    } else {
+      res.status(404).json({ message: "Task not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 };
 

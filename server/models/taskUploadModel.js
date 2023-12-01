@@ -32,6 +32,10 @@ const TaskUpload = db.define(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    is_late: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   },
   {
     freezeTableName: true,

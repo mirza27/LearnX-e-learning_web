@@ -14,13 +14,14 @@ import CreateAnnoun from "./CreateAnnouncement";
 import CreateClass from "./CreateClass";
 import AnnouncementPage from "../AnnouncementPage";
 import MaterialPage from "../MaterialPage";
+import LecturerTask from "./LecturerTask";
+import IdTokenVerifier from "idtoken-verifier";
 
 function LecturerPage() {
   const [firstname, setFirstName] = useState("");
   const [lecturer_id, setLecturer_id] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  // const jwt = require("jsonwebtoken");
 
   const checkAuth = async () => {
     try {
@@ -59,19 +60,33 @@ function LecturerPage() {
     }
   };
 
-  // try {
-  //   const decoded = jwt.verify(
-  //     localStorage.getItem("token"),
-  //     "hagsydgsdjkasdkbh7yiuJHBJGCD"
-  //   );
-  //   console.log(decoded);
-  //   // Token valid, Anda dapat menggunakannya dalam aplikasi Anda
-  //   if (!decoded) {
-  //     navigate("/login");
-  //   }
-  // } catch (error) {
-  //   console.error("Token tidak valid atau kadaluwarsa:", error);
-  // }
+  const verifyToken = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return; // Exit early if token is null
+      }
+
+      const verifier = new IdTokenVerifier({
+        issuer: "https://my.auth0.com/",
+        audience: "hagsydgsdjkasdkbh7yiuJHBJGCD",
+      });
+
+      verifier.verify(token, (err, decoded) => {
+        if (err) {
+          console.error("Token tidak valid atau terjadi kesalahan:", err);
+          navigate("/login");
+
+          console.log("hasil decode", decoded);
+          // Token valid, Anda dapat menggunakannya dalam aplikasi Anda
+        }
+      });
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+      navigate("/login");
+    }
+  };
 
   useEffect(() => {
     SidebarListener(); //script sidebar
@@ -133,6 +148,10 @@ function LecturerPage() {
           <Route
             path="/myclass/content/material"
             element={<MaterialPage is_lecturer={true} />}
+          />
+          <Route
+            path="/myclass/content/task"
+            element={<LecturerTask is_lecturer={true} />}
           />
         </Routes>
       </section>
