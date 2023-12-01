@@ -64,7 +64,7 @@ function LecturerPage() {
     <>
       <LecturerSidebar />
       <section id="content">
-        <Navbar />
+        <Navbar user_id={lecturer_id} firstname={firstname} />
         <Routes>
           {/* <Route path="/" /> */}
           <Route

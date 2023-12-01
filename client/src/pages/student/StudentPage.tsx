@@ -61,7 +61,7 @@ function StudentPage() {
     <>
       <StudentSidebar />
       <section id="content">
-        <Navbar />
+        <Navbar user_id={student_id} firstname={firstname} />
         <Routes>
           {/* <Route path="/" /> */}
           <Route
