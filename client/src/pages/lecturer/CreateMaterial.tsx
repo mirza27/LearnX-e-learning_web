@@ -3,12 +3,8 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Icon } from "@iconify/react";
+import { cloudinaryConfigMaterial } from "../../cloudinaryConfig";
 import "../../styles/form.css";
-
-const cloud_name = "dsr5gqz3v"; // Ganti dengan cloud name Anda
-const uploadPreset = "jbonmkha";
-const folder_name = "material";
-const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
 
 interface LecturerMaterialProps {
   lecturer_id: string;
@@ -81,11 +77,11 @@ function CreateMaterial(props: LecturerMaterialProps) {
       // form untuk data file upload
       const formData = new FormData();
       formData.append("file", selectedFile);
-      formData.append("upload_preset", uploadPreset);
-      formData.append("folder", folder_name);
+      formData.append("upload_preset", cloudinaryConfigMaterial.uploadPreset);
+      formData.append("folder", cloudinaryConfigMaterial.folder_name);
 
       try {
-        const response = await fetch(CLOUDINARY_URL, {
+        const response = await fetch(cloudinaryConfigMaterial.CLOUDINARY_URL, {
           method: "POST",
           mode: "cors",
           body: formData,

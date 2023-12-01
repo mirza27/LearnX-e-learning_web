@@ -4,13 +4,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import "../../styles/eventDetail.css";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
+import { cloudinaryConfigTaskUpload } from "../../cloudinaryConfig";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import Modal from "react-modal";
-
-const cloud_name = "dsr5gqz3v"; // Ganti dengan cloud name Anda
-const uploadPreset = "jbonmkha";
-const folder_name = "task_upload";
-const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
 
 interface StudentClassTaskProps {
   student_id: string;
@@ -85,15 +81,18 @@ function StudentTask(props: StudentClassTaskProps) {
       // form untuk data file upload
       const formData = new FormData();
       formData.append("file", selectedFile);
-      formData.append("upload_preset", uploadPreset);
-      formData.append("folder", folder_name);
+      formData.append("upload_preset", cloudinaryConfigTaskUpload.uploadPreset);
+      formData.append("folder", cloudinaryConfigTaskUpload.folder_name);
 
       try {
-        const response = await fetch(CLOUDINARY_URL, {
-          method: "POST",
-          mode: "cors",
-          body: formData,
-        });
+        const response = await fetch(
+          cloudinaryConfigTaskUpload.CLOUDINARY_URL,
+          {
+            method: "POST",
+            mode: "cors",
+            body: formData,
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
