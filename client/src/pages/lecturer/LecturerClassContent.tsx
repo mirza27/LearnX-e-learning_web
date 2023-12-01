@@ -68,10 +68,6 @@ function LecturerClassContent(props: LecturerClassContentProps) {
   >([]);
 
   const GetClassList = async () => {
-    if (!lecturer_id) {
-      navigate("/login");
-    }
-
     try {
       // mengambil data class
       const responseClassData = await axios.get(
@@ -113,7 +109,9 @@ function LecturerClassContent(props: LecturerClassContentProps) {
   };
 
   useEffect(() => {
-    GetClassList();
+    if (lecturer_id) {
+      GetClassList();
+    }
   }, [lecturer_id]);
 
   return (

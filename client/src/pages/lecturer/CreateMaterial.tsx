@@ -21,11 +21,6 @@ function CreateMaterial(props: LecturerMaterialProps) {
 
   // menampilkan data untuk select class
   const GetClassList = async () => {
-    if (!lecturer_id) {
-      console.log("belum login");
-      navigate("/login");
-    }
-
     // menampilkan data untuk select class
     try {
       const response = await axios.get(
@@ -50,7 +45,9 @@ function CreateMaterial(props: LecturerMaterialProps) {
   };
 
   useEffect(() => {
-    GetClassList();
+    if (lecturer_id) {
+      GetClassList();
+    }
   }, [lecturer_id]);
 
   const [eventName, setEventName] = useState("");

@@ -40,8 +40,10 @@ function AnnouncementPage(props: EventProps) {
   };
 
   useEffect(() => {
-    GetEventData();
-  }, []);
+    if (is_lecturer) {
+      GetEventData();
+    }
+  }, [is_lecturer]);
 
   if (is_lecturer == true) {
     // if lecturer

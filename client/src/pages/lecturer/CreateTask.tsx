@@ -20,11 +20,6 @@ function CreateTask(props: LecturerTaskProps) {
   >([]);
 
   const GetClassList = async () => {
-    if (!lecturer_id) {
-      console.log("belum login");
-      navigate("/login");
-    }
-
     // menampilkan data untuk select class
     try {
       const response = await axios.get(
@@ -49,7 +44,9 @@ function CreateTask(props: LecturerTaskProps) {
   };
 
   useEffect(() => {
-    GetClassList();
+    if (lecturer_id) {
+      GetClassList();
+    }
   }, [lecturer_id]);
 
   const [eventName, setEventName] = useState("");

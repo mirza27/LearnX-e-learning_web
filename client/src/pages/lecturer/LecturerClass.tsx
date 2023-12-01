@@ -28,13 +28,6 @@ function LecturerClass(props: LecturerClassProps) {
   >([]);
 
   const GetClassList = async () => {
-    if (!lecturer_id) {
-      console.log("belum login");
-      navigate("/login");
-    }
-
-    console.log(lecturer_id);
-
     try {
       const response = await axios.get(
         `http://localhost:5000/lecturer/my-class/${lecturer_id}`,
@@ -63,7 +56,9 @@ function LecturerClass(props: LecturerClassProps) {
   };
 
   useEffect(() => {
-    GetClassList();
+    if (lecturer_id) {
+      GetClassList();
+    }
   }, [lecturer_id]);
 
   return (

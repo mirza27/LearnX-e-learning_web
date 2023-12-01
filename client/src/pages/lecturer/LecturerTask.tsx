@@ -63,8 +63,10 @@ function LecturerTask(props: EventProps) {
   };
 
   useEffect(() => {
-    GetTask();
-  }, []);
+    if (is_lecturer) {
+      GetTask();
+    }
+  }, [is_lecturer]);
 
   return (
     <main>

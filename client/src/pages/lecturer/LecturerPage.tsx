@@ -15,7 +15,6 @@ import CreateClass from "./CreateClass";
 import AnnouncementPage from "../AnnouncementPage";
 import MaterialPage from "../MaterialPage";
 import LecturerTask from "./LecturerTask";
-import IdTokenVerifier from "idtoken-verifier";
 
 function LecturerPage() {
   const [firstname, setFirstName] = useState("");
@@ -47,44 +46,12 @@ function LecturerPage() {
         const lecturer = responseData.lecturer;
         setLecturer_id(lecturer.lecturer_id);
         setFirstName(lecturer.firstname);
-
-        // menyimpan token ke local
-        localStorage.setItem("token", responseData.token);
-        localStorage.setItem("lecturer_id", lecturer.lecturer_id);
       } else {
         // Pengguna tidak memiliki cookie, arahkan ke rute /login
         navigate("/login");
       }
     } catch (error) {
       console.error("Error:", error);
-    }
-  };
-
-  const verifyToken = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        navigate("/login");
-        return; // Exit early if token is null
-      }
-
-      const verifier = new IdTokenVerifier({
-        issuer: "https://my.auth0.com/",
-        audience: "hagsydgsdjkasdkbh7yiuJHBJGCD",
-      });
-
-      verifier.verify(token, (err, decoded) => {
-        if (err) {
-          console.error("Token tidak valid atau terjadi kesalahan:", err);
-          navigate("/login");
-
-          console.log("hasil decode", decoded);
-          // Token valid, Anda dapat menggunakannya dalam aplikasi Anda
-        }
-      });
-    } catch (error) {
-      console.error("Terjadi kesalahan:", error);
-      navigate("/login");
     }
   };
 

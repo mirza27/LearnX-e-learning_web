@@ -10,24 +10,13 @@ interface LecturerClassProps {
 }
 
 function CreateClass(props: LecturerClassProps) {
-  let { lecturer_id } = props;
+  const { lecturer_id } = props;
   const [className, setClassName] = useState("");
   const [desc, setdesc] = useState("");
   const [category, setcategory] = useState("");
 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-
-  const checkAuth = async () => {
-    try {
-      lecturer_id = localStorage.getItem("lecturer_id") || "";
-      if (!lecturer_id) {
-        navigate("/login");
-      }
-    } catch (error) {
-      console.error("Token tidak valid atau kadaluwarsa:", error);
-    }
-  };
 
   const handleSubmit = async () => {
     try {
@@ -58,9 +47,7 @@ function CreateClass(props: LecturerClassProps) {
     }
   };
 
-  useEffect(() => {
-    checkAuth();
-  });
+  useEffect(() => {}, [lecturer_id]);
 
   return (
     <main>

@@ -16,7 +16,7 @@ function LecturerSidebar() {
     },
     {
       path: "/lecturer/myclass",
-      name: "Class",
+      name: "My Class",
       icon: "ion:people",
     },
     {
