@@ -28,6 +28,9 @@ import {
   addNewTask,
   getTaskUpload,
   updateTaskUpload,
+  GetAllTaskByLecturerId,
+  GetAllStudentTaskByTaskId,
+  updateScore,
 } from "../controller/Task.js";
 import {
   addNewAnnouncement,
@@ -68,6 +71,19 @@ router.get("/lecturer/my-class/content/:class_id", MyClassContent);
 //task
 router.get("/lecturer/my-class/content/task/:event_id", GetTask); // melihat task
 router.post("/lecturer/my-class/content/addtask", addNewTask);
+router.get(
+  "/lecturer/my-class/content/alltask/:lecturer_id",
+  GetAllTaskByLecturerId
+); // mengambil semua task yang pernah dibuat
+router.get(
+  "/lecturer/my-class/content/task/taskUpload/:task_id/:class_id",
+  GetAllStudentTaskByTaskId
+);
+router.get(
+  "/lecturer/my-class/content/getTaskUpload/:task_upload_id",
+  getTaskUpload
+);
+router.post("/lecturer/my-class/content/getTaskUpload/scoring", updateScore);
 // material
 router.get("/lecturer/my-class/content/material/:event_id", getMaterial);
 router.post("/lecturer/my-class/content/addMaterial", addNewMaterial);

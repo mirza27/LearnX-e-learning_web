@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../db/db.js";
-
+import TaskUpload from "./taskUploadModel.js";
 const { DataTypes } = Sequelize;
 
 const Student = db.define(
@@ -27,5 +27,10 @@ const Student = db.define(
     freezeTableName: true,
   }
 );
+
+Student.belongsTo(TaskUpload, {
+  foreignKey: "student_id",
+  targetKey: "student_id",
+});
 
 export default Student;

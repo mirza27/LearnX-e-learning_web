@@ -13,6 +13,7 @@ interface StudentClassTaskProps {
 function StudentTaskUpdate(props: StudentClassTaskProps) {
   const location = useLocation();
   const task_upload_id = location.state && location.state.task_upload_id;
+  const event_id = location.state && location.state.event_id;
   const navigate = useNavigate();
   const { student_id } = props;
   const [message, setMessage] = useState("");
@@ -119,7 +120,6 @@ function StudentTaskUpdate(props: StudentClassTaskProps) {
           text: response.data.message,
           icon: "success",
         });
-        window.location.reload();
       }
     } catch (error: any) {
       Swal.fire({
@@ -128,8 +128,8 @@ function StudentTaskUpdate(props: StudentClassTaskProps) {
         icon: "error",
       });
     }
-
-    navigate("", { state: { task_upload_id } }); // reload halaman
+    console.log(event_id);
+    navigate("/student/class/content/task", { state: { event_id } }); // reload halaman
   };
 
   useEffect(() => {
@@ -273,7 +273,7 @@ function StudentTaskUpdate(props: StudentClassTaskProps) {
               </li>
             </div>
             <input
-              value="Add Task"
+              value="Update Assignment"
               type="submit"
               onClick={() => handleSubmit(taskUploadData.task_upload_id)}
               id="create-resume"

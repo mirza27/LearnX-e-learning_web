@@ -40,7 +40,7 @@ function AnnouncementPage(props: EventProps) {
   };
 
   useEffect(() => {
-    if (is_lecturer) {
+    if (is_lecturer || !is_lecturer) {
       GetEventData();
     }
   }, [is_lecturer]);
@@ -51,7 +51,7 @@ function AnnouncementPage(props: EventProps) {
       <main>
         <div className="head-title">
           <div className="left">
-            <h1>Task</h1>
+            <h1>Announcement</h1>
             <ul className="breadcrumb">
               <li>
                 <a href="#">Dashboard</a>
@@ -128,7 +128,7 @@ function AnnouncementPage(props: EventProps) {
       <main>
         <div className="head-title">
           <div className="left">
-            <h1>Task</h1>
+            <h1>Announcement</h1>
             <ul className="breadcrumb">
               <li>
                 <a href="#">Dashboard</a>

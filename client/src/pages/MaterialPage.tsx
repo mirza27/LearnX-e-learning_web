@@ -28,7 +28,7 @@ function MaterialPage(props: EventProps) {
         {}
       );
       setMaterialData(response.data);
-
+      console.log(response.data);
       if (response.data.message) {
         setMessage(response.data.message);
       }
@@ -62,7 +62,7 @@ function MaterialPage(props: EventProps) {
   };
 
   useEffect(() => {
-    if (is_lecturer) {
+    if (is_lecturer || !is_lecturer) {
       GetEventData();
     }
   }, [is_lecturer]);
@@ -73,7 +73,7 @@ function MaterialPage(props: EventProps) {
       <main>
         <div className="head-title">
           <div className="left">
-            <h1>Task</h1>
+            <h1>Material</h1>
             <ul className="breadcrumb">
               <li>
                 <a href="#">Dashboard</a>
@@ -164,7 +164,7 @@ function MaterialPage(props: EventProps) {
       <main>
         <div className="head-title">
           <div className="left">
-            <h1>Task</h1>
+            <h1>Material</h1>
             <ul className="breadcrumb">
               <li>
                 <a href="#">Dashboard</a>

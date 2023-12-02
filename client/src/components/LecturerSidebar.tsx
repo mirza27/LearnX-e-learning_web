@@ -19,28 +19,24 @@ function LecturerSidebar() {
       name: "My Class",
       icon: "ion:people",
     },
+
     {
-      path: "/lecturer/task",
-      name: "My Task",
+      path: "/lecturer/attachment",
+      name: "Attachment",
       icon: "fluent:clipboard-task-24-regular",
     },
     {
-      path: "/lecturer/attacment",
-      name: "Attachment",
-      icon: "ic:baseline-rate-review",
-    },
-    {
-      path: "/lecturer/",
+      path: "/lecturer/material",
       name: "Materials",
       icon: "bx:book",
     },
     {
-      path: "/lecturer/",
+      path: "/lecturer/announcement",
       name: "Announcements",
       icon: "mdi:announcement-outline",
     },
     {
-      path: "/lecturer/",
+      path: "/lecturer/forums",
       name: "Forums",
       icon: "ic:baseline-chat",
     },

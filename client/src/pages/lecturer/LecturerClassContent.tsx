@@ -127,8 +127,16 @@ function LecturerClassContent(props: LecturerClassContentProps) {
               <i className="bx bx-chevron-right"></i>
             </li>
             <li>
-              <a className="active" href="#">
+              <a className="" href="#">
                 My Class
+              </a>
+            </li>
+            <li>
+              <i className="bx bx-chevron-right"></i>
+            </li>
+            <li>
+              <a className="active" href="#">
+                Content
               </a>
             </li>
           </ul>

@@ -15,6 +15,8 @@ import CreateClass from "./CreateClass";
 import AnnouncementPage from "../AnnouncementPage";
 import MaterialPage from "../MaterialPage";
 import LecturerTask from "./LecturerTask";
+import Attachment from "./Attachment";
+import LecturerTaskUploadDetail from "./LectrerTaskUploadDetail";
 
 function LecturerPage() {
   const [firstname, setFirstName] = useState("");
@@ -119,6 +121,14 @@ function LecturerPage() {
           <Route
             path="/myclass/content/task"
             element={<LecturerTask is_lecturer={true} />}
+          />
+          <Route
+            path="/attachment"
+            element={<Attachment lecturer_id={lecturer_id} />}
+          />
+          <Route
+            path="/myclass/content/task/student-task"
+            element={<LecturerTaskUploadDetail lecturer_id={lecturer_id} />}
           />
         </Routes>
       </section>

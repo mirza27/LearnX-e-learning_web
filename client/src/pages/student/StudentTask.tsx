@@ -148,7 +148,7 @@ function StudentTask(props: StudentClassTaskProps) {
 
   // navigasi untuk update task
   const updateTaskUpload = (task_upload_id: any) => {
-    navigate("update", { state: { task_upload_id } });
+    navigate("update", { state: { task_upload_id, event_id } });
   };
 
   useEffect(() => {
@@ -320,45 +320,49 @@ function StudentTask(props: StudentClassTaskProps) {
                         </div>
                       ) : (
                         <>
-                          {/*jika belum ada pengerjaan tugas */}
-                          <h3>Your Assignment </h3>
-                          <hr />
-                          <br />
-                          <p className="no-task-message">
-                            You haven't uploaded your assignment yet
-                          </p>
-                          <div className="form-group">
-                            <label>File or Image or PDF</label>
+                          <div className="task-uploads">
+                            {/*jika belum ada pengerjaan tugas */}
+                            <h3>Your Assignment </h3>
+                            <hr />
+                            <br />
+                            <p className="no-task-message">
+                              You haven't uploaded your assignment yet
+                            </p>
+                            <div className="form-group">
+                              <label>File or Image or PDF</label>
+                              <input
+                                type="file"
+                                accept="image/*, application/pdf"
+                                onChange={handleFileChange}
+                              />
+                              <button onClick={handleUpload}>
+                                Upload File
+                              </button>
+                              {uploadedImage && <p>Assignmnet is submited</p>}
+                            </div>
+                            <div className="form-group">
+                              <label>Task Upload Link</label>
+                              <input
+                                type="text"
+                                id="link"
+                                value={link}
+                                onChange={(e) => setLink(e.target.value)}
+                                placeholder="Task link"
+                              />
+                              <label>Task Upload Description</label>
+                              <textarea
+                                id="task-desc"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                              ></textarea>
+                            </div>
                             <input
-                              type="file"
-                              accept="image/*, application/pdf"
-                              onChange={handleFileChange}
+                              value="Submit your assignments"
+                              type="submit"
+                              onClick={() => handleSubmit(task.task_id)}
+                              id="create-resume"
                             />
-                            <button onClick={handleUpload}>Upload File</button>
-                            {uploadedImage && <p>Assignmnet is submited</p>}
                           </div>
-                          <div className="form-group">
-                            <label>Task Upload Link</label>
-                            <input
-                              type="text"
-                              id="link"
-                              value={link}
-                              onChange={(e) => setLink(e.target.value)}
-                              placeholder="Task link"
-                            />
-                            <label>Task Upload Description</label>
-                            <textarea
-                              id="task-desc"
-                              value={comment}
-                              onChange={(e) => setComment(e.target.value)}
-                            ></textarea>
-                          </div>
-                          <input
-                            value="Submit your assignments"
-                            type="submit"
-                            onClick={() => handleSubmit(task.task_id)}
-                            id="create-resume"
-                          />
                         </>
                       )}
                     </div>

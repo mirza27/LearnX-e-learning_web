@@ -3,6 +3,7 @@ import Classes from "../models/classModel.js";
 import Lecturer from "../models/lecturerModel.js";
 import Event from "../models/eventModel.js";
 import Task from "../models/taskModel.js";
+import Student from "../models/studentModel.js";
 import Announcement from "../models/announcementModel.js";
 import Material from "../models/materialModel.js";
 

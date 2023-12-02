@@ -1,9 +1,8 @@
 .task-detail-container {
   background-color: var(--light);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 20px;
   margin-top: 3%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .task-detail-container h1 {
@@ -20,7 +19,7 @@
   color: var(--blue);
 }
 .task-detail-container .task-meta p {
-  color: var(--yellow);
+  color: var(--dark-grey);
 }
 
 .task-detail-container .task-content {

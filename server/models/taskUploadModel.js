@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../db/db.js";
 import Task from "./taskModel.js";
+// import Student from "./studentModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -34,6 +35,10 @@ const TaskUpload = db.define(
     },
     is_late: {
       type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
+    score: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
   },

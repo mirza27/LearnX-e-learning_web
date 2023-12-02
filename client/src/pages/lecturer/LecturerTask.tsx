@@ -18,6 +18,7 @@ function LecturerTask(props: EventProps) {
   const { is_lecturer } = props;
   const [message, setMessage] = useState("");
   const [taskData, setTaskData] = useState<any>(null);
+  const [taskUpload, setTaskUpload] = useState<any[]>([]);
 
   const [pdfUrl, setPdfUrl] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -30,6 +31,42 @@ function LecturerTask(props: EventProps) {
       );
       setTaskData(response.data);
       console.log(response.data);
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
+
+      if (
+        // mengambil task_id untuk menagmbil data taskUpload
+        response.data.tasks &&
+        response.data.tasks.length > 0 &&
+        response.data.tasks[0].task_id &&
+        response.data.class_id
+      ) {
+        const taskId = response.data.tasks[0].task_id;
+        const classId = response.data.class_id;
+        GetTaskUpload(taskId, classId);
+      }
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+
+  // mengambil data taskUpload siswa
+  const GetTaskUpload = async (task_id: string, class_id: string) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/lecturer/my-class/content/task/taskUpload/${task_id}/${class_id}`,
+        {}
+      );
+      console.log(response.data);
+      setTaskUpload(response.data);
+
       if (response.data.message) {
         setMessage(response.data.message);
       }
@@ -62,6 +99,21 @@ function LecturerTask(props: EventProps) {
     link.click();
   };
 
+  // navigasi ke class content / detail kelas
+  const goToTaskUploadDetail = (task_upload_id: any, student_name: string) => {
+    if (task_upload_id) {
+      navigate("student-task", {
+        state: {
+          task_upload_id: task_upload_id,
+          student_name: student_name,
+        },
+      });
+    } else {
+      console.error("Task Upload ID is not available.");
+      // Optionally, you can add further handling for the case when task_upload_id is not available
+    }
+  };
+
   useEffect(() => {
     if (is_lecturer) {
       GetTask();
@@ -82,7 +134,7 @@ function LecturerTask(props: EventProps) {
             </li>
             <li>
               <a className="" href="#">
-                Class
+                My Class
               </a>
             </li>
             <li>
@@ -103,11 +155,9 @@ function LecturerTask(props: EventProps) {
             </li>
           </ul>
         </div>
-        <a href="#" className="btn-download">
-          <i className="bx bxs-cloud-download"></i>
-          <span className="text">Download PDF</span>
-        </a>
       </div>
+
+      {/* TASK CONTENT */}
       <div className="task-detail-container">
         {taskData && (
           <div>
@@ -161,6 +211,75 @@ function LecturerTask(props: EventProps) {
           </div>
         )}
       </div>
+
+      {/* TABLE */}
+      <div className="table-data">
+        <div className="order">
+          <div className="head">
+            <h3>Student Task Attachment</h3>
+            <i className="bx bx-filter"></i>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Time Submited</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {taskUpload.map((item) => (
+                <tr
+                  key={item.student_id}
+                  onClick={
+                    item.task_upload && item.task_upload.task_upload_id
+                      ? () =>
+                          goToTaskUploadDetail(
+                            item.task_upload.task_upload_id,
+                            item.firstname
+                          )
+                      : undefined
+                  }
+                >
+                  <td>
+                    <img src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1701435649/wtg263ifmmxdizglhfc9.png" />
+                    <p>{`${item.firstname} ${item.lastname}`}</p>
+                  </td>
+                  <td>
+                    {item.task_upload ? (
+                      <>
+                        {new Date(item.task_upload.updatedAt).toLocaleString(
+                          "en-ID",
+                          {
+                            dateStyle: "short",
+                            timeStyle: "short",
+                          }
+                        )}
+                      </>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
+
+                  <td>
+                    {item.task_upload ? (
+                      item.task_upload.is_late === false ? (
+                        <span className="status completed">Submitted</span>
+                      ) : (
+                        <span className="status process">Submitted Late</span>
+                      )
+                    ) : (
+                      <span className="status pending">Not Submitted</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* MODAL DOCUMENT */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

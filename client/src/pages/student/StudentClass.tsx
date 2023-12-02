@@ -219,7 +219,7 @@ function StudentClass(props: StudentClassProps) {
                 <div className="card-profile">
                   <img
                     className="profile-img"
-                    src="https://images.unsplash.com/photo-1554780336-390462301acf?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+                    src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1701435649/wtg263ifmmxdizglhfc9.png"
                     alt=""
                   />
                   <div className="card-profile-info">
