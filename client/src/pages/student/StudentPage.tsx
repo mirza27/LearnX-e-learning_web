@@ -11,6 +11,7 @@ import StudentTask from "./StudentTask";
 import AnnouncementPage from "../AnnouncementPage";
 import MaterialPage from "../MaterialPage";
 import StudentTaskUpdate from "./UpdateTask";
+import StudentTaskList from "./StudentTaskList";
 // import "../../styles/content.css";
 
 function StudentPage() {
@@ -73,6 +74,10 @@ function StudentPage() {
           <Route
             path="/class"
             element={<StudentClass student_id={student_id} />}
+          />
+          <Route
+            path="/mytask"
+            element={<StudentTaskList student_id={student_id} />}
           />
           <Route
             path="/class/content"

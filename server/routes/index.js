@@ -15,6 +15,8 @@ import {
   JoinClass,
   ClassContent,
   getClassDataStudent,
+  deleteStudentFromClass,
+  StudentList,
 } from "../controller/StudentClass.js";
 import {
   LecturerClassList,
@@ -31,6 +33,7 @@ import {
   GetAllTaskByLecturerId,
   GetAllStudentTaskByTaskId,
   updateScore,
+  StudentTaskList,
 } from "../controller/Task.js";
 import {
   addNewAnnouncement,
@@ -48,15 +51,19 @@ router.get("/student", authenticateUser, GetStudent);
 router.post("/student-register", StudentRegister);
 router.post("/student-login", StudentLogin);
 // class
-router.get("/student/getclass/:class_id", getClassDataStudent);
-router.post("/student/join-class", JoinClass);
-router.get("/student/class/:student_id", StudentClassList);
-router.get("/student/class/content/:class_id", ClassContent);
+router.get("/student/getclass/:class_id", getClassDataStudent); // mengambil data kelas
+router.post("/student/join-class", JoinClass); // join ke kelas tertentu
+router.get("/student/class/:student_id", StudentClassList); // mengambil class yang diikuti student
+router.get("/student/class/content/:class_id", ClassContent); // mengambil semua konten kelas
 // task
 router.get("/student/class/content/task/:event_id/:student_id", GetTask); // melihat task
-router.post("/student/class/content/task/upload", addTaskUpload);
+router.post("/student/class/content/task/upload", addTaskUpload); //submit task assignment
 router.get("/student/class/content/taskUpload/:task_upload_id", getTaskUpload); // melihat task uplaod
 router.post("/student/class/content/taskUpload/update", updateTaskUpload); // update task_upload
+router.get(
+  "/student/class/content/task/task-list/:student_id/:is_all",
+  StudentTaskList
+); // mengambil tugas yang perlu dikerjakan
 
 // LECTURER ====================================================
 // autentikasi
@@ -68,6 +75,11 @@ router.get("/lecturer/getclass/:class_id", getClassData);
 router.post("/lecturer/add-class", addNewClass);
 router.get("/lecturer/my-class/:lecturer_id", LecturerClassList);
 router.get("/lecturer/my-class/content/:class_id", MyClassContent);
+router.post(
+  "/lecturer/my-class/content/detele-student",
+  deleteStudentFromClass // menghapus student dari kelas tertentu
+);
+router.get("/lecturer/my-class/content/:class_id/student-list", StudentList); // mengambil list siswa yang bergabung
 //task
 router.get("/lecturer/my-class/content/task/:event_id", GetTask); // melihat task
 router.post("/lecturer/my-class/content/addtask", addNewTask);

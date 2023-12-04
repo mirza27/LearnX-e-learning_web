@@ -76,7 +76,7 @@ function StudentClass(props: StudentClassProps) {
       preConfirm: (classCode) => {
         return (
           axios
-            .post("http://localhost:5000/student/join-class", {
+            .post(",/student/join-class", {
               student_id: student_id,
               classCode: classCode,
             })

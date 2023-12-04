@@ -151,3 +151,44 @@ export const ClassContent = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error", error: error });
   }
 };
+
+// MENGAMBIL DAFTAR STUDENT BERDASARKAN ID KELAS
+export const StudentList = async (req, res) => {
+  const class_id = req.params.class_id;
+
+  try {
+    const listStudent = await Student.findAll({
+      attributes: ["student_id", "firstname", "lastname"],
+      include: [
+        {
+          model: Student_classes,
+          where: { class_id: class_id },
+          attributes: [""],
+        },
+      ],
+    });
+
+    res.status(200).json(listStudent);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error", error: error });
+  }
+};
+
+// MENGHAPUS KELAS STUDENT / LEAVE CLASS
+export const deleteStudentFromClass = async (req, res) => {
+  const { student_id, class_id } = req.body;
+
+  try {
+    await Student_classes.delete({
+      where: { student_id: student_id, class_id: class_id },
+    });
+
+    res.status(200).json({
+      message: "Successfully leave the class",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error", error: error });
+  }
+};

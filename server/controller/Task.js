@@ -1,5 +1,6 @@
 import Task from "../models/taskModel.js";
 import TaskUpload from "../models/taskUploadModel.js";
+import Classes from "../models/classModel.js";
 import Event from "../models/eventModel.js";
 import Student from "../models/studentModel.js";
 import Class from "../models/classModel.js";
@@ -290,5 +291,53 @@ export const updateScore = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error", error: error });
+  }
+};
+
+export const StudentTaskList = async (req, res) => {
+  const student_id = req.params.student_id;
+  const is_all = req.params.is_all === "1"; // Convert to boolean
+
+  try {
+    // Fetching list of classes for the student
+    const studentClasses = await Student_classes.findAll({
+      where: { student_id: student_id },
+      attributes: ["student_class_id", "createdAt", "class_id"],
+    });
+
+    const classList = studentClasses.map((row) => row.class_id);
+
+    // Filtering conditions based on is_all
+    const taskFilter = {
+      where: {
+        class_id: classList,
+        event_category_id: 1,
+      },
+      attributes: ["event_name", "event_id", "class_id"],
+      include: [
+        {
+          model: Task,
+          attributes: ["task_name", "task_id", "deadline"],
+          required: true,
+          include: [
+            {
+              model: TaskUpload,
+              attributes: ["task_upload_id", "is_late", "updatedAt", "score"],
+              where: { student_id: student_id },
+              required: !is_all, // Show only tasks that haven't been done if is_all is false
+            },
+          ],
+        },
+      ],
+    };
+
+    // Fetching the task list based on the filter
+    const taskList = await Event.findAll(taskFilter);
+
+    res.status(200).json(taskList);
+    // res.status(200).json(classList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

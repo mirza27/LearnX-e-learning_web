@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../db/db.js";
 import TaskUpload from "./taskUploadModel.js";
+import Student_classes from "./student_classesModel.js";
 const { DataTypes } = Sequelize;
 
 const Student = db.define(
@@ -29,6 +30,11 @@ const Student = db.define(
 );
 
 Student.belongsTo(TaskUpload, {
+  foreignKey: "student_id",
+  targetKey: "student_id",
+});
+
+Student.belongsTo(Student_classes, {
   foreignKey: "student_id",
   targetKey: "student_id",
 });

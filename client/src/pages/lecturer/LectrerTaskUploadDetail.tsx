@@ -130,7 +130,7 @@ function LecturerTaskUploadDetail(props: EventProps) {
   };
 
   useEffect(() => {
-    if (lecturer_id) {
+    if (lecturer_id && task_upload_id && student_name) {
       GetTask();
     }
   }, [lecturer_id]);
