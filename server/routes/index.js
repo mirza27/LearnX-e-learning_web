@@ -55,6 +55,7 @@ router.get("/student/getclass/:class_id", getClassDataStudent); // mengambil dat
 router.post("/student/join-class", JoinClass); // join ke kelas tertentu
 router.get("/student/class/:student_id", StudentClassList); // mengambil class yang diikuti student
 router.get("/student/class/content/:class_id", ClassContent); // mengambil semua konten kelas
+router.post("/student/class/content/leave", deleteStudentFromClass); // keluar dari kelas
 // task
 router.get("/student/class/content/task/:event_id/:student_id", GetTask); // melihat task
 router.post("/student/class/content/task/upload", addTaskUpload); //submit task assignment
@@ -75,11 +76,11 @@ router.get("/lecturer/getclass/:class_id", getClassData);
 router.post("/lecturer/add-class", addNewClass);
 router.get("/lecturer/my-class/:lecturer_id", LecturerClassList);
 router.get("/lecturer/my-class/content/:class_id", MyClassContent);
+router.get("/lecturer/my-class/content/:class_id/student-list", StudentList); // mengambil list siswa yang bergabung pada kelas
 router.post(
-  "/lecturer/my-class/content/detele-student",
+  "/lecturer/my-class/content/delete-student",
   deleteStudentFromClass // menghapus student dari kelas tertentu
 );
-router.get("/lecturer/my-class/content/:class_id/student-list", StudentList); // mengambil list siswa yang bergabung
 //task
 router.get("/lecturer/my-class/content/task/:event_id", GetTask); // melihat task
 router.post("/lecturer/my-class/content/addtask", addNewTask);

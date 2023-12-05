@@ -77,6 +77,72 @@ function StudentClassContent(props: StudentClassContentProps) {
     }
   };
 
+  const leaveClass = async () => {
+    try {
+      if (student_id && class_id) {
+        const result = await Swal.fire({
+          title: "Leave Class",
+          text: "Are you sure want to leave this class",
+          customClass: {
+            popup: "custom-popup-class",
+            title: "custom-title-class",
+          },
+          input: "checkbox",
+          inputPlaceholder: "",
+          inputAttributes: {
+            style: "display:none",
+          },
+          showCancelButton: true,
+          backdrop: false,
+          preConfirm: async () => {
+            try {
+              const response = await axios.post(
+                "http://localhost:5000/student/class/content/leave",
+                {
+                  student_id: student_id,
+                  class_id: class_id,
+                }
+              );
+
+              if (response.data.success) {
+                Swal.fire({
+                  title: "Success!",
+                  text: "You have successfully leave this class",
+                  icon: "success",
+                });
+
+                // Refresh halaman class setelah penghapusan berhasil
+                navigate("/student/class");
+              } else {
+                throw new Error(response.data.message || "Deletion failed");
+              }
+            } catch (error: any) {
+              Swal.fire({
+                title: "Error!",
+                text:
+                  error.message ||
+                  "An error occurred while deleting the student.",
+                icon: "error",
+              });
+            }
+          },
+        });
+
+        if (
+          result.isDismissed &&
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          console.log("Deletion canceled");
+        }
+      } else {
+        console.error("Student is not available.");
+        // Optionally, you can add further handling for the case when student_id or class_id is not available
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+    }
+  };
+
   // navigasi ke class content / detail kelas
   const goToStudentTaskDetail = (event_id: any) => {
     navigate("task", { state: { event_id } });
@@ -121,9 +187,9 @@ function StudentClassContent(props: StudentClassContentProps) {
             </li>
           </ul>
         </div>
-        <a href="#" className="btn-download">
+        <a className="btn-download" onClick={() => leaveClass()}>
           <i className="bx bxs-cloud-download"></i>
-          <span className="text">Download PDF</span>
+          <span className="text">Leave Class</span>
         </a>
       </div>
       {/* MAIN HEADER / BANNER */}

@@ -107,6 +107,9 @@ function LecturerClassContent(props: LecturerClassContentProps) {
   const goToLecturerAnnouncementDetail = (event_id: any) => {
     navigate("announcement", { state: { event_id } });
   };
+  const goToStudentList = (class_id: any) => {
+    navigate("student-edit", { state: { class_id } });
+  };
 
   useEffect(() => {
     if (lecturer_id) {
@@ -141,10 +144,10 @@ function LecturerClassContent(props: LecturerClassContentProps) {
             </li>
           </ul>
         </div>
-        <Link to="student-edit" className="btn-download">
+        <a className="btn-download" onClick={() => goToStudentList(class_id)}>
           <i className="bx bxs-cloud-download"></i>
           <span className="text">Edit Student</span>
-        </Link>
+        </a>
       </div>
       {/* MAIN HEADER / CLASS BANNER */}
       {classData ? (

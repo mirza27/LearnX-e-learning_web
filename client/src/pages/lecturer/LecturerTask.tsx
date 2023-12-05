@@ -175,7 +175,7 @@ function LecturerTask(props: EventProps) {
                 <div key={task.task_name} className="task-content">
                   <h2>Task Name : {task.task_name}</h2>
 
-                  {task.file && (
+                  {task.file ? (
                     <>
                       <button onClick={() => showPdf(task.file)}>
                         Look Task Document
@@ -187,14 +187,20 @@ function LecturerTask(props: EventProps) {
                         Task link :<a href={task.file}> {task.file}</a>
                       </p>
                     </>
+                  ) : (
+                    <>
+                      <p>Task File link : -</p>
+                    </>
                   )}
-                  {task.link && (
+                  {task.link ? (
                     <p>
                       Task Link :<a href={task.link}>{task.link}</a>
                     </p>
+                  ) : (
+                    <p>Task Link : -</p>
                   )}
 
-                  {task.deadline && (
+                  {task.deadline ? (
                     <p>
                       Deadline:{" "}
                       {new Date(task.deadline).toLocaleString("en-ID", {
@@ -202,6 +208,8 @@ function LecturerTask(props: EventProps) {
                         timeStyle: "short",
                       })}
                     </p>
+                  ) : (
+                    <p>Deadline: -</p>
                   )}
                 </div>
               ))

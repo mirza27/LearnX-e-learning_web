@@ -163,7 +163,7 @@ export const StudentList = async (req, res) => {
         {
           model: Student_classes,
           where: { class_id: class_id },
-          attributes: [""],
+          attributes: ["student_class_id"],
         },
       ],
     });
@@ -177,18 +177,29 @@ export const StudentList = async (req, res) => {
 
 // MENGHAPUS KELAS STUDENT / LEAVE CLASS
 export const deleteStudentFromClass = async (req, res) => {
-  const { student_id, class_id } = req.body;
-
+  const { student_id, class_id } = req.body; // Menambahkan classCode dari frontend
+  console.log("ini jalan", student_id, class_id);
   try {
-    await Student_classes.delete({
-      where: { student_id: student_id, class_id: class_id },
+    // Ganti "where" dengan "where: { student_id, class_id }"
+    const deletedStudentClass = await Student_classes.destroy({
+      where: { student_id, class_id },
     });
 
-    res.status(200).json({
-      message: "Successfully leave the class",
-    });
+    if (deletedStudentClass > 0) {
+      res.status(200).json({
+        success: true,
+        message: "Successfully left the class",
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Student not found in the specified class",
+      });
+    }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error", error: error });
+    console.error(error);
+    res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error", error: error });
   }
 };

@@ -143,6 +143,7 @@ function StudentTask(props: StudentClassTaskProps) {
       });
     }
 
+    GetTask();
     navigate("", { state: { event_id } }); // reload halaman setelah submit
   };
 
@@ -192,10 +193,6 @@ function StudentTask(props: StudentClassTaskProps) {
             </li>
           </ul>
         </div>
-        <a href="#" className="btn-download">
-          <i className="bx bxs-cloud-download"></i>
-          <span className="text">Download PDF</span>
-        </a>
       </div>
       <div className="task-detail-container">
         {taskData && (
@@ -217,7 +214,7 @@ function StudentTask(props: StudentClassTaskProps) {
                       </p>
                     </div>
 
-                    {task.file && (
+                    {task.file ? (
                       <>
                         <button onClick={() => showPdf(task.file)}>
                           Look Task Document
@@ -226,17 +223,23 @@ function StudentTask(props: StudentClassTaskProps) {
                           Download Taks Document
                         </button>
                         <p>
-                          Task link :<a href={task.file}> {task.file}</a>
+                          Task File link :<a href={task.file}> {task.file}</a>
                         </p>
                       </>
+                    ) : (
+                      <>
+                        <p>Task File link : -</p>
+                      </>
                     )}
-                    {task.link && (
+                    {task.link ? (
                       <p>
                         Task Link :<a href={task.link}>{task.link}</a>
                       </p>
+                    ) : (
+                      <p>Task Link : -</p>
                     )}
 
-                    {task.deadline && (
+                    {task.deadline ? (
                       <p>
                         Deadline:{" "}
                         {new Date(task.deadline).toLocaleString("en-ID", {
@@ -244,6 +247,8 @@ function StudentTask(props: StudentClassTaskProps) {
                           timeStyle: "short",
                         })}
                       </p>
+                    ) : (
+                      <p>Deadline: -</p>
                     )}
 
                     <div className="task-detail-container">

@@ -114,7 +114,7 @@ function LecturerTaskUploadDetail(props: EventProps) {
                   student_name: student_name,
                 },
               });
-              console.log("navigasi berhasil");
+              GetTask();
             })
             // jika kelas gagal ditambahkan / terdapat error
             .catch((error) => {

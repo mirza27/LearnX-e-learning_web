@@ -26,16 +26,6 @@ function LecturerSidebar() {
       icon: "fluent:clipboard-task-24-regular",
     },
     {
-      path: "/lecturer/material",
-      name: "Materials",
-      icon: "bx:book",
-    },
-    {
-      path: "/lecturer/announcement",
-      name: "Announcements",
-      icon: "mdi:announcement-outline",
-    },
-    {
       path: "/lecturer/forums",
       name: "Forums",
       icon: "ic:baseline-chat",

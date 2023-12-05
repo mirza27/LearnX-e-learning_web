@@ -50,7 +50,7 @@ function Attachment(props: LecturerProps) {
     // menampilkan data untuk select class
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/${lecturer_id}/`,
+        `http://localhost:5000/lecturer/my-class/${lecturer_id}`,
         {}
       );
 

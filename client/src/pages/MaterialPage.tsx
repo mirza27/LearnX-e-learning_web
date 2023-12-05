@@ -104,10 +104,6 @@ function MaterialPage(props: EventProps) {
               </li>
             </ul>
           </div>
-          <a href="#" className="btn-download">
-            <i className="bx bxs-cloud-download"></i>
-            <span className="text">Look PDF</span>
-          </a>
         </div>
         <div className="task-detail-container">
           {materialData && (
@@ -125,9 +121,13 @@ function MaterialPage(props: EventProps) {
               {materialData.materials && materialData.materials.length > 0 ? (
                 materialData.materials.map((material: any) => (
                   <div key={material.material_id} className="task-content">
-                    <h2>Material Name : {material.material_name}</h2>
+                    {material.name ? (
+                      <h2>Material Name : {material.material_name}</h2>
+                    ) : (
+                      <h2>Material Name : -</h2>
+                    )}
 
-                    {material.file && (
+                    {material.file ? (
                       <>
                         <button onClick={() => showPdf(material.file)}>
                           Look Document
@@ -140,13 +140,19 @@ function MaterialPage(props: EventProps) {
                           <a href={material.file}> {material.file}</a>
                         </p>
                       </>
+                    ) : (
+                      <>
+                        <p>Material File link : -</p>
+                      </>
                     )}
 
-                    {material.link && (
+                    {material.link ? (
                       <p>
                         Material Link :
                         <a href={material.link}>{material.link}</a>
                       </p>
+                    ) : (
+                      <p>Material Link : -</p>
                     )}
                   </div>
                 ))
@@ -216,9 +222,13 @@ function MaterialPage(props: EventProps) {
               {materialData.materials && materialData.materials.length > 0 ? (
                 materialData.materials.map((material: any) => (
                   <div key={material.material_id} className="task-content">
-                    <h2>Material Name : {material.material_name}</h2>
+                    {material.name ? (
+                      <h2>Material Name : {material.material_name}</h2>
+                    ) : (
+                      <h2>Material Name : -</h2>
+                    )}
 
-                    {material.file && (
+                    {material.file ? (
                       <>
                         <button onClick={() => showPdf(material.file)}>
                           Look Document
@@ -231,13 +241,19 @@ function MaterialPage(props: EventProps) {
                           <a href={material.file}> {material.file}</a>
                         </p>
                       </>
+                    ) : (
+                      <>
+                        <p>Material File link : -</p>
+                      </>
                     )}
 
-                    {material.link && (
+                    {material.link ? (
                       <p>
                         Material Link :
                         <a href={material.link}>{material.link}</a>
                       </p>
+                    ) : (
+                      <p>Material Link : -</p>
                     )}
                   </div>
                 ))

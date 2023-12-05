@@ -82,10 +82,6 @@ function AnnouncementPage(props: EventProps) {
               </li>
             </ul>
           </div>
-          <a href="#" className="btn-download">
-            <i className="bx bxs-cloud-download"></i>
-            <span className="text">Download PDF</span>
-          </a>
         </div>
         <div className="task-detail-container">
           {announcementData && (
@@ -110,8 +106,22 @@ function AnnouncementPage(props: EventProps) {
                     key={announcement.announcement_id}
                     className="task-content"
                   >
-                    <h2>{announcement.nama}</h2>
-                    <p>{announcement.content}</p>
+                    {announcement.nama ? (
+                      <h2>Announcement : {announcement.nama}</h2>
+                    ) : (
+                      <h2>Announcement : -</h2>
+                    )}
+                    {announcement.content ? (
+                      <>
+                        <p>Content : </p>
+                        <p>{announcement.content}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p>Content : </p>
+                        <p> - </p>
+                      </>
+                    )}
                   </div>
                 ))
               ) : (
@@ -187,8 +197,22 @@ function AnnouncementPage(props: EventProps) {
                     key={announcement.announcement_id}
                     className="task-content"
                   >
-                    <h2>{announcement.nama}</h2>
-                    <p>{announcement.content}</p>
+                    {announcement.nama ? (
+                      <h2>Announcement : {announcement.nama}</h2>
+                    ) : (
+                      <h2>Announcement : -</h2>
+                    )}
+                    {announcement.content ? (
+                      <>
+                        <p>Content : </p>
+                        <p>{announcement.content}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p>Content : </p>
+                        <p> - </p>
+                      </>
+                    )}
                   </div>
                 ))
               ) : (

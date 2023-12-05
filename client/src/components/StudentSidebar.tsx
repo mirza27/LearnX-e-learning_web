@@ -27,16 +27,6 @@ function StudentSidebar() {
     },
     {
       path: "/student/",
-      name: "Materials",
-      icon: "bx:book",
-    },
-    {
-      path: "/student/",
-      name: "Announcements",
-      icon: "mdi:announcement-outline",
-    },
-    {
-      path: "/student/",
       name: "Forums",
       icon: "ic:baseline-chat",
     },
