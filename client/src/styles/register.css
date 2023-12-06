@@ -1,8 +1,8 @@
 /* Apply the button style to the select element */
 select {
   border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
+  border: 1px solid var(--blue);
+  background-color: var(--blue);
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -14,8 +14,8 @@ select {
 
 /* Apply the button style to the option elements within the select */
 select option {
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
+  border: 1px solid var(--blue);
+  background-color: var(--blue);
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;

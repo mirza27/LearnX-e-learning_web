@@ -1,14 +1,116 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 import "../../styles/content.css";
+import { Icon } from "@iconify/react";
 
 interface StudentDashboardProps {
   student_id: string;
-  firstname: string;
 }
 
 function StudentDashboard(props: StudentDashboardProps) {
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const { student_id } = props;
-  const { firstname } = props;
+  const [taskData, setTaskData] = useState<any[]>([]);
+  const [dataClass, setDataClass] = useState<any[]>([]);
+  const [eventData, setEventData] = useState<any[]>([]);
+
+  const GetTaskData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/student/class/content/task/task-list/${student_id}/1`,
+        {}
+      );
+
+      setTaskData(response.data);
+
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+
+  const GetClassList = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/student/class/${student_id}`,
+        {}
+      );
+      console.log(response.data);
+      setDataClass(response.data);
+
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+
+  const getEventList = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/student/dashboard/event/${student_id}`,
+        {}
+      );
+
+      setEventData(response.data);
+      console.log(response.data);
+
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+
+  // navigasi ke student event
+  const goToDetailEvent = (event_id: any, category_id: any) => {
+    if (category_id == 1 || category_id == 0) {
+      navigate("/student/class/content/task", {
+        state: { event_id },
+      });
+    } else if (category_id == 2) {
+      navigate("/student/class/content/material", {
+        state: { event_id },
+      });
+    } else if (category_id == 3) {
+      navigate("/student/class/content/announcement", {
+        state: { event_id },
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (student_id) {
+      GetTaskData();
+      getEventList();
+      GetClassList();
+    }
+  }, [student_id]);
 
   return (
     <main>
@@ -29,32 +131,34 @@ function StudentDashboard(props: StudentDashboardProps) {
             </li>
           </ul>
         </div>
-        <a href="#" className="btn-download">
-          <i className="bx bxs-cloud-download"></i>
-          <span className="text">Download PDF</span>
-        </a>
       </div>
 
       <ul className="box-info">
         <li>
           <i className="bx bxs-calendar-check"></i>
           <span className="text">
-            <h3>1020</h3>
-            <p>New Order</p>
+            <h3>{taskData.length}</h3>
+            <p>Task</p>
           </span>
         </li>
         <li>
           <i className="bx bxs-group"></i>
           <span className="text">
-            <h3>2834</h3>
-            <p>Visitors</p>
+            <h3>{dataClass.length}</h3>
+            <p>Class Joined</p>
           </span>
         </li>
         <li>
-          <i className="bx bxs-dollar-circle"></i>
+          <i className="bx bx-dots-vertical-rounded"></i>
           <span className="text">
-            <h3>$2543</h3>
-            <p>Total Sales</p>
+            <h3>
+              {
+                eventData.filter((event) => event.event_category_id === 2)
+                  .length
+              }
+            </h3>
+
+            <p>Material</p>
           </span>
         </li>
       </ul>
@@ -62,84 +166,69 @@ function StudentDashboard(props: StudentDashboardProps) {
       <div className="table-data">
         <div className="order">
           <div className="head">
-            <h3>Recent Orders</h3>
-            <i className="bx bx-search"></i>
+            <h3>Event Lately</h3>
             <i className="bx bx-filter"></i>
           </div>
           <table>
             <thead>
               <tr>
-                <th>User</th>
-                <th>Date Order</th>
-                <th>Status</th>
+                <th>Event Name</th>
+                <th>Time Created</th>
+                <th>Category</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status completed">Completed</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status pending">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status process">Process</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status pending">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status completed">Completed</span>
-                </td>
-              </tr>
+              {eventData.slice(0, 5).map((event) => (
+                <tr
+                  key={event.event_id}
+                  onClick={() =>
+                    goToDetailEvent(event.event_id, event.event_category_id)
+                  }
+                >
+                  <td>
+                    <p>{event.event_name}</p>
+                  </td>
+                  <td>
+                    {new Date(event.createdAt).toLocaleString("en-US", {
+                      dateStyle: "short",
+                      timeStyle: "short",
+                    })}
+                  </td>
+                  <td>
+                    {event.event_category_id === 1 ? (
+                      <span className="status pending">Task</span>
+                    ) : event.event_category_id === 2 ? (
+                      <span className="status completed">Material</span>
+                    ) : event.event_category_id === 3 ? (
+                      <span className="status process">Announcement</span>
+                    ) : null}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
         <div className="todo">
           <div className="head">
-            <h3>Todos</h3>
-            <i className="bx bx-plus"></i>
+            <h3>Your Task</h3>
             <i className="bx bx-filter"></i>
           </div>
           <ul className="todo-list">
-            <li className="completed">
-              <p>Todo List</p>
-              <i className="bx bx-dots-vertical-rounded"></i>
-            </li>
-            {/* Tambahkan item todo lainnya di sini */}
+            {taskData.map((event) =>
+              event.tasks.map(
+                (task: any) =>
+                  task.task_uploads.length === 0 && (
+                    <li
+                      className="not-completed"
+                      key={task.task_id}
+                      onClick={() => goToDetailEvent(event.event_id, 0)}
+                    >
+                      <p>{task.task_name}</p>
+                      <i className="bx bx-plus"></i>
+                    </li>
+                  )
+              )
+            )}
           </ul>
         </div>
       </div>

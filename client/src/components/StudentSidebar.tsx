@@ -70,12 +70,6 @@ function StudentSidebar() {
 
       {/* OTHER MENU */}
       <ul className="side-menu">
-        <li>
-          <a href="#">
-            <i className="bx bxs-cog"></i>
-            <span className="text">Settings</span>
-          </a>
-        </li>
         <NavLink to="/student/logout">
           <li>
             <a href="#" className="logout">

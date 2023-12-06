@@ -42,6 +42,10 @@ import {
 import { getMaterial, addNewMaterial } from "../controller/Material.js";
 
 import { authenticateUser, logout } from "../middleware/auth.js";
+import {
+  getAllEventByLecturer,
+  getAllEventByStudent,
+} from "../controller/event.js";
 const router = express.Router();
 // const upload = uploadImage();
 
@@ -50,6 +54,8 @@ const router = express.Router();
 router.get("/student", authenticateUser, GetStudent);
 router.post("/student-register", StudentRegister);
 router.post("/student-login", StudentLogin);
+// event
+router.get("/student/dashboard/event/:student_id", getAllEventByStudent);
 // class
 router.get("/student/getclass/:class_id", getClassDataStudent); // mengambil data kelas
 router.post("/student/join-class", JoinClass); // join ke kelas tertentu
@@ -71,6 +77,8 @@ router.get(
 router.get("/lecturer", authenticateUser, GetLecturer);
 router.post("/lecturer-register", LecturerRegister);
 router.post("/lecturer-login", LecturerLogin);
+// event
+router.get("/lecturer/dashboard/event/:lecturer_id", getAllEventByLecturer);
 // class
 router.get("/lecturer/getclass/:class_id", getClassData);
 router.post("/lecturer/add-class", addNewClass);

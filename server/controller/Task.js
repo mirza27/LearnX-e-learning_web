@@ -1,6 +1,5 @@
 import Task from "../models/taskModel.js";
 import TaskUpload from "../models/taskUploadModel.js";
-import Classes from "../models/classModel.js";
 import Event from "../models/eventModel.js";
 import Student from "../models/studentModel.js";
 import Class from "../models/classModel.js";
@@ -294,6 +293,7 @@ export const updateScore = async (req, res) => {
   }
 };
 
+// MENGAMBIL TUGAS STUDENT
 export const StudentTaskList = async (req, res) => {
   const student_id = req.params.student_id;
   const is_all = req.params.is_all === "1"; // Convert to boolean
@@ -323,7 +323,9 @@ export const StudentTaskList = async (req, res) => {
             {
               model: TaskUpload,
               attributes: ["task_upload_id", "is_late", "updatedAt", "score"],
-              where: { student_id: student_id },
+              where: {
+                student_id: student_id,
+              },
               required: !is_all, // Show only tasks that haven't been done if is_all is false
             },
           ],

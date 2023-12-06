@@ -6,13 +6,62 @@ import "../../styles/content.css";
 
 interface LecturerDashboardProps {
   lecturer_id: string;
-  firstname: string;
 }
 
 function LecturerDashboard(props: LecturerDashboardProps) {
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const { lecturer_id } = props;
-  const { firstname } = props;
+  const [taskData, setTaskData] = useState<any[]>([]);
+  const [dataClass, setDataClass] = useState<any[]>([]);
+  const [eventData, setEventData] = useState<any[]>([]);
+
+  const getEventList = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/lecturer/dashboard/event/${lecturer_id}`,
+        {}
+      );
+
+      setEventData(response.data);
+      console.log(response.data);
+
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+
+  // navigasi ke lecturer event
+  const goToDetailEvent = (event_id: any, category_id: any) => {
+    if (category_id == 1 || category_id == 0) {
+      navigate("/lecturer/myclass/content/task", {
+        state: { event_id },
+      });
+    } else if (category_id == 2) {
+      navigate("/lecturer/myclass/content/material", {
+        state: { event_id },
+      });
+    } else if (category_id == 3) {
+      navigate("/lecturer/myclass/content/announcement", {
+        state: { event_id },
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (lecturer_id) {
+      getEventList();
+    }
+  }, [lecturer_id]);
 
   return (
     <main>
@@ -33,32 +82,39 @@ function LecturerDashboard(props: LecturerDashboardProps) {
             </li>
           </ul>
         </div>
-        <a href="#" className="btn-download">
-          <i className="bx bxs-cloud-download"></i>
-          <span className="text">Download PDF</span>
-        </a>
       </div>
 
       <ul className="box-info">
         <li>
           <i className="bx bxs-calendar-check"></i>
           <span className="text">
-            <h3>1020</h3>
-            <p>New Order</p>
+            <h3>
+              {
+                eventData.filter((event) => event.event_category_id === 1)
+                  .length
+              }
+            </h3>
+            <p>Task Made</p>
           </span>
         </li>
         <li>
           <i className="bx bxs-group"></i>
           <span className="text">
             <h3>2834</h3>
-            <p>Visitors</p>
+            <p>Student Number</p>
           </span>
         </li>
         <li>
-          <i className="bx bxs-dollar-circle"></i>
+          <i className="bx bx-dots-vertical-rounded"></i>
           <span className="text">
-            <h3>$2543</h3>
-            <p>Total Sales</p>
+            <h3>
+              {" "}
+              {
+                eventData.filter((event) => event.event_category_id === 2)
+                  .length
+              }
+            </h3>
+            <p>Material Made</p>
           </span>
         </li>
       </ul>
@@ -66,75 +122,51 @@ function LecturerDashboard(props: LecturerDashboardProps) {
       <div className="table-data">
         <div className="order">
           <div className="head">
-            <h3>Recent Orders</h3>
-            <i className="bx bx-search"></i>
+            <h3>Event Lately</h3>
             <i className="bx bx-filter"></i>
           </div>
           <table>
             <thead>
               <tr>
-                <th>User</th>
-                <th>Date Order</th>
-                <th>Status</th>
+                <th>Event Name</th>
+                <th>Time Created</th>
+                <th>Category</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status completed">Completed</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status pending">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status process">Process</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status pending">Pending</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="img/people.png" />
-                  <p>John Doe</p>
-                </td>
-                <td>01-10-2021</td>
-                <td>
-                  <span className="status completed">Completed</span>
-                </td>
-              </tr>
+              {eventData.slice(0, 5).map((event) => (
+                <tr
+                  key={event.event_id}
+                  onClick={() =>
+                    goToDetailEvent(event.event_id, event.event_category_id)
+                  }
+                >
+                  <td>
+                    <p>{event.event_name}</p>
+                  </td>
+                  <td>
+                    {new Date(event.createdAt).toLocaleString("en-US", {
+                      dateStyle: "short",
+                      timeStyle: "short",
+                    })}
+                  </td>
+                  <td>
+                    {event.event_category_id === 1 ? (
+                      <span className="status pending">Task</span>
+                    ) : event.event_category_id === 2 ? (
+                      <span className="status completed">Material</span>
+                    ) : event.event_category_id === 3 ? (
+                      <span className="status process">Announcement</span>
+                    ) : null}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
         <div className="todo">
           <div className="head">
-            <h3>Todos</h3>
+            <h3>My Class</h3>
             <i className="bx bx-plus"></i>
             <i className="bx bx-filter"></i>
           </div>

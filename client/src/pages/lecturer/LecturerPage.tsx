@@ -73,12 +73,7 @@ function LecturerPage() {
           {/* <Route path="/" /> */}
           <Route
             path="/dashboard"
-            element={
-              <LecturerDashboard
-                lecturer_id={lecturer_id}
-                firstname={firstname}
-              />
-            }
+            element={<LecturerDashboard lecturer_id={lecturer_id} />}
           />
           <Route
             path="/myclass"

@@ -37,6 +37,8 @@ function CreateClass(props: LecturerClassProps) {
           text: response.data.message,
           icon: "success",
         });
+
+        navigate("/lecturer/myclass");
       }
     } catch (error: any) {
       Swal.fire({

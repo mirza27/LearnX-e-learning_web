@@ -68,9 +68,7 @@ function StudentPage() {
           {/* <Route path="/" /> */}
           <Route
             path="/dashboard"
-            element={
-              <StudentDashboard student_id={student_id} firstname={firstname} />
-            }
+            element={<StudentDashboard student_id={student_id} />}
           />
           <Route
             path="/class"
