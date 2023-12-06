@@ -18,6 +18,7 @@ import LecturerTask from "./LecturerTask";
 import Attachment from "./Attachment";
 import LecturerTaskUploadDetail from "./LectrerTaskUploadDetail";
 import ClassStudentList from "./StudentList";
+import Logout from "../Logout";
 
 function LecturerPage() {
   const [firstname, setFirstName] = useState("");
@@ -135,6 +136,8 @@ function LecturerPage() {
             path="/myclass/content/student-edit"
             element={<ClassStudentList lecturer_id={lecturer_id} />}
           />
+
+          <Route path="/logout" element={<Logout user_id={lecturer_id} />} />
         </Routes>
       </section>
       .

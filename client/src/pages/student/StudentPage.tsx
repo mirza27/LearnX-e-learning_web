@@ -12,6 +12,7 @@ import AnnouncementPage from "../AnnouncementPage";
 import MaterialPage from "../MaterialPage";
 import StudentTaskUpdate from "./UpdateTask";
 import StudentTaskList from "./StudentTaskList";
+import Logout from "../Logout";
 // import "../../styles/content.css";
 
 function StudentPage() {
@@ -99,6 +100,7 @@ function StudentPage() {
             path="/class/content/task/update"
             element={<StudentTaskUpdate student_id={student_id} />}
           />
+          <Route path="/logout" element={<Logout user_id={student_id} />} />
         </Routes>
       </section>
     </>

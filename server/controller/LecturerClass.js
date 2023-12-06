@@ -135,7 +135,7 @@ export const MyClassContent = async (req, res) => {
           attributes: ["nama", "content"],
         },
       ],
-      order: [["createdAt", "ASC"]],
+      order: [["createdAt", "DESC"]],
     });
 
     res.status(200).json(classContent);

@@ -63,6 +63,24 @@ function LecturerSidebar() {
           </NavLink>
         ))}
       </ul>
+
+      {/* OTHER MENU */}
+      <ul className="side-menu">
+        <li>
+          <a href="#">
+            <i className="bx bxs-cog"></i>
+            <span className="text">Settings</span>
+          </a>
+        </li>
+        <NavLink to="/lecturer/logout">
+          <li>
+            <a href="#" className="logout">
+              <i className="bx bxs-log-out-circle"></i>
+              <span className="text">Logout</span>
+            </a>
+          </li>
+        </NavLink>
+      </ul>
     </section>
   );
 }
