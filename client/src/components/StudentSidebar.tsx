@@ -26,7 +26,7 @@ function StudentSidebar() {
       icon: "fluent:clipboard-task-24-regular",
     },
     {
-      path: "/student/",
+      path: "/student/forum",
       name: "Forums",
       icon: "ic:baseline-chat",
     },

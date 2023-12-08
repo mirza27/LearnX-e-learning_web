@@ -26,8 +26,8 @@ function LecturerSidebar() {
       icon: "fluent:clipboard-task-24-regular",
     },
     {
-      path: "/lecturer/forums",
-      name: "Forums",
+      path: "/lecturer/forum",
+      name: "Forum",
       icon: "ic:baseline-chat",
     },
   ];

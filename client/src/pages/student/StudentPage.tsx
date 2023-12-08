@@ -13,7 +13,11 @@ import MaterialPage from "../MaterialPage";
 import StudentTaskUpdate from "./UpdateTask";
 import StudentTaskList from "./StudentTaskList";
 import Logout from "../Logout";
+import StudentForum from "./StudentForum";
+import { io } from "socket.io-client";
 // import "../../styles/content.css";
+
+const socket = io("http://localhost:5000");
 
 function StudentPage() {
   const [firstname, setFirstName] = useState("");
@@ -73,6 +77,16 @@ function StudentPage() {
           <Route
             path="/class"
             element={<StudentClass student_id={student_id} />}
+          />
+          <Route
+            path="/forum"
+            element={
+              <StudentForum
+                student_id={student_id}
+                firstname={firstname}
+                socket={socket}
+              />
+            }
           />
           <Route
             path="/mytask"

@@ -19,6 +19,10 @@ import Attachment from "./Attachment";
 import LecturerTaskUploadDetail from "./LectrerTaskUploadDetail";
 import ClassStudentList from "./StudentList";
 import Logout from "../Logout";
+import LecturerForum from "./LecturerForum";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:5000");
 
 function LecturerPage() {
   const [firstname, setFirstName] = useState("");
@@ -79,6 +83,16 @@ function LecturerPage() {
             path="/myclass"
             element={
               <LecturerClass lecturer_id={lecturer_id} firstname={firstname} />
+            }
+          />
+          <Route
+            path="/forum"
+            element={
+              <LecturerForum
+                lecturer_id={lecturer_id}
+                firstname={firstname}
+                socket={socket}
+              />
             }
           />
           <Route

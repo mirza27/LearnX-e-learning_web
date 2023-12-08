@@ -1,0 +1,24 @@
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 600px;
+}
+
+.chat-window .chat-body {
+  flex: 1;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-window .chat-body .message-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.chat-window .chat-footer {
+  height: 70px;
+}

@@ -46,8 +46,9 @@ import {
   getAllEventByLecturer,
   getAllEventByStudent,
 } from "../controller/event.js";
+import { getChat, saveChat } from "../controller/Chat.js";
+
 const router = express.Router();
-// const upload = uploadImage();
 
 // STUDENT ====================================================
 // autentikasi
@@ -115,6 +116,8 @@ router.post(
 );
 
 // BOTH LECTURER OR STUDENT
+router.post("/user/forum/save-chat", saveChat); // menyimpan riwayat pesan
+router.get("/user/forum/get-chat/:class_id", getChat); // mengambil riwayat chat
 router.get("/user/event/announcement/:event_id", getAnnouncement);
 router.get("/user/event/material/:event_id", getMaterial);
 router.get("/logout", logout);
