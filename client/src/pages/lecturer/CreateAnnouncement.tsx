@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { Icon } from "@iconify/react";
 import "../../styles/form.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 interface LecturerAnnounProps {
   lecturer_id: string;
 }
@@ -23,7 +24,7 @@ function CreateAnnoun(props: LecturerAnnounProps) {
     // menampilkan data untuk select class
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/${lecturer_id}/`,
+        `${API_BASE_URL}/lecturer/my-class/${lecturer_id}/`,
         {}
       );
 
@@ -60,7 +61,7 @@ function CreateAnnoun(props: LecturerAnnounProps) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/lecturer/my-class/content/announcement/addAnnouncement",
+        `${API_BASE_URL}/lecturer/my-class/content/announcement/addAnnouncement`,
         {
           event_name: eventName,
           class_id: classId,
@@ -75,6 +76,10 @@ function CreateAnnoun(props: LecturerAnnounProps) {
           title: "Success!",
           text: response.data.message,
           icon: "success",
+        });
+
+        navigate("/lecturer/myclass/content", {
+          state: { class_id: classId },
         });
       }
     } catch (error: any) {

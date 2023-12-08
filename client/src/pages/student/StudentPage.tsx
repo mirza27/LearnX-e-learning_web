@@ -17,7 +17,8 @@ import StudentForum from "./StudentForum";
 import { io } from "socket.io-client";
 // import "../../styles/content.css";
 
-const socket = io("http://localhost:5000");
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const socket = io(`${API_BASE_URL}`);
 
 function StudentPage() {
   const [firstname, setFirstName] = useState("");
@@ -28,7 +29,7 @@ function StudentPage() {
   const checkAuth = async () => {
     try {
       // tidak menggunakan axios agar tidak lansung
-      const response = await fetch("http://localhost:5000/student", {
+      const response = await fetch(`${API_BASE_URL}/student`, {
         headers: {
           "content-type": "application/json",
         },

@@ -47,10 +47,12 @@ function LecturerSidebar() {
   return (
     // Konten Sidebar Anda tetap sama seperti sebelumnya
     <section id="sidebar" className={isSidebarHidden ? "hide" : ""}>
-      <a href="#" className="brand">
-        <Icon icon="ion:school-outline" className="bx" />
-        <span className="text">LearnX</span>
-      </a>
+      <NavLink to="/lecturer/dashboard">
+        <a href="#" className="brand">
+          <Icon icon="ion:school-outline" className="bx" />
+          <span className="text">LearnX</span>
+        </a>
+      </NavLink>
       <ul className="side-menu top">
         {menuItem.map((item, index) => (
           <NavLink to={item.path} key={index} className="link">

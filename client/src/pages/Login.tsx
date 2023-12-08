@@ -1,9 +1,12 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import "../styles/login.css";
 import { LoginListener } from "../eventListener/LoginListener";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -17,7 +20,7 @@ function Login() {
   const LecturerLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/lecturer-login", {
+      await axios.post(`${API_BASE_URL}/lecturer-login`, {
         email: email,
         password: password,
       });
@@ -35,7 +38,7 @@ function Login() {
   const StudentLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/student-login", {
+      await axios.post(`${API_BASE_URL}/student-login`, {
         email: email,
         password: password,
       });
@@ -75,6 +78,11 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit">Sign In</button>
+            <NavLink to="/register">
+              <span>
+                <a>Dont have account ?</a>
+              </span>
+            </NavLink>
           </form>
         </div>
         <div className="form-container sign-in-container">
@@ -98,6 +106,11 @@ function Login() {
             />
             <a href="#">Forgot your password?</a>
             <button type="submit">Sign In</button>
+            <NavLink to="/register">
+              <span>
+                <a>Dont have account ?</a>
+              </span>
+            </NavLink>
           </form>
         </div>
         <div className="overlay-container">

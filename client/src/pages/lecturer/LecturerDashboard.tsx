@@ -8,6 +8,8 @@ interface LecturerDashboardProps {
   lecturer_id: string;
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function LecturerDashboard(props: LecturerDashboardProps) {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ function LecturerDashboard(props: LecturerDashboardProps) {
   const getEventList = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/dashboard/event/${lecturer_id}`,
+        `${API_BASE_URL}/lecturer/dashboard/event/${lecturer_id}`,
         {}
       );
 
@@ -57,9 +59,41 @@ function LecturerDashboard(props: LecturerDashboardProps) {
     }
   };
 
+  const goToClass = (class_id: any) => {
+    if (class_id) {
+      navigate("/lecturer/myclass/content", {
+        state: { class_id },
+      });
+    }
+  };
+
+  const GetClassList = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/lecturer/my-class/${lecturer_id}`,
+        {}
+      );
+
+      setDataClass(response.data);
+
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
+    } catch (error: any) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     if (lecturer_id) {
       getEventList();
+      GetClassList();
     }
   }, [lecturer_id]);
 
@@ -84,7 +118,7 @@ function LecturerDashboard(props: LecturerDashboardProps) {
         </div>
       </div>
 
-      <ul className="box-info">
+      <ul className="dasboard-public-info box-info">
         <li>
           <i className="bx bxs-calendar-check"></i>
           <span className="text">
@@ -100,8 +134,8 @@ function LecturerDashboard(props: LecturerDashboardProps) {
         <li>
           <i className="bx bxs-group"></i>
           <span className="text">
-            <h3>2834</h3>
-            <p>Student Number</p>
+            <h3>{dataClass.length}</h3>
+            <p>Class Made</p>
           </span>
         </li>
         <li>
@@ -167,14 +201,26 @@ function LecturerDashboard(props: LecturerDashboardProps) {
         <div className="todo">
           <div className="head">
             <h3>My Class</h3>
-            <i className="bx bx-plus"></i>
             <i className="bx bx-filter"></i>
           </div>
           <ul className="todo-list">
-            <li className="completed">
-              <p>Todo List</p>
-              <i className="bx bx-dots-vertical-rounded"></i>
-            </li>
+            {dataClass
+              .slice(0, 3)
+              .map(
+                (
+                  classItem: { class_name: string; class_id: string },
+                  index: number
+                ) => (
+                  <li
+                    className="completed"
+                    key={index}
+                    onClick={() => goToClass(classItem.class_id)}
+                  >
+                    <p>{classItem.class_name}</p>
+                    <i className="bx bx-dots-vertical-rounded"></i>
+                  </li>
+                )
+              )}
             {/* Tambahkan item todo lainnya di sini */}
           </ul>
         </div>

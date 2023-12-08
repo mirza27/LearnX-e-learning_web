@@ -5,6 +5,8 @@ import axios from "axios";
 import "../styles/register.css";
 import Swal from "sweetalert2";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function Register() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -19,7 +21,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/student-register", {
+      await axios.post(`${API_BASE_URL}/student-register`, {
         firstname: firstname,
         lastname: lastname,
         email: email,
@@ -42,7 +44,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/lecturer-register", {
+      await axios.post(`${API_BASE_URL}/lecturer-register`, {
         firstname: firstname,
         lastname: lastname,
         email: email,

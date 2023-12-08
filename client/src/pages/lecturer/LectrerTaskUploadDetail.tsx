@@ -8,6 +8,8 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import Modal from "react-modal";
 import styled from "styled-components";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 interface EventProps {
   lecturer_id: string;
 }
@@ -35,7 +37,7 @@ function LecturerTaskUploadDetail(props: EventProps) {
   const GetTask = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/content/getTaskUpload/${task_upload_id}`,
+        `${API_BASE_URL}/lecturer/my-class/content/getTaskUpload/${task_upload_id}`,
         {}
       );
       setTaskUploadData(response.data);
@@ -95,7 +97,7 @@ function LecturerTaskUploadDetail(props: EventProps) {
         return (
           axios
             .post(
-              "http://localhost:5000/lecturer/my-class/content/getTaskUpload/scoring",
+              `${API_BASE_URL}/lecturer/my-class/content/getTaskUpload/scoring`,
               {
                 task_upload_id: task_upload_id,
                 score: value,

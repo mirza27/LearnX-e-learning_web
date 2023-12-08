@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import "../../styles/form.css";
 import { cloudinaryConfigTask } from "../../cloudinaryConfig";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 interface LecturerTaskProps {
   lecturer_id: string;
 }
@@ -23,7 +24,7 @@ function CreateTask(props: LecturerTaskProps) {
     // menampilkan data untuk select class
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/${lecturer_id}/`,
+        `${API_BASE_URL}/lecturer/my-class/${lecturer_id}/`,
         {}
       );
 
@@ -42,12 +43,6 @@ function CreateTask(props: LecturerTaskProps) {
       }
     }
   };
-
-  useEffect(() => {
-    if (lecturer_id) {
-      GetClassList();
-    }
-  }, [lecturer_id]);
 
   const [eventName, setEventName] = useState("");
   const [taskName, setTaskName] = useState("");
@@ -108,7 +103,7 @@ function CreateTask(props: LecturerTaskProps) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/lecturer/my-class/content/addtask",
+        `${API_BASE_URL}/lecturer/my-class/content/addtask`,
         {
           event_name: eventName,
           task_name: taskName,
@@ -127,6 +122,10 @@ function CreateTask(props: LecturerTaskProps) {
           text: response.data.message,
           icon: "success",
         });
+
+        navigate("/lecturer/myclass/content", {
+          state: { class_id: classId },
+        });
       }
     } catch (error: any) {
       Swal.fire({
@@ -136,6 +135,12 @@ function CreateTask(props: LecturerTaskProps) {
       });
     }
   };
+
+  useEffect(() => {
+    if (lecturer_id) {
+      GetClassList();
+    }
+  }, [lecturer_id]);
 
   return (
     <main>

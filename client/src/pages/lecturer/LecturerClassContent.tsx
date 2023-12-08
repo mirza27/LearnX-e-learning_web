@@ -6,6 +6,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Icon } from "@iconify/react";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 interface LecturerClassContentProps {
   lecturer_id: string;
   firstname: string;
@@ -71,14 +73,14 @@ function LecturerClassContent(props: LecturerClassContentProps) {
     try {
       // mengambil data class
       const responseClassData = await axios.get(
-        `http://localhost:5000/lecturer/getclass/${class_id}`,
+        `${API_BASE_URL}/lecturer/getclass/${class_id}`,
         {}
       );
       setClassData(responseClassData.data);
 
       // mengambil data setiap item
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/content/${class_id}`,
+        `${API_BASE_URL}/lecturer/my-class/content/${class_id}`,
         {}
       );
       setDataEvent(response.data);
@@ -145,7 +147,6 @@ function LecturerClassContent(props: LecturerClassContentProps) {
           </ul>
         </div>
         <a className="btn-download" onClick={() => goToStudentList(class_id)}>
-          <i className="bx bxs-cloud-download"></i>
           <span className="text">Edit Student</span>
         </a>
       </div>
@@ -165,7 +166,7 @@ function LecturerClassContent(props: LecturerClassContentProps) {
       )}
 
       {/* LOOP EVENT EVENT CLASS */}
-      <ul className="box-info">
+      <ul className="box-info event-item">
         {dataEvent.map((event, index) =>
           event.materials.length > 0 ? ( // Kondisi pertama
             <div className="box-item blog-card" key={index}>

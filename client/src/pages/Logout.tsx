@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 interface logoutProps {
   user_id: string;
 }
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function Logout(props: logoutProps) {
   const [message, setMessage] = useState("");
@@ -14,7 +15,7 @@ function Logout(props: logoutProps) {
 
   const removeCookie = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/logout`, {});
+      const response = await axios.get(`${API_BASE_URL}/logout`, {});
 
       if (response.data.message) {
         setMessage(response.data.message);

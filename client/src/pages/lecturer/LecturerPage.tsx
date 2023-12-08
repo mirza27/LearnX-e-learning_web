@@ -22,7 +22,9 @@ import Logout from "../Logout";
 import LecturerForum from "./LecturerForum";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const port = process.env.PORT;
+const socket = io(`${API_BASE_URL}`);
 
 function LecturerPage() {
   const [firstname, setFirstName] = useState("");
@@ -33,7 +35,7 @@ function LecturerPage() {
   const checkAuth = async () => {
     try {
       // tidak menggunakan axios agar tidak lansung
-      const response = await fetch("http://localhost:5000/lecturer", {
+      const response = await fetch(`${API_BASE_URL}/lecturer`, {
         headers: {
           "content-type": "application/json",
         },
@@ -66,6 +68,10 @@ function LecturerPage() {
   useEffect(() => {
     SidebarListener(); //script sidebar
     checkAuth();
+    console.log("env", process.env);
+    console.log("port", port);
+
+    console.log(API_BASE_URL);
   }, []);
 
   return (

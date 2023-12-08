@@ -7,6 +7,7 @@ import "../styles/eventDetail.css";
 interface EventProps {
   is_lecturer: boolean;
 }
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function AnnouncementPage(props: EventProps) {
   const location = useLocation();
@@ -19,7 +20,7 @@ function AnnouncementPage(props: EventProps) {
   const GetEventData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/user/event/announcement/${event_id}`,
+        `${API_BASE_URL}/user/event/announcement/${event_id}`,
         {}
       );
       setAnnouncementData(response.data);
@@ -169,10 +170,6 @@ function AnnouncementPage(props: EventProps) {
               </li>
             </ul>
           </div>
-          <a href="#" className="btn-download">
-            <i className="bx bxs-cloud-download"></i>
-            <span className="text">Download PDF</span>
-          </a>
         </div>
         <div className="task-detail-container">
           {announcementData && (

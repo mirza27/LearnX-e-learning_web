@@ -21,6 +21,7 @@ interface Message {
   content: string;
   time: Date;
 }
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function Chat(props: ChatRoom) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -41,7 +42,7 @@ function Chat(props: ChatRoom) {
       // menyimpan riwayat chat
       try {
         const response = await axios.post(
-          `http://localhost:5000/user/forum/save-chat`,
+          `${API_BASE_URL}/user/forum/save-chat`,
           {
             class_id: roomClass,
             sender_id: user_id,
@@ -64,7 +65,7 @@ function Chat(props: ChatRoom) {
   const fetchChatHistory = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/user/forum/get-chat/${roomClass}`
+        `${API_BASE_URL}/user/forum/get-chat/${roomClass}`
       );
       setMessageList(response.data); // Mengatur riwayat chat ke state
       console.log(response.data); //

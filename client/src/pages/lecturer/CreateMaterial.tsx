@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { cloudinaryConfigMaterial } from "../../cloudinaryConfig";
 import "../../styles/form.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 interface LecturerMaterialProps {
   lecturer_id: string;
 }
@@ -24,7 +25,7 @@ function CreateMaterial(props: LecturerMaterialProps) {
     // menampilkan data untuk select class
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/${lecturer_id}/`,
+        `${API_BASE_URL}/lecturer/my-class/${lecturer_id}/`,
         {}
       );
 
@@ -105,7 +106,7 @@ function CreateMaterial(props: LecturerMaterialProps) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/lecturer/my-class/content/addMaterial",
+        `${API_BASE_URL}/lecturer/my-class/content/addMaterial`,
         {
           event_name: eventName,
           materialName: materialName,
@@ -121,6 +122,10 @@ function CreateMaterial(props: LecturerMaterialProps) {
           title: "Success!",
           text: response.data.message,
           icon: "success",
+        });
+
+        navigate("/lecturer/myclass/content", {
+          state: { class_id: classId },
         });
       }
     } catch (error: any) {

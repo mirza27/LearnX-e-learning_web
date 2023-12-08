@@ -11,6 +11,8 @@ interface StudentClassContentProps {
   student_id: string;
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function StudentClassContent(props: StudentClassContentProps) {
   const location = useLocation();
   const class_id = location.state && location.state.class_id;
@@ -51,13 +53,13 @@ function StudentClassContent(props: StudentClassContentProps) {
     try {
       // mengambil data class
       const responseClassData = await axios.get(
-        `http://localhost:5000/student/getclass/${class_id}`,
+        `${API_BASE_URL}/student/getclass/${class_id}`,
         {}
       );
       setClassData(responseClassData.data);
 
       const response = await axios.get(
-        `http://localhost:5000/student/class/content/${class_id}`,
+        `${API_BASE_URL}/student/class/content/${class_id}`,
         {}
       );
 
@@ -97,7 +99,7 @@ function StudentClassContent(props: StudentClassContentProps) {
           preConfirm: async () => {
             try {
               const response = await axios.post(
-                "http://localhost:5000/student/class/content/leave",
+                `${API_BASE_URL}/student/class/content/leave`,
                 {
                   student_id: student_id,
                   class_id: class_id,
@@ -188,7 +190,7 @@ function StudentClassContent(props: StudentClassContentProps) {
           </ul>
         </div>
         <a className="btn-download" onClick={() => leaveClass()}>
-          <i className="bx bxs-cloud-download"></i>
+          <i className="bx bxs-log-out-circle"></i>
           <span className="text">Leave Class</span>
         </a>
       </div>
@@ -207,7 +209,7 @@ function StudentClassContent(props: StudentClassContentProps) {
       )}
 
       {/* LOOP EVENT EVENT CLASS */}
-      <ul className="box-info">
+      <ul className="box-info event-item">
         {dataEvent.map((event, index) =>
           event.materials.length > 0 ? ( // Kondisi pertama
             <div

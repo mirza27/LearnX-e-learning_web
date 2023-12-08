@@ -14,7 +14,7 @@ const app = express(); // Create an instance of express
 const server = http.createServer(app); // Use the express app with http.createServer
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5001",
+    origin: process.env.CORS_ORIGIN || "http://localhost:5001",
     method: ["GET", "POST"],
   },
 });
@@ -37,7 +37,10 @@ try {
 app.use(
   cors(
     // akses ke frontend
-    { credentials: true, origin: "http://localhost:5001" }
+    {
+      credentials: true,
+      origin: process.env.CORS_ORIGIN || "http://localhost:5001",
+    }
   )
 );
 
@@ -67,5 +70,5 @@ app.use(express.json());
 app.use(router);
 
 server.listen(port, () => {
-  console.log(`Server berjalan di http://localhost:${port}`);
+  console.log(`Server berjalan diPORT{port}`);
 });

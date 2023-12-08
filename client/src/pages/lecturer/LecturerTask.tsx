@@ -10,6 +10,7 @@ import Modal from "react-modal";
 interface EventProps {
   is_lecturer: boolean;
 }
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function LecturerTask(props: EventProps) {
   const location = useLocation();
@@ -26,7 +27,7 @@ function LecturerTask(props: EventProps) {
   const GetTask = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/content/task/${event_id}`,
+        `${API_BASE_URL}/lecturer/my-class/content/task/${event_id}`,
         {}
       );
       setTaskData(response.data);
@@ -61,7 +62,7 @@ function LecturerTask(props: EventProps) {
   const GetTaskUpload = async (task_id: string, class_id: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/content/task/taskUpload/${task_id}/${class_id}`,
+        `${API_BASE_URL}/lecturer/my-class/content/task/taskUpload/${task_id}/${class_id}`,
         {}
       );
       console.log(response.data);

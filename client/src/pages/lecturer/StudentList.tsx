@@ -8,6 +8,8 @@ interface ClassStudentListProps {
   lecturer_id: string;
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function ClassStudentList(props: ClassStudentListProps) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,7 +21,7 @@ function ClassStudentList(props: ClassStudentListProps) {
   const getStudent = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/content/${class_id}/student-list`,
+        `${API_BASE_URL}/lecturer/my-class/content/${class_id}/student-list`,
         {}
       );
 
@@ -59,7 +61,7 @@ function ClassStudentList(props: ClassStudentListProps) {
           preConfirm: async () => {
             try {
               const response = await axios.post(
-                "http://localhost:5000/lecturer/my-class/content/delete-student",
+                `${API_BASE_URL}/lecturer/my-class/content/delete-student`,
                 {
                   student_id: student_id,
                   class_id: class_id,

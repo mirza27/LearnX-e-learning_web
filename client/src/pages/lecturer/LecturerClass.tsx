@@ -9,6 +9,7 @@ interface LecturerClassProps {
   lecturer_id: string;
   firstname: string;
 }
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function LecturerClass(props: LecturerClassProps) {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function LecturerClass(props: LecturerClassProps) {
   const GetClassList = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/${lecturer_id}`,
+        `${API_BASE_URL}/lecturer/my-class/${lecturer_id}`,
         {}
       );
 

@@ -8,10 +8,13 @@ import StudentPage from "./pages/student/StudentPage";
 import LecturerPage from "./pages/lecturer/LecturerPage";
 
 function App() {
+  console.log("ini port", process.env.PORT);
+  console.log("ini url", process.env.REACT_APP_API_BASE_URL);
   return (
     <Router>
       <Routes>
         {<Route path="/login" element={<Login />} />}
+        {<Route path="/" element={<Login />} />}
         {<Route path="/register" element={<Register />} />}
         {<Route path="/lecturer/*" element={<LecturerPage />} />}
         {<Route path="/student/*" element={<StudentPage />} />}

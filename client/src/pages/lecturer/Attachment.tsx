@@ -6,6 +6,8 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { Icon } from "@iconify/react";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 interface LecturerProps {
   lecturer_id: string;
 }
@@ -50,7 +52,7 @@ function Attachment(props: LecturerProps) {
     // menampilkan data untuk select class
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/${lecturer_id}`,
+        `${API_BASE_URL}/lecturer/my-class/${lecturer_id}`,
         {}
       );
 
@@ -77,7 +79,7 @@ function Attachment(props: LecturerProps) {
   const GetTaskData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/lecturer/my-class/content/alltask/${lecturer_id}`,
+        `${API_BASE_URL}/lecturer/my-class/content/alltask/${lecturer_id}`,
         {}
       );
 

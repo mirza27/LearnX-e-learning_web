@@ -10,6 +10,8 @@ interface StudentSTaskListProps {
   student_id: string;
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function StudentTaskList(props: StudentSTaskListProps) {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ function StudentTaskList(props: StudentSTaskListProps) {
   const GetClassList = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/student/class/${student_id}`,
+        `${API_BASE_URL}/student/class/${student_id}`,
         {}
       );
 
@@ -88,7 +90,7 @@ function StudentTaskList(props: StudentSTaskListProps) {
   const GetTaskData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/student/class/content/task/task-list/${student_id}/1`,
+        `${API_BASE_URL}/student/class/content/task/task-list/${student_id}/1`,
         {}
       );
 

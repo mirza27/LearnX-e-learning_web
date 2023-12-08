@@ -8,6 +8,7 @@ import { Icon } from "@iconify/react";
 interface StudentDashboardProps {
   student_id: string;
 }
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function StudentDashboard(props: StudentDashboardProps) {
   const [message, setMessage] = useState("");
@@ -20,7 +21,7 @@ function StudentDashboard(props: StudentDashboardProps) {
   const GetTaskData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/student/class/content/task/task-list/${student_id}/1`,
+        `${API_BASE_URL}/student/class/content/task/task-list/${student_id}/1`,
         {}
       );
 
@@ -43,7 +44,7 @@ function StudentDashboard(props: StudentDashboardProps) {
   const GetClassList = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/student/class/${student_id}`,
+        `${API_BASE_URL}/student/class/${student_id}`,
         {}
       );
       console.log(response.data);
@@ -66,7 +67,7 @@ function StudentDashboard(props: StudentDashboardProps) {
   const getEventList = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/student/dashboard/event/${student_id}`,
+        `${API_BASE_URL}/student/dashboard/event/${student_id}`,
         {}
       );
 

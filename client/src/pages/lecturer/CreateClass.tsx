@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import { Icon } from "@iconify/react";
 import "../../styles/form.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 interface LecturerClassProps {
   lecturer_id: string;
 }
@@ -20,15 +22,12 @@ function CreateClass(props: LecturerClassProps) {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/lecturer/add-class",
-        {
-          lecturer_id: lecturer_id,
-          class_name: className,
-          desc: desc,
-          category: category,
-        }
-      );
+      const response = await axios.post(`${API_BASE_URL}/lecturer/add-class`, {
+        lecturer_id: lecturer_id,
+        class_name: className,
+        desc: desc,
+        category: category,
+      });
 
       if (response.status === 200) {
         setMessage(response.data.message);

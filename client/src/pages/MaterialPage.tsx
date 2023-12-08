@@ -10,6 +10,7 @@ import Modal from "react-modal";
 interface EventProps {
   is_lecturer: boolean;
 }
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function MaterialPage(props: EventProps) {
   const location = useLocation();
@@ -24,7 +25,7 @@ function MaterialPage(props: EventProps) {
   const GetEventData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/user/event/material/${event_id}`,
+        `${API_BASE_URL}/user/event/material/${event_id}`,
         {}
       );
       setMaterialData(response.data);
@@ -201,10 +202,6 @@ function MaterialPage(props: EventProps) {
               </li>
             </ul>
           </div>
-          <a href="#" className="btn-download">
-            <i className="bx bxs-cloud-download"></i>
-            <span className="text">Download PDF</span>
-          </a>
         </div>
         <div className="task-detail-container">
           {materialData && (

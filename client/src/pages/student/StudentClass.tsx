@@ -8,6 +8,8 @@ interface StudentClassProps {
   student_id: string;
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function StudentClass(props: StudentClassProps) {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
@@ -29,7 +31,7 @@ function StudentClass(props: StudentClassProps) {
   const GetClassList = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/student/class/${student_id}`,
+        `${API_BASE_URL}/student/class/${student_id}`,
         {}
       );
       console.log(response.data);
@@ -76,7 +78,7 @@ function StudentClass(props: StudentClassProps) {
       preConfirm: (classCode) => {
         return (
           axios
-            .post("http://localhost:5000/student/join-class", {
+            .post(`${API_BASE_URL}/student/join-class`, {
               student_id: student_id,
               classCode: classCode,
             })

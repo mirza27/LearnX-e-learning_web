@@ -12,6 +12,8 @@ interface StudentClassTaskProps {
   student_id: string;
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function StudentTask(props: StudentClassTaskProps) {
   const location = useLocation();
   const event_id = location.state && location.state.event_id;
@@ -31,7 +33,7 @@ function StudentTask(props: StudentClassTaskProps) {
   const GetTask = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/student/class/content/task/${event_id}/${student_id}`,
+        `${API_BASE_URL}/student/class/content/task/${event_id}/${student_id}`,
         {}
       );
       setTaskData(response.data);
@@ -116,7 +118,7 @@ function StudentTask(props: StudentClassTaskProps) {
   const handleSubmit = async (taskId: string) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/student/class/content/task/upload",
+        `${API_BASE_URL}/student/class/content/task/upload`,
         {
           task_id: taskId,
           student_id: student_id,

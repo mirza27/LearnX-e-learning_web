@@ -10,6 +10,8 @@ interface StudentForum {
   socket: any;
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function StudentForum(props: StudentForum) {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ function StudentForum(props: StudentForum) {
   const GetClassForum = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/student/class/${student_id}`,
+        `${API_BASE_URL}/student/class/${student_id}`,
         {}
       );
 

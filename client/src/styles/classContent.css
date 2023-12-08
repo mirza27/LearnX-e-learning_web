@@ -75,11 +75,21 @@
 }
 
 /* MAIN */
+ul .dasboard-public-info {
+  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  flex-direction: row;
+  margin-top: 30px;
+}
+
 #content main .box-info {
   display: flex;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   flex-direction: column;
   margin-top: 30px;
+}
+ul.dasboard-public-info {
+  flex-direction: row;
 }
 
 #content main .box-info .box-item {
