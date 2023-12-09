@@ -23,6 +23,7 @@ const socket = io(`${API_BASE_URL}`);
 
 function StudentPage() {
   const [firstname, setFirstName] = useState("");
+  const [response, setResponse] = useState([]);
   const [student_id, setStudent_id] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -30,24 +31,23 @@ function StudentPage() {
   const checkAuth = async () => {
     try {
       // Use Axios instead of fetch
-      const response = await axios.get(`${API_BASE_URL}/student`, {
+      const responseAPI = await axios.get(`${API_BASE_URL}/student`, {
         withCredentials: true, // Automatically sends cookies
       });
 
       // Clone the response for debugging purposes
-      const responseClone = { ...response };
+      setResponse(responseAPI.data);
 
-      const data = response.data;
-      console.log(data); // Check the data in the console
+      console.log(response); // Check the data in the console
 
       // mengambil pesan
-      if (data.message) {
-        setMessage(data.message);
+      if (responseAPI.data.message) {
+        setMessage(responseAPI.data.message);
       }
 
-      if (response.status === 200) {
+      if (responseAPI.data.length > 0) {
         // mengambil data student
-        const student = data.student;
+        const student = responseAPI.data[0];
         setStudent_id(student.student_id);
         setFirstName(student.firstname);
       } else {
