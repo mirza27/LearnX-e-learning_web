@@ -38,16 +38,26 @@ function StudentPage() {
         credentials: "include", // Mengambil cookie
       });
 
-      const responseData = await response.json();
+      var responseClone;
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Clone the response for debugging purposes
+      responseClone = response.clone();
+
+      const data = await response.json();
+      console.log(data); // Check the data in the console
 
       // mengambil pesan
-      if (responseData.message) {
-        setMessage(responseData.message);
+      if (data.message) {
+        setMessage(data.message);
       }
 
       if (response.ok) {
         // mengambil data student
-        const student = responseData.student;
+        const student = data.student;
         setStudent_id(student.student_id);
         setFirstName(student.firstname);
       } else {
@@ -56,6 +66,14 @@ function StudentPage() {
       }
     } catch (error) {
       console.error("Error:", error);
+      if (responseClone) {
+        responseClone.text().then(function (bodyText) {
+          console.log(
+            "Received the following instead of valid JSON:",
+            bodyText
+          ); // Log the raw response body
+        });
+      }
     }
   };
 
