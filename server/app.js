@@ -39,7 +39,7 @@ app.use(
     // akses ke frontend
     {
       credentials: true,
-      origin: process.env.CORS_ORIGIN || "http://localhost:5001",
+      origin: process.env.CORS_ORIGIN || "*",
     }
   )
 );
