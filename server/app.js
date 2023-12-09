@@ -14,7 +14,7 @@ const app = express(); // Create an instance of express
 const server = http.createServer(app); // Use the express app with http.createServer
 const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || "http://localhost:5001",
+    origin: process.env.CORS_ORIGIN,
     method: ["GET", "POST"],
   },
 });
