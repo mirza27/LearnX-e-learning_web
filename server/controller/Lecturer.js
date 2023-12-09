@@ -23,6 +23,11 @@ exports.GetLecturer = async (req, res) => {
     }
 
     res.setHeader("Content-Type", "application/json");
+    res.cookie("myCookie", token, {
+      sameSite: "None",
+      secure: true,
+      httpOnly: true,
+    });
     res.status(200).json({ lecturer, token });
     console.log(json({ lecturer, token }));
   } catch (error) {
