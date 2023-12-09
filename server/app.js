@@ -26,7 +26,7 @@ const server = http.createServer(app); // Use the express app with http.createSe
 console.log("CORS_ORIGIN:", process.env.CORS_ORIGIN);
 const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN,
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
     method: ["GET", "POST"],
   },
 });
