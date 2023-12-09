@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const secretKey = "hagsydgsdjkasdkbh7yiuJHBJGCD";
 
 // fungsi membuat token
-const generateToken = (payload) => {
+exports.generateToken = (payload) => {
   const accessToken = jwt.sign(payload, secretKey, { expiresIn: "1m" });
 
   const refreshToken = jwt.sign(payload, secretKey, { expiresIn: "1h" });
