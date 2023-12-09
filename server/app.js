@@ -16,7 +16,7 @@ app.use(
     // akses ke frontend
     {
       credentials: true,
-      origin: process.env.CORS_ORIGIN || "*",
+      origin: process.env.CORS_ORIGIN || "localhost:3000",
     }
   )
 );
