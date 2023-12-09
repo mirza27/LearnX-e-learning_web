@@ -8,8 +8,6 @@ import StudentPage from "./pages/student/StudentPage";
 import LecturerPage from "./pages/lecturer/LecturerPage";
 
 function App() {
-  console.log("ini port", process.env.PORT);
-  console.log("ini url", process.env.REACT_APP_API_BASE_URL);
   return (
     <Router>
       <Routes>

@@ -23,7 +23,7 @@ import LecturerForum from "./LecturerForum";
 import { io } from "socket.io-client";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const port = process.env.PORT;
+
 const socket = io(`${API_BASE_URL}`);
 
 function LecturerPage() {
@@ -68,8 +68,6 @@ function LecturerPage() {
   useEffect(() => {
     SidebarListener(); //script sidebar
     checkAuth();
-    console.log("env", process.env);
-    console.log("port", port);
 
     console.log(API_BASE_URL);
   }, []);

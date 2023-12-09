@@ -41,7 +41,7 @@ function LecturerTaskUploadDetail(props: EventProps) {
         {}
       );
       setTaskUploadData(response.data);
-      console.log(response.data);
+
       if (response.data.message) {
         setMessage(response.data.message);
       }

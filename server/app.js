@@ -70,5 +70,5 @@ app.use(express.json());
 app.use(router);
 
 server.listen(port, () => {
-  console.log(`Server berjalan diPORT{port}`);
+  console.log(`Server berjalan diPORT${port}`);
 });

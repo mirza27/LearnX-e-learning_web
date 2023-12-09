@@ -24,7 +24,6 @@ function AnnouncementPage(props: EventProps) {
         {}
       );
       setAnnouncementData(response.data);
-      console.log(response.data);
 
       if (response.data.message) {
         setMessage(response.data.message);

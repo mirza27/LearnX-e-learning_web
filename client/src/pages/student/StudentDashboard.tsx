@@ -47,7 +47,7 @@ function StudentDashboard(props: StudentDashboardProps) {
         `${API_BASE_URL}/student/class/${student_id}`,
         {}
       );
-      console.log(response.data);
+
       setDataClass(response.data);
 
       if (response.data.message) {
@@ -72,7 +72,6 @@ function StudentDashboard(props: StudentDashboardProps) {
       );
 
       setEventData(response.data);
-      console.log(response.data);
 
       if (response.data.message) {
         setMessage(response.data.message);

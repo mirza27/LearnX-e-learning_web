@@ -68,7 +68,6 @@ function Chat(props: ChatRoom) {
         `${API_BASE_URL}/user/forum/get-chat/${roomClass}`
       );
       setMessageList(response.data); // Mengatur riwayat chat ke state
-      console.log(response.data); //
     } catch (error) {
       console.error("Error fetching chat history:", error);
     }

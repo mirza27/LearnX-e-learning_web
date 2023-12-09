@@ -31,7 +31,7 @@ function LecturerTask(props: EventProps) {
         {}
       );
       setTaskData(response.data);
-      console.log(response.data);
+
       if (response.data.message) {
         setMessage(response.data.message);
       }
@@ -65,7 +65,7 @@ function LecturerTask(props: EventProps) {
         `${API_BASE_URL}/lecturer/my-class/content/task/taskUpload/${task_id}/${class_id}`,
         {}
       );
-      console.log(response.data);
+
       setTaskUpload(response.data);
 
       if (response.data.message) {

@@ -37,7 +37,7 @@ function StudentTask(props: StudentClassTaskProps) {
         {}
       );
       setTaskData(response.data);
-      console.log(response);
+
       if (response.data.message) {
         setMessage(response.data.message);
       }
