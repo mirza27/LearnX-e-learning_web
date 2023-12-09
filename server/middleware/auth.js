@@ -28,12 +28,14 @@ exports.authenticateUser = async (req, res, next) => {
     const refreshToken = req.cookies.refresh_token;
 
     if (!refreshToken) {
+      console.log("Failed to get refresh token");
       return res.status(401).json({ message: "Unauthorized" });
     }
 
     const decodedToken = verifyToken(refreshToken);
 
     if (!decodedToken) {
+      console.log("Refresh token is wrong");
       return res.status(401).json({ message: "Unauthorized" });
     }
 
