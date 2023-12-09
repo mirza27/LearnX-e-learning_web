@@ -38,7 +38,7 @@ function StudentPage() {
       // Clone the response for debugging purposes
       setResponse(responseAPI.data);
 
-      console.log(response); // Check the data in the console
+      console.log(responseAPI.data);
 
       // mengambil pesan
       if (responseAPI.data.message) {
