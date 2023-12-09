@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const secretKey = "hagsydgsdjkasdkbh7yiuJHBJGCD";
 
 // fungsi membuat token
-generateToken = (payload) => {
+const generateToken = (payload) => {
   const accessToken = jwt.sign(payload, secretKey, { expiresIn: "1m" });
 
   const refreshToken = jwt.sign(payload, secretKey, { expiresIn: "1h" });
@@ -12,7 +12,7 @@ generateToken = (payload) => {
 };
 
 // Fungsi untuk memverifikasi token
-verifyToken = (token) => {
+const verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, secretKey);
     return decoded; // Token valid, kembalikan payload token
