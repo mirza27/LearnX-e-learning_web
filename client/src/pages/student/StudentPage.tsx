@@ -31,7 +31,7 @@ function StudentPage() {
       // tidak menggunakan axios agar tidak lansung
       const response = await fetch(`${API_BASE_URL}/student`, {
         headers: {
-          "content-type": "application/json",
+          "Content-Type": "application/json",
         },
         mode: "cors",
         method: "GET",
