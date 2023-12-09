@@ -37,7 +37,7 @@ function LecturerPage() {
       // tidak menggunakan axios agar tidak lansung
       const response = await fetch(`${API_BASE_URL}/lecturer`, {
         headers: {
-          "Content-Type": "application/json",
+          "content-Type": "application/json",
         },
         mode: "cors",
         method: "GET",
