@@ -104,7 +104,7 @@ exports.StudentLogin = async (req, res) => {
       maxAge: 60 * 60 * 1000,
     });
 
-    res.json({ message: "Login successful" });
+    res.status(200).json({ message: "Login successful", token: refreshToken });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error", error: error });

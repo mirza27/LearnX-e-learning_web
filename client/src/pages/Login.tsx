@@ -20,11 +20,18 @@ function Login() {
   const LecturerLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_BASE_URL}/lecturer-login`, {
+      const response = await axios.post(`${API_BASE_URL}/lecturer-login`, {
         email: email,
         password: password,
       });
-      navigate("/lecturer");
+
+      console.log("Trying to login as lecturer...");
+      if (response.data && response.data.token != "") {
+        console.log("token : ", response.data.token);
+        navigate("/lecturer");
+      } else {
+        console.log("token tidak ditemukan");
+      }
     } catch (error: any) {
       if (error.response) {
         Swal.fire({
@@ -38,11 +45,17 @@ function Login() {
   const StudentLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_BASE_URL}/student-login`, {
+      const response = await axios.post(`${API_BASE_URL}/student-login`, {
         email: email,
         password: password,
       });
-      navigate("/student");
+      console.log("Trying to login as student...");
+      if (response.data && response.data.token != "") {
+        console.log("token : ", response.data.token);
+        navigate("/student");
+      } else {
+        console.log("token tidak ditemukan");
+      }
     } catch (error: any) {
       if (error.response) {
         // Menampilkan SweetAlert pada kesalahan
