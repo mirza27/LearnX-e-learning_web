@@ -11,22 +11,22 @@ dotenv.config(); // Memuat variabel lingkungan dari berkas .env
 
 const port = process.env.PORT || 5000;
 const app = express(); // Create an instance of express
-app.use(cors());
-// app.use(
-//   cors(
-//     // akses ke frontend
-//     {
-//       credentials: true,
-//       origin: process.env.CORS_ORIGIN || "http://localhost:3000",
-//     }
-//   )
-// );
+// app.use(cors());
+app.use(
+  cors(
+    // akses ke frontend
+    {
+      credentials: true,
+      origin: process.env.CORS_ORIGIN.split(","),
+    }
+  )
+);
 
 const server = http.createServer(app); // Use the express app with http.createServer
 console.log("CORS_ORIGIN:", process.env.CORS_ORIGIN);
 const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    origin: process.env.CORS_ORIGIN.split(","),
     method: ["GET", "POST"],
   },
 });
@@ -72,5 +72,5 @@ app.use(express.json());
 app.use(router);
 
 server.listen(port, () => {
-  console.log(`Server berjalan diPORT${port}`);
+  console.log(`Server berjalan diPORT ${port}`);
 });

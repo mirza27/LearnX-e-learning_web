@@ -22,8 +22,7 @@ exports.GetStudent = async (req, res) => {
       return res.status(404).json({ message: "Student not found" });
     }
 
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).json(student);
+    res.status(200).json({ student, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error", error: error });
