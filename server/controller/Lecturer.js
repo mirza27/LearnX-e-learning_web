@@ -22,7 +22,7 @@ exports.GetLecturer = async (req, res) => {
       return res.status(404).json({ message: "lecturer not found" });
     }
 
-    res.status(200).json(lecturer);
+    res.json({ lecturer, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });

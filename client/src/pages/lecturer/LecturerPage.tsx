@@ -45,6 +45,7 @@ function LecturerPage() {
       });
 
       const responseData = await response.json();
+      console.log("lecturer Data: ", responseData);
 
       // mengambil pesan
       if (responseData.message) {
