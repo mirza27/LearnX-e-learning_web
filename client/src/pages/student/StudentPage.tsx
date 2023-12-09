@@ -14,6 +14,7 @@ import StudentTaskUpdate from "./UpdateTask";
 import StudentTaskList from "./StudentTaskList";
 import Logout from "../Logout";
 import StudentForum from "./StudentForum";
+import axios from "axios";
 import { io } from "socket.io-client";
 // import "../../styles/content.css";
 
@@ -28,26 +29,15 @@ function StudentPage() {
 
   const checkAuth = async () => {
     try {
-      // tidak menggunakan axios agar tidak lansung
-      const response = await fetch(`${API_BASE_URL}/student`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        method: "GET",
-        credentials: "include", // Mengambil cookie
+      // Use Axios instead of fetch
+      const response = await axios.get(`${API_BASE_URL}/student`, {
+        withCredentials: true, // Automatically sends cookies
       });
 
-      var responseClone;
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
       // Clone the response for debugging purposes
-      responseClone = response.clone();
+      const responseClone = { ...response };
 
-      const data = await response.json();
+      const data = response.data;
       console.log(data); // Check the data in the console
 
       // mengambil pesan
@@ -55,7 +45,7 @@ function StudentPage() {
         setMessage(data.message);
       }
 
-      if (response.ok) {
+      if (response.status === 200) {
         // mengambil data student
         const student = data.student;
         setStudent_id(student.student_id);
@@ -64,15 +54,14 @@ function StudentPage() {
         // Pengguna tidak memiliki cookie, arahkan ke rute /login
         navigate("/login");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error:", error);
-      if (responseClone) {
-        responseClone.text().then(function (bodyText) {
-          console.log(
-            "Received the following instead of valid JSON:",
-            bodyText
-          ); // Log the raw response body
-        });
+      if (error.response) {
+        // Log the raw response body
+        console.log(
+          "Received the following instead of valid JSON:",
+          error.response.data
+        );
       }
     }
   };
