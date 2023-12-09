@@ -11,7 +11,18 @@ dotenv.config(); // Memuat variabel lingkungan dari berkas .env
 
 const port = process.env.PORT || 5000;
 const app = express(); // Create an instance of express
+app.use(
+  cors(
+    // akses ke frontend
+    {
+      credentials: true,
+      origin: process.env.CORS_ORIGIN || "*",
+    }
+  )
+);
+
 const server = http.createServer(app); // Use the express app with http.createServer
+console.log("CORS_ORIGIN:", process.env.CORS_ORIGIN);
 const io = new Server(server, {
   cors: {
     origin: process.env.CORS_ORIGIN,
@@ -33,16 +44,6 @@ try {
 } catch (error) {
   console.log("Error: " + error);
 }
-
-app.use(
-  cors(
-    // akses ke frontend
-    {
-      credentials: true,
-      origin: process.env.CORS_ORIGIN || "*",
-    }
-  )
-);
 
 // configarion for class room chat forum
 io.on("connection", (socket) => {
