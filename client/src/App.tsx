@@ -7,7 +7,11 @@ import Register from "./pages/Register";
 import StudentPage from "./pages/student/StudentPage";
 import LecturerPage from "./pages/lecturer/LecturerPage";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function App() {
+  console.log("API PATH: ", API_BASE_URL);
+
   return (
     <Router>
       <Routes>
