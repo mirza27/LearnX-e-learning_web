@@ -1,8 +1,7 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-import Classes from "./classModel.js";
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
+const Classes = require("./classModel.js");
 
-const { DataTypes } = Sequelize;
 const Student_classes = db.define(
   "student_clases",
   {
@@ -28,4 +27,5 @@ Student_classes.hasMany(Classes, {
   sourceKey: "class_id",
 });
 
-export default Student_classes;
+// export default Student_classes;
+module.exports = Student_classes;

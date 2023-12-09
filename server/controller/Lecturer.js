@@ -1,9 +1,9 @@
-import bcrypt from "bcrypt";
-import Lecturer from "../models/lecturerModel.js";
-import { generateToken } from "../middleware/auth.js";
+const bcrypt = require("bcrypt");
+const Lecturer = require("../models/lecturerModel.js");
+const { generateToken } = require("../middleware/auth.js");
 
 // MENGAMBIL DATA STUDENT
-export const GetLecturer = async (req, res) => {
+exports.GetLecturer = async (req, res) => {
   try {
     // Mengambil lecturer_id dari payload token
     const userPayload = req.user;
@@ -31,7 +31,7 @@ export const GetLecturer = async (req, res) => {
 };
 
 // REGISTRASI SEBAGAI Guru
-export const LecturerRegister = async (req, res) => {
+exports.LecturerRegister = async (req, res) => {
   const { firstname, lastname, email, password, confPassword } = req.body;
 
   const salt = await bcrypt.genSalt();
@@ -59,7 +59,7 @@ export const LecturerRegister = async (req, res) => {
 };
 
 // LOGIN STUDENT
-export const LecturerLogin = async (req, res) => {
+exports.LecturerLogin = async (req, res) => {
   try {
     // Mencari email dalam basis data
     const lecturer = await Lecturer.findOne({

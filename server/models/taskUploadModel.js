@@ -1,9 +1,6 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-import Task from "./taskModel.js";
-// import Student from "./studentModel.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
+const Task = require("./taskModel.js");
 
 const TaskUpload = db.define(
   "task_upload",
@@ -52,4 +49,5 @@ Task.hasMany(TaskUpload, {
   sourceKey: "task_id",
 });
 
-export default TaskUpload;
+// export default TaskUpload;
+module.exports = TaskUpload;

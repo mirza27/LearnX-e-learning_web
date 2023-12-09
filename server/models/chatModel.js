@@ -1,7 +1,5 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
 
 const Chat = db.define(
   "chats",
@@ -30,4 +28,5 @@ const Chat = db.define(
   }
 );
 
-export default Chat;
+// export default Chat;
+module.exports = Chat;

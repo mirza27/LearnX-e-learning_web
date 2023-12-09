@@ -1,12 +1,12 @@
-import Task from "../models/taskModel.js";
-import TaskUpload from "../models/taskUploadModel.js";
-import Event from "../models/eventModel.js";
-import Student from "../models/studentModel.js";
-import Class from "../models/classModel.js";
-import Student_classes from "../models/student_classesModel.js";
+const Task = require("../models/taskModel.js");
+const TaskUpload = require("../models/taskUploadModel.js");
+const Event = require("../models/eventModel.js");
+const Student = require("../models/studentModel.js");
+const Class = require("../models/classModel.js");
+const Student_classes = require("../models/student_classesModel.js");
 
 // MENNGAMBIL TUGAS / TASK SERTA HASIL UPLOAD JIKA ADA
-export const GetTask = async (req, res) => {
+exports.GetTask = async (req, res) => {
   const event_id = req.params.event_id;
   const student_id = req.params.student_id;
 
@@ -84,7 +84,7 @@ export const GetTask = async (req, res) => {
 };
 
 // MENGAMBIL TASK UPLOAD SEMUA SISWA BERDASARKAN TASK ID
-export const GetAllStudentTaskByTaskId = async (req, res) => {
+exports.GetAllStudentTaskByTaskId = async (req, res) => {
   const task_id = req.params.task_id;
   const class_id = req.params.class_id;
 
@@ -130,7 +130,7 @@ export const GetAllStudentTaskByTaskId = async (req, res) => {
 };
 
 // MENGAMBIL SEMUA TUGAS BERDASARKAN TASK ID
-export const GetAllTaskByLecturerId = async (req, res) => {
+exports.GetAllTaskByLecturerId = async (req, res) => {
   const lecturer_id = req.params.lecturer_id;
 
   try {
@@ -166,7 +166,7 @@ export const GetAllTaskByLecturerId = async (req, res) => {
 };
 
 // MENGGAMBIL TASK UPLOAD
-export const getTaskUpload = async (req, res) => {
+exports.getTaskUpload = async (req, res) => {
   const task_upload_id = req.params.task_upload_id;
 
   try {
@@ -191,7 +191,7 @@ export const getTaskUpload = async (req, res) => {
 };
 
 // UPDATE TASK UPLOAD
-export const updateTaskUpload = async (req, res) => {
+exports.updateTaskUpload = async (req, res) => {
   const { task_upload_id, link, file, comment } = req.body;
 
   try {
@@ -217,7 +217,7 @@ export const updateTaskUpload = async (req, res) => {
 };
 
 // MENGUMPULKAN TUGAS
-export const addTaskUpload = async (req, res) => {
+exports.addTaskUpload = async (req, res) => {
   const { task_id, student_id, link, file, comment } = req.body;
 
   try {
@@ -237,7 +237,7 @@ export const addTaskUpload = async (req, res) => {
 };
 
 // MEMBUAT TASK
-export const addNewTask = async (req, res) => {
+exports.addNewTask = async (req, res) => {
   const { event_name, class_id, task_name, task_desc, file, link, deadline } =
     req.body;
 
@@ -270,7 +270,7 @@ export const addNewTask = async (req, res) => {
 };
 
 // MENGUPDATE NILAI TASK UPLOAD STUDENT
-export const updateScore = async (req, res) => {
+exports.updateScore = async (req, res) => {
   const { task_upload_id, score } = req.body;
 
   try {
@@ -294,7 +294,7 @@ export const updateScore = async (req, res) => {
 };
 
 // MENGAMBIL TUGAS STUDENT
-export const StudentTaskList = async (req, res) => {
+exports.StudentTaskList = async (req, res) => {
   const student_id = req.params.student_id;
   const is_all = req.params.is_all === "1"; // Convert to boolean
 

@@ -1,7 +1,5 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
 
 const Lecturer = db.define(
   "lecturers",
@@ -28,4 +26,5 @@ const Lecturer = db.define(
   }
 );
 
-export default Lecturer;
+// export default Lecturer;
+module.exports = Lecturer;

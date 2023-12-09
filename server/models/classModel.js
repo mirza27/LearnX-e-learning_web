@@ -1,8 +1,6 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-import Lecturer from "./lecturerModel.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
+const Lecturer = require("./lecturerModel.js");
 
 const Classes = db.define(
   "clases",
@@ -49,4 +47,5 @@ Classes.belongsTo(Lecturer, {
   targetKey: "lecturer_id",
 });
 
-export default Classes;
+// export default Classes;
+module.exports = Classes;

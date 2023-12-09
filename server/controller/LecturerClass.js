@@ -1,10 +1,10 @@
-import Student_classes from "../models/student_classesModel.js";
-import Lecturer from "../models/lecturerModel.js";
-import Classes from "../models/classModel.js";
-import Event from "../models/eventModel.js";
-import Task from "../models/taskModel.js";
-import Announcement from "../models/announcementModel.js";
-import Material from "../models/materialModel.js";
+const Student_classes = require("../models/student_classesModel.js");
+const Lecturer = require("../models/lecturerModel.js");
+const Classes = require("../models/classModel.js");
+const Event = require("../models/eventModel.js");
+const Task = require("../models/taskModel.js");
+const Announcement = require("../models/announcementModel.js");
+const Material = require("../models/materialModel.js");
 
 // GENERATE FOR CLASS CODE
 function generateRandomCode(length) {
@@ -18,7 +18,7 @@ function generateRandomCode(length) {
 }
 
 // MENGAMBIL LIST MYCLASS SEBAGAI LECTURER ==================================
-export const LecturerClassList = async (req, res) => {
+exports.LecturerClassList = async (req, res) => {
   try {
     const lecturer_id = req.params.lecturer_id;
 
@@ -42,7 +42,7 @@ export const LecturerClassList = async (req, res) => {
 };
 
 // GET CLASS DATA
-export const getClassData = async (req, res) => {
+exports.getClassData = async (req, res) => {
   const class_id = req.params.class_id;
 
   try {
@@ -72,7 +72,7 @@ export const getClassData = async (req, res) => {
 };
 
 // ADD NEW CLASS ==================================
-export const addNewClass = async (req, res) => {
+exports.addNewClass = async (req, res) => {
   const { lecturer_id, class_name, desc, category } = req.body;
 
   if (!class_name) {
@@ -101,7 +101,7 @@ export const addNewClass = async (req, res) => {
 };
 
 // MENGAMBIL CONTENT MYCLASS SEBAGAI LECTURER
-export const MyClassContent = async (req, res) => {
+exports.MyClassContent = async (req, res) => {
   const class_id = req.params.class_id;
 
   try {

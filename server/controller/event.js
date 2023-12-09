@@ -1,9 +1,9 @@
-import Event from "../models/eventModel.js";
-import Student_classes from "../models/student_classesModel.js";
-import Classes from "../models/classModel.js";
+const Event = require("../models/eventModel.js");
+const Student_classes = require("../models/student_classesModel.js");
+const Classes = require("../models/classModel.js");
 
 // MENGAMBIL SEMUA EVENT TERBARU BERDASARKAN STUDENT ID
-export const getAllEventByStudent = async (req, res) => {
+exports.getAllEventByStudent = async (req, res) => {
   const student_id = req.params.student_id;
 
   try {
@@ -28,7 +28,7 @@ export const getAllEventByStudent = async (req, res) => {
 };
 
 // MENGAMBIL SEMUA EVENT TERBARU BERDASARKAN LECTURER ID
-export const getAllEventByLecturer = async (req, res) => {
+exports.getAllEventByLecturer = async (req, res) => {
   const lecturer_id = req.params.lecturer_id;
 
   try {

@@ -1,7 +1,7 @@
-import Chat from "../models/chatModel.js";
+const Chat = require("../models/chatModel.js");
 
 // MENGAMBIL RIWAYAT CHAT BERDASARKAN CLASS ID
-export const getChat = async (req, res) => {
+exports.getChat = async (req, res) => {
   const class_id = req.params.class_id;
 
   try {
@@ -18,7 +18,7 @@ export const getChat = async (req, res) => {
 };
 
 // MENYIMPAN DATA CHAT
-export const saveChat = async (req, res) => {
+exports.saveChat = async (req, res) => {
   const { class_id, sender_id, content, sender } = req.body;
 
   try {

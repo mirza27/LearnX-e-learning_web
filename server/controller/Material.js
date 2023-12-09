@@ -1,8 +1,8 @@
-import Event from "../models/eventModel.js";
-import Material from "../models/materialModel.js";
+const Event = require("../models/eventModel.js");
+const Material = require("../models/materialModel.js");
 
 // MENGAMBIL ISI MATERIAL
-export const getMaterial = async (req, res) => {
+exports.getMaterial = async (req, res) => {
   const event_id = req.params.event_id;
 
   try {
@@ -25,7 +25,7 @@ export const getMaterial = async (req, res) => {
 };
 
 // MEMBUAT MATERIAL BARU
-export const addNewMaterial = async (req, res) => {
+exports.addNewMaterial = async (req, res) => {
   const { event_name, class_id, file, link, material_name } = req.body;
 
   try {

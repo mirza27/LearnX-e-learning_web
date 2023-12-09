@@ -1,30 +1,30 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   GetStudent,
   StudentRegister,
   StudentLogin,
-} from "../controller/Student.js";
-import {
+} = require("../controller/Student.js");
+const {
   GetLecturer,
   LecturerRegister,
   LecturerLogin,
-} from "../controller/Lecturer.js";
+} = require("../controller/Lecturer.js");
 
-import {
+const {
   StudentClassList,
   JoinClass,
   ClassContent,
   getClassDataStudent,
   deleteStudentFromClass,
   StudentList,
-} from "../controller/StudentClass.js";
-import {
+} = require("../controller/StudentClass.js");
+const {
   LecturerClassList,
   addNewClass,
   MyClassContent,
   getClassData,
-} from "../controller/LecturerClass.js";
-import {
+} = require("../controller/LecturerClass.js");
+const {
   GetTask,
   addTaskUpload,
   addNewTask,
@@ -34,19 +34,19 @@ import {
   GetAllStudentTaskByTaskId,
   updateScore,
   StudentTaskList,
-} from "../controller/Task.js";
-import {
+} = require("../controller/Task.js");
+const {
   addNewAnnouncement,
   getAnnouncement,
-} from "../controller/Announcement.js";
-import { getMaterial, addNewMaterial } from "../controller/Material.js";
+} = require("../controller/Announcement.js");
+const { getMaterial, addNewMaterial } = require("../controller/Material.js");
 
-import { authenticateUser, logout } from "../middleware/auth.js";
-import {
+const { authenticateUser, logout } = require("../middleware/auth.js");
+const {
   getAllEventByLecturer,
   getAllEventByStudent,
-} from "../controller/event.js";
-import { getChat, saveChat } from "../controller/Chat.js";
+} = require("../controller/event.js");
+const { getChat, saveChat } = require("../controller/Chat.js");
 
 const router = express.Router();
 
@@ -122,4 +122,5 @@ router.get("/user/event/announcement/:event_id", getAnnouncement);
 router.get("/user/event/material/:event_id", getMaterial);
 router.get("/logout", logout);
 
-export default router;
+// export default router;
+module.exports = router;

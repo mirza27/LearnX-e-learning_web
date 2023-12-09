@@ -1,11 +1,11 @@
-import express from "express";
-import db from "./db/db.js";
-import router from "./routes/index.js";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import { Server } from "socket.io";
-import http from "http";
-import dotenv from "dotenv";
+const express = require("express");
+const db = require("./db/db.js");
+const router = require("./routes/index.js");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const { Server } = require("socket.io");
+const http = require("http");
+const dotenv = require("dotenv");
 
 dotenv.config(); // Memuat variabel lingkungan dari berkas .env
 
@@ -20,7 +20,7 @@ const io = new Server(server, {
 });
 
 try {
-  await db.authenticate();
+  db.authenticate();
   console.log("Database connected");
   db.sync({ alter: true })
     .then(() => {

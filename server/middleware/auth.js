@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
 const secretKey = "hagsydgsdjkasdkbh7yiuJHBJGCD";
 
 // fungsi membuat token
-export const generateToken = (payload) => {
+exports.generateToken = (payload) => {
   const accessToken = jwt.sign(payload, secretKey, { expiresIn: "1m" });
 
   const refreshToken = jwt.sign(payload, secretKey, { expiresIn: "1h" });
@@ -12,7 +12,7 @@ export const generateToken = (payload) => {
 };
 
 // Fungsi untuk memverifikasi token
-export const verifyToken = (token) => {
+exports.verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, secretKey);
     return decoded; // Token valid, kembalikan payload token
@@ -22,7 +22,7 @@ export const verifyToken = (token) => {
 };
 
 // fungsi untuk mengecek login / cek cookie
-export const authenticateUser = async (req, res, next) => {
+exports.authenticateUser = async (req, res, next) => {
   try {
     // mengambil cookie yang dikirim
     const refreshToken = req.cookies.refresh_token;
@@ -48,7 +48,7 @@ export const authenticateUser = async (req, res, next) => {
 };
 
 // fungsi logout
-export const logout = (req, res) => {
+exports.logout = (req, res) => {
   res.clearCookie("refresh_token"); // Menghapus cookie dengan nama "refresh_token"
   res.json({ message: "Logout successful" });
 };

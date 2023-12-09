@@ -1,14 +1,14 @@
-import Student_classes from "../models/student_classesModel.js";
-import Classes from "../models/classModel.js";
-import Lecturer from "../models/lecturerModel.js";
-import Event from "../models/eventModel.js";
-import Task from "../models/taskModel.js";
-import Student from "../models/studentModel.js";
-import Announcement from "../models/announcementModel.js";
-import Material from "../models/materialModel.js";
+const Student_classes = require("../models/student_classesModel.js");
+const Classes = require("../models/classModel.js");
+const Lecturer = require("../models/lecturerModel.js");
+const Event = require("../models/eventModel.js");
+const Task = require("../models/taskModel.js");
+const Student = require("../models/studentModel.js");
+const Announcement = require("../models/announcementModel.js");
+const Material = require("../models/materialModel.js");
 
 // MENGAMBIL LIST CLASS SEBAGAI STUDENT ==================================
-export const StudentClassList = async (req, res) => {
+exports.StudentClassList = async (req, res) => {
   try {
     // Mengambil student_id dari frontend
     const student_id = req.params.student_id;
@@ -37,7 +37,7 @@ export const StudentClassList = async (req, res) => {
 };
 
 // GET CLASS DATA
-export const getClassDataStudent = async (req, res) => {
+exports.getClassDataStudent = async (req, res) => {
   const class_id = req.params.class_id;
 
   try {
@@ -58,7 +58,7 @@ export const getClassDataStudent = async (req, res) => {
 };
 
 // JOIN CLASS ==================================
-export const JoinClass = async (req, res) => {
+exports.JoinClass = async (req, res) => {
   const { student_id, classCode } = req.body;
 
   // jika panjang kode tidak sama dengan 6
@@ -109,7 +109,7 @@ export const JoinClass = async (req, res) => {
 };
 
 // MENGAMBIL CONTENT CLASS SEBAGAI STUDENT ==================================
-export const ClassContent = async (req, res) => {
+exports.ClassContent = async (req, res) => {
   try {
     const class_id = req.params.class_id;
 
@@ -154,7 +154,7 @@ export const ClassContent = async (req, res) => {
 };
 
 // MENGAMBIL DAFTAR STUDENT BERDASARKAN ID KELAS
-export const StudentList = async (req, res) => {
+exports.StudentList = async (req, res) => {
   const class_id = req.params.class_id;
 
   try {
@@ -177,7 +177,7 @@ export const StudentList = async (req, res) => {
 };
 
 // MENGHAPUS KELAS STUDENT / LEAVE CLASS
-export const deleteStudentFromClass = async (req, res) => {
+exports.deleteStudentFromClass = async (req, res) => {
   const { student_id, class_id } = req.body; // Menambahkan classCode dari frontend
   console.log("ini jalan", student_id, class_id);
   try {

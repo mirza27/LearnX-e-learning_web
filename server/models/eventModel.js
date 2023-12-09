@@ -1,9 +1,7 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-import Class from "./classModel.js";
-import EventCategories from "./eventCategoryModel.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
+const Class = require("./classModel.js");
+const EventCategories = require("./eventCategoryModel.js");
 
 const Event = db.define(
   "events",
@@ -38,4 +36,5 @@ Event.belongsTo(EventCategories, {
   targetKey: "category_id", // This should match the primary key in EventCategories
 });
 
-export default Event;
+// export default Event;
+module.exports = Event;

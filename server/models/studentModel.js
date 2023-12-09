@@ -1,8 +1,7 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-import TaskUpload from "./taskUploadModel.js";
-import Student_classes from "./student_classesModel.js";
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
+const TaskUpload = require("./taskUploadModel.js");
+const Student_classes = require("./student_classesModel.js");
 
 const Student = db.define(
   "students",
@@ -39,4 +38,5 @@ Student.belongsTo(Student_classes, {
   targetKey: "student_id",
 });
 
-export default Student;
+// export default Student;
+module.exports = Student;

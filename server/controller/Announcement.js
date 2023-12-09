@@ -1,8 +1,8 @@
-import Event from "../models/eventModel.js";
-import Announcement from "../models/announcementModel.js";
+const Event = require("../models/eventModel.js");
+const Announcement = require("../models/announcementModel.js");
 
 // MENGAMBIL ISI PENGUMUMAN
-export const getAnnouncement = async (req, res) => {
+exports.getAnnouncement = async (req, res) => {
   const event_id = req.params.event_id;
 
   try {
@@ -25,7 +25,7 @@ export const getAnnouncement = async (req, res) => {
 };
 
 // MEMBUAT PENGUMUMAN BARU
-export const addNewAnnouncement = async (req, res) => {
+exports.addNewAnnouncement = async (req, res) => {
   const { event_name, class_id, nama, content } = req.body;
 
   try {

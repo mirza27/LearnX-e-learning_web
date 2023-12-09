@@ -1,8 +1,6 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-import Event from "./eventModel.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
+const Event = require("./eventModel.js");
 
 const EventCategories = db.define(
   "event_categories",
@@ -27,4 +25,5 @@ const EventCategories = db.define(
 //   sourceKey: "category_id",
 // });
 
-export default EventCategories;
+// export default EventCategories;
+module.exports = EventCategories;

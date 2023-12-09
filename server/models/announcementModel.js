@@ -1,8 +1,6 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-import Event from "./eventModel.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
+const Event = require("./eventModel.js");
 
 const Announcement = db.define(
   "announcements",
@@ -32,4 +30,5 @@ Event.hasMany(Announcement, {
   foreignKey: "event_id",
   sourceKey: "event_id",
 });
-export default Announcement;
+
+module.exports = Announcement;

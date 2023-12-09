@@ -1,8 +1,6 @@
-import { Sequelize } from "sequelize";
-import db from "../db/db.js";
-import Event from "./eventModel.js";
-
-const { DataTypes } = Sequelize;
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db/db.js");
+const Event = require("./eventModel.js");
 
 const Material = db.define(
   "materials",
@@ -38,4 +36,5 @@ Event.hasMany(Material, {
   sourceKey: "event_id",
 });
 
-export default Material;
+// export default Material;
+module.exports = Material;
