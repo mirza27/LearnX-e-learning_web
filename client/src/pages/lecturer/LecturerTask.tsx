@@ -167,6 +167,7 @@ function LecturerTask(props: EventProps) {
               <p>
                 {new Date(taskData.createdAt).toLocaleString("en-ID", {
                   dateStyle: "long",
+                  timeStyle: "short",
                 })}
               </p>
             </div>
@@ -205,7 +206,6 @@ function LecturerTask(props: EventProps) {
                       Deadline:{" "}
                       {new Date(task.deadline).toLocaleString("en-ID", {
                         dateStyle: "long",
-                        timeStyle: "short",
                       })}
                     </p>
                   ) : (
