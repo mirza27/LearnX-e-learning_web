@@ -109,7 +109,7 @@ function CreateMaterial(props: LecturerMaterialProps) {
         `${API_BASE_URL}/lecturer/my-class/content/addMaterial`,
         {
           event_name: eventName,
-          materialName: materialName,
+          material_name: materialName,
           file: uploadedImage,
           link: link,
           class_id: classId,
