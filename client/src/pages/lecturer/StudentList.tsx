@@ -175,7 +175,7 @@ function ClassStudentList(props: ClassStudentListProps) {
                   {studentList.map((student: any) => (
                     <tr>
                       <td>
-                        <img src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1699182577/classCategory/unlykbmaoq82sqbvbxxw.jpg" />
+                        <img src="https://res.cloudinary.com/dsr5gqz3v/image/upload/v1701435649/wtg263ifmmxdizglhfc9.png" />
                         <p>
                           {student.firstname} {student.lastname}
                         </p>
