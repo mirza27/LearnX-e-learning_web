@@ -163,6 +163,43 @@ function MaterialPage(props: EventProps) {
             </div>
           )}
         </div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="PDF Viewer Modal"
+          style={{
+            content: {
+              width: "60%", // Sesuaikan dengan ukuran yang diinginkan
+              height: "100%", // Sesuaikan dengan ukuran yang diinginkan
+              margin: "auto",
+              border: "1px solid #ccc", // Contoh properti style lainnya
+              borderRadius: "8px", // Contoh properti style lainnya
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Contoh properti style lainnya
+              zIndex: 1001,
+            },
+            overlay: {
+              backgroundColor: "rgba(0, 0, 0, 0.5)", // Contoh properti style untuk overlay
+              zIndex: 999,
+            },
+          }}
+        >
+          {pdfUrl && (
+            <div>
+              {pdfUrl.endsWith(".pdf") ? (
+                <Worker
+                  workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+                >
+                  <Viewer fileUrl={pdfUrl} />
+                </Worker>
+              ) : (
+                <img src={pdfUrl} alt="Image" />
+              )}
+            </div>
+          )}
+          <button className="close-modal" onClick={closeModal}>
+            Close
+          </button>
+        </Modal>
       </main>
     );
   } else {
