@@ -211,7 +211,6 @@ function StudentTask(props: StudentClassTaskProps) {
                         Created at : {}
                         {new Date(taskData.createdAt).toLocaleString("en-ID", {
                           dateStyle: "long",
-                          timeStyle: "short",
                         })}
                       </p>
                     </div>
