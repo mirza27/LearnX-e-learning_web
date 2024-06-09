@@ -11,27 +11,56 @@ Welcome to My E-Learning Web Platform Project, designed to facilitate interactio
 ## Demo
 
 To explore my E-Learning Platform, you can visit this demo site
-https://learnx-demo.up.railway.app/
+https://learnx-demo.up.railway.app/ (closed due limited domain subcription)
 
 
+## Asset
+To know about more detail, you can visit this url
+https://drive.google.com/drive/folders/1Wv-MwtanAIOsBa3f_I95nANAU97yktp3?usp=sharing
 
 
 ## Features
 
 ### 1. Real-Time Forum Chat
 With socket io from JS, I've implemented real-time forum chat in every class, encouraging dynamic and engaging discussions between students and teachers.
+![class-forum](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/class-forum.png)
+roomchat for each class 
 
 ### 2. Class Management
 #### - Create and Join Multiple Classes: 
 Students can seamlessly join multiple classes by entering unique codes. Through user authentication and authorization, students can effortlessly join and participate in multiple classes
 #### - Create Multiple Classes: 
 Lecturers have the capability to create and manage multiple classes, each with its distinct code.
+![dashboard](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/dashboard.png)
+lecuter dashboard
+
+![class-menu](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/class-menu.png)
+list of class created by lecturer
+
+![class-page](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/class-page.png)
+students from a class
+
 
 ### 3. Event-Driven Class Content
 Ease of student access as classes are structured around events, allowing for organized and scheduled content delivery. The content classes presented are material, task, and announcement
+![class-detail](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/class-detail.png)
+class detail page
 
 ### 4. Task Management System
 Including task management system that enables lecturers to create give score, students to submit, and both parties to track deadlines.
+![task](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/task.png)
+task detail page
+
+![attaching-task](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/attaching-task.png)
+attach page by student
+
+![student-attachment](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/student-attachment.png)
+![student-task-attachment](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/student-task-attachment.png)
+student task attachment
+
+![scoring-task](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/scoring-task.png)
+![scored-task](https://github.com/mirza27/LearnX-e-learning_web/blob/main/assets/scored-task.png)
+scored task
 
 ## Installation
 
